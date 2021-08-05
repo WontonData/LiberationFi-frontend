@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Earn from "./views/earn/Earn";
+import Pools from "./views/pools/Pools";
+import Trade from "./views/Trade/Trade";
+import Portfolio from "./views/portfolio/Portfolio";
+import About from "./views/About";
 
 Vue.use(Router)
 
@@ -16,10 +21,42 @@ export default new Router({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: About,
+      children: [
+        {
+          path: '/',
+          redirect: '/earn',
+        },
+        {
+          path: '/earn',
+          component: Earn,
+          meta: {
+            title: "Earn"
+          },
+        },
+        {
+          path: '/pools',
+          component: Pools,
+          meta: {
+            title: "Pools"
+          },
+        },
+        {
+          path: '/pools/:address',
+          component: Trade,
+          props: true,
+          meta: {
+            title: "Trade"
+          },
+        },
+        {
+          path: '/portfolio',
+          component: Portfolio,
+          meta: {
+            title: "Portfolio"
+          },
+        },
+      ]
     }
   ]
 })
