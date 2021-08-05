@@ -2,8 +2,8 @@
   <div>
     <div id="nav">
       <router-link to="/earn">earn</router-link> |
-      <router-link to="/pools">pools</router-link>
-      <router-link to="/pools/123">Trade</router-link>
+      <router-link to="/pools">pools</router-link> |
+      <router-link to="/pools/123">Trade</router-link> |
       <router-link to="/portfolio">portfolio</router-link>
     </div>
     <router-view/>
