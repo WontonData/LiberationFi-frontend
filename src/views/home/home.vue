@@ -162,10 +162,6 @@
     margin-bottom: 15px;
   }
 
-  .bg-purple {
-    background: #d3dce6;
-  }
-
   .footer1-1 {
     /*background: #99a9bf;*/
     height: 160px;
