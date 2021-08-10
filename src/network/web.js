@@ -1,5 +1,7 @@
 var Web3 = require('web3');
 var web3 = new Web3("https://ropsten.infura.io/v3");
+// var web3 = new Web3("https://rpc.slock.it/goerli");
+
 // var web3 = new Web3(Web3.givenProvider);
 var privateKey = "0a83fb83e86946bef4334d80b4400ee3a896c2137b5d41f2d2de8d4a8b613114";
 var contractAbi = [
