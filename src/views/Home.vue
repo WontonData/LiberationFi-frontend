@@ -2,30 +2,20 @@
   <div class="home">
     <el-container>
       <el-header>
-        <header></header>
+        <Header></Header>
       </el-header>
       <el-main>Main</el-main>
       <el-footer>Footer</el-footer>
     </el-container>
-<!--    <div id="nav">-->
-<!--      <router-link to="/">Home</router-link> |-->
-<!--      <router-link to="/about">About</router-link>-->
-<!--    </div>-->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-// import web from "../network/web";
 import Header from "./home/header/Header";
 
 export default {
   name: 'home',
-  components: {
-    Header
-    // HelloWorld
-  }
+  components: {Header}
 }
 </script>
 

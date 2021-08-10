@@ -2,8 +2,9 @@
   <tr>
     <td>
       <div class="left" >
-        <img alt="美元" src="@/assets/token/USDC.svg" height="38"
-             width="38">
+        <img alt="美元" height="38" width="38">
+<!--        <img alt="美元" src="@/assets/token/USDC.svg" height="38"-->
+<!--             width="38">-->
       </div>
       <item-text class="left" data="USDC v2" title="向往金库"/>
     </td>

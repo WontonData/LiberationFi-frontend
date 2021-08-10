@@ -6,7 +6,6 @@ import Pools from "./views/pools/Pools";
 import Trade from "./views/Trade/Trade";
 import Portfolio from "./views/portfolio/Portfolio";
 import About from "./views/About";
-import Header from "./views/home/header/Header";
 
 Vue.use(Router)
 
