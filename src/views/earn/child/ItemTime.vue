@@ -56,6 +56,6 @@ div {
 
 <style>
 .el-progress-bar__outer {
-  background-color: #2c3e50;
+  background-color: #232e38!important;
 }
 </style>

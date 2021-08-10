@@ -1,35 +1,44 @@
 <template>
-  <el-row>
-    <el-col :span="20" :offset="2">
-      <table style='width: 100%;border: #42b983 2px solid'>
-        <tr>
-          <th width=20%>金库</th>
-          <th width=11%>元素TVL</th>
-          <th width=7%>保险库APY</th>
-          <th width=5%>LPAPY</th>
-          <th width=11%>流动性</th>
-          <th width=9%>价钱</th>
-          <th width=8%>固定年利率</th>
-          <th width=18%>学期</th>
-          <th width=11%>尾</th>
-        </tr>
-        <eran-table-item />
-      </table>
-    </el-col>
+  <div>
+    <el-row>
+      <el-col :span="20" :offset="2">
+          <div style="width: 17%">金库</div>
+          <div style="width: 11%" >元素TVL</div>
+          <div style="width: 10%" >保险库APY</div>
+          <div style="width: 5%" >LPAPY</div>
+          <div style="width: 11%" >流动性</div>
+          <div style="width: 9%" >价钱</div>
+          <div style="width: 8%" >固定年利率</div>
+          <div style="width: 18%" >学期</div>
+          <div style="width: 11%"></div>
+      </el-col>
+    </el-row>
+    <eran-table-item v-for="item in tokenList" :token="item" />
+    <eran-table-item />
+  </div>
 
-  </el-row>
+
 </template>
 
 <script>
 import EranTableItem from "./EranTableItem";
 export default {
   name: "EarnTable",
-  components: {EranTableItem}
+  components: {EranTableItem},
+  props: {
+    tokenList: {
+      type: Array
+    }
+  }
 }
 </script>
 
 <style scoped>
-th {
+.el-col div {
   padding: 7px;
+  font-weight: 600;
+}
+.el-col {
+  display: flex;
 }
 </style>
