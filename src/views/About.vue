@@ -99,4 +99,10 @@ export default {
   color: #E6A23C!important;
   background-color: #443a2b !important;
 }
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
 </style>
