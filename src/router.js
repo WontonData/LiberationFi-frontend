@@ -65,14 +65,14 @@ export default new Router({
           },
         },
         {
-          path: '/pools',
+          path: '/pools/:address',
           component: Pools,
           meta: {
             title: "Pools"
           },
         },
         {
-          path: '/pools/:address',
+          path: '/pools',
           component: Trade,
           props: true,
           meta: {
