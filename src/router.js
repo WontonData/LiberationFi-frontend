@@ -6,6 +6,9 @@ import Pools from "./views/pools/Pools";
 import Trade from "./views/Trade/Trade";
 import Portfolio from "./views/portfolio/Portfolio";
 import About from "./views/About";
+import Save from "./views/Save/Save";
+import Build from "./views/Build/Build";
+import home from "./views/home/home";
 
 Vue.use(Router)
 
@@ -16,7 +19,34 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: '/',
+          redirect: '/home',
+        },
+        {
+          path: '/home',
+          component: home,
+          meta: {
+            title: "home"
+          },
+        },
+        {
+          path: '/save',
+          component: Save,
+          meta: {
+            title: "Save"
+          },
+        },
+        {
+          path: '/build',
+          component: Build,
+          meta: {
+            title: "Build"
+          },
+        },
+      ]
     },
     {
       path: '/about',

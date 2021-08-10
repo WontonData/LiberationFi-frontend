@@ -4,13 +4,13 @@
     <el-col :span="4">
       <slot name="logo"/>
     </el-col>
-    <el-col :span="14">
+    <el-col :span="16">
       <Menu :menuData=menuData />
     </el-col>
-    <el-col :span="4">
+    <el-col :span="1">
       <slot name="account"/>
     </el-col>
-    <el-col :span="1">
+    <el-col :span="3">
       <slot name="more"/>
     </el-col>
   </el-row>
