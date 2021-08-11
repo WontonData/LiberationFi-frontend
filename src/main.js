@@ -14,7 +14,9 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.component(CollapseTransition.name, CollapseTransition)
 
-// store.dispatch("getAccount");
+// store.dispatch("initContract");
+store.dispatch("getContract");
+
 
 new Vue({
   router,

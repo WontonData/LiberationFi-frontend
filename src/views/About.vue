@@ -9,6 +9,7 @@
           <span class="address">{{accountCut}}</span>
         </div>
         <el-button v-else type="warning" plain @click="conn">连接钱包</el-button>
+<!--        <el-button type="warning" plain @click="test">test</el-button>-->
       </template>
       <template #more>
         <i class="icon el-icon-more"></i>
@@ -35,7 +36,7 @@ export default {
     // HelloWorld
   },
   computed: {
-    ...mapState(["account"]),
+    ...mapState(["account", "ConvergentPoolFactory", "TrancheFactory"]),
     accountCut(){
       return this.account.substring(0,10) + "..." + this.account.substring(35,42)
     },
@@ -57,6 +58,7 @@ export default {
   },
 
   created() {
+
     // init.getWeb3()
   },
   methods: {
@@ -64,7 +66,18 @@ export default {
     conn() {
       this.getAccount()
       // init.con()
-    }
+    },
+    test() {
+      console.log(this.ConvergentPoolFactory.methods.governance().call().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      }))
+      console.log(this.TrancheFactory.methods.getData().call().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      }))    }
   }
 }
 </script>

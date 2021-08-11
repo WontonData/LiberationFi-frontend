@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import ItemText from "./ItemText";
-import ItemTime from "./ItemTime";
+import ItemText from "@/components/txt/ItemText";
+import ItemTime from "@/components/txt/ItemTime";
 
 export default {
   name: "EranTableItem",

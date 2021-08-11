@@ -1,25 +1,33 @@
 
 import Web3 from "web3";
+import ConvergentPoolFactoryAbi from './abi/ConvergentPoolFactory.json'
+import TrancheFactoryAbi from './abi/TrancheFactory.json'
 
 // 检查是否是新的MetaMask 或 DApp浏览器
 var web3Provider;
 let web3;
+
+//合约
+let ConvergentPoolFactory;
+let TrancheFactory;
+
 const getWeb3 = async () => {
   if (window.ethereum) {
     web3Provider = window.ethereum;
-    try {
-      // 请求用户授权
-      await window.ethereum.enable();
-    } catch (error) {
-      // 用户不授权时
-      console.error("User denied account access")
-    }
   } else if (window.web3) {   // 老版 MetaMask Legacy dapp browsers...
     web3Provider = window.web3.currentProvider;
   } else {
     web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
   }
   web3 = new Web3(web3Provider);
+
+  ConvergentPoolFactory =
+      new web3.eth.Contract(ConvergentPoolFactoryAbi, '0x0766B218517d9dC198155f0dC3485270cF788aF7');
+  TrancheFactory =
+      new web3.eth.Contract(TrancheFactoryAbi, '0x5690332C2f0c12F00c147cE350d95B19a0C24f14');
+
+  // console.log(ConvergentPoolFactory)
+  // getContract()
 
 }
 
@@ -61,8 +69,16 @@ const getWeb322 = () =>
 
 let accounts;
 const getAcc = async () => {
+  try {
+    // 请求用户授权
+    accounts = await window.ethereum.enable();
+  } catch (error) {
+    // 用户不授权时
+    console.error("User denied account access")
+  }
+
   // 设置当前区块链帐户
-  accounts = await window.ethereum.enable()
+  // accounts = await window.ethereum.enable()
   // const balance = await window.ethereum.getBalance()
   console.log(accounts[0])
 
@@ -94,8 +110,12 @@ const getAcc = async () => {
 
 const getAccounts = () => {
   return accounts[0]
-
 }
+
+const getContract = () => {
+  return [ConvergentPoolFactory, TrancheFactory]
+}
+
 
 const transfer = () => {
 // transfer(){
@@ -188,5 +208,6 @@ export default {
   getAcc,
   con,
   web3,
-  getAccounts
+  getAccounts,
+  getContract
 };
