@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <Nav :menuData=menuData >
+    <NavHome :menuData=menuData >
       <template #logo>
         <span class="logo">WontonData</span>
       </template>
@@ -34,17 +34,17 @@
           </el-dropdown>
         </div>
       </template>
-    </Nav>
+    </NavHome>
   </div>
 </template>
 
 <script>
-  import Nav from "../../../components/nav/Nav";
+  import NavHome from "../../../components/nav/NavHome";
 
   export default {
     name: "Header",
     components: {
-      Nav
+      NavHome
     },
     data() {
       return {
@@ -92,5 +92,48 @@
     cursor: pointer;
     outline: 0;
     background-color: rgba(236, 245, 255, 0) !important;
+  }
+
+  .el-dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    margin: 5px 0;
+    background-color: rgba(59, 79, 92, 0.2);
+    border: 1px solid #30404d;
+    border-radius: 4px;
+    box-shadow: #a7b6c2;
+  }
+
+  .el-dropdown-menu__item[data-v-58b75759] {
+    list-style: none;
+    line-height: 36px;
+    padding: 0 20px;
+    margin: 0;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    outline: 0;
+    background-color: rgba(236, 245, 255, 0) !important;
+  }
+
+  .el-popper[x-placement^=bottom] .popper__arrow::after {
+    top: 1px;
+    margin-left: -6px;
+    border-top-width: 0;
+    border-bottom-color: #30404d!important;
+  }
+
+  .el-popper[x-placement^=bottom] .popper__arrow {
+    top: -6px;
+    left: 50%;
+    margin-right: 3px;
+    border-top-width: 0;
+    border-bottom-color: #30404d!important;
+  }
+
+  .el-dropdown-menu__item[data-v-58b75759][data-v-58b75759]:hover {
+    color: #b3d8ff;
   }
 </style>

@@ -104,7 +104,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .el-footer {
     background-color: rgba(48, 62, 77, 0.95);
     color: #333;

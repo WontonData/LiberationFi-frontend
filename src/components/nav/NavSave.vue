@@ -4,13 +4,13 @@
     <el-col :span="4">
       <slot name="logo"/>
     </el-col>
-    <el-col :span="14">
-      <Menu :menuData=menuData />
+    <el-col :span="4" :offset="11">
+      <slot name="advanced"/>
     </el-col>
     <el-col :span="3">
       <slot name="account"/>
     </el-col>
-    <el-col :span="3">
+    <el-col :span="2">
       <slot name="more"/>
     </el-col>
   </el-row>
@@ -20,7 +20,7 @@
 import Menu from "../menu/Menu";
 
 export default {
-  name: "Nav",
+  name: "NavSave",
   components: {
     Menu
   },

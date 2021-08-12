@@ -32,21 +32,31 @@ export default new Router({
             title: "home"
           },
         },
-        {
-          path: '/save',
-          component: Save,
-          meta: {
-            title: "Save"
-          },
-        },
-        {
-          path: '/build',
-          component: Build,
-          meta: {
-            title: "Build"
-          },
-        },
+        // {
+        //   path: '/save',
+        //   component: Save,
+        //   meta: {
+        //     title: "Save"
+        //   },
+        // },
+        // {
+        //   path: '/build',
+        //   component: Build,
+        //   meta: {
+        //     title: "Build"
+        //   },
+        // },
       ]
+    },
+    {
+      path: '/save',
+      component: Save,
+      name: 'save',
+    },
+    {
+      path: '/build',
+      component: Build,
+      name: 'build',
     },
     {
       path: '/about',
