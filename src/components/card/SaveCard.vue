@@ -1,21 +1,121 @@
 <template>
   <el-card class="box-card">
+    <el-row>
+      <el-col :span="24" class="from">From</el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24" class="from-coin">
+        <el-input v-model="input" placeholder="0.00" class="input"></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="10" class="to">To</el-col>
+      <el-col :span="14" class="to">
 
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24" class="to-coin">
+        <el-input :rows="10" v-model="input" placeholder="0.00" class="input"></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12" class="more">
+        <el-tag type="info" class="more-tag">
+          Earned at Maturity<br/>
+          <span style="font-weight: bolder">0 LUSD3CRV-f</span>
+        </el-tag>
+      </el-col>
+      <el-col :span="12" class="more">
+        <el-button type="primary" plain disabled class="more-button">Connect Wallet</el-button>
+      </el-col>
+    </el-row>
   </el-card>
 </template>
 
 <script>
   export default {
-    name: "SaveCard"
+    name: "SaveCard",
+    data() {
+      return {
+        input: ''
+      }
+    }
   }
 </script>
 
 <style scoped>
   .el-card {
-    height: 490px;
+    height: 480px;
     margin: 0 35px 600px 390px;
     width: 700px;
     background-color: rgba(143, 158, 172, 0.18);
     border-color: rgba(255, 255, 255, 0);
+    padding: 10px;
+  }
+
+  .from{
+    height: 30px;
+    /*background-color: white;*/
+    display: flex;
+    float: left;
+    color: #a7b6c2;
+    font-size: 18px;
+    align-items: center;
+  }
+
+  .from-coin {
+    height: 120px;
+    /*background-color: #42b983;*/
+  }
+
+  .to {
+    height: 30px;
+    /*background-color: white;*/
+    display: flex;
+    float: left;
+    color: #a7b6c2;
+    font-size: 18px;
+    align-items: center;
+  }
+
+  .to-coin {
+    height: 120px;
+    /*background-color: #42b983;*/
+  }
+
+  .more {
+    height: 140px;
+    padding-top: 20px;
+    /*background-color: #8fb8d1;*/
+  }
+
+  .more-tag {
+    height: 100px;
+    width: 310px;
+    margin: 10px;
+    padding: 20px;
+    background-color: rgba(167, 182, 194, 0.3) !important;
+    border-color: rgba(167, 182, 194, 0) !important;
+    color: white!important;
+    font-size: 16px;
+  }
+
+  .more-button {
+    height: 100px;
+    width: 310px;
+    font-size: 20px;
+  }
+
+  .input {
+    width: 660px;
+    font-size: 30px;
+  }
+
+  >>> .el-input__inner{
+    width: 660px;
+    height: 100px;
+    background-color: rgba(11, 11, 11, 0.3);
+    border-color: #7f8d9b;
   }
 </style>

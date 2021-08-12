@@ -26,12 +26,12 @@
 
 <style scoped>
   .save-button {
-    height: 80px;
+    height: 65px;
     /*background-color: #8fb8d1;*/
     padding-left: 500px;
   }
   .save-card {
-    height: 520px;
+    height: 535px;
     /*background-color: #a0b3c2;*/
   }
   .el-button {
