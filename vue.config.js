@@ -5,7 +5,7 @@ module.exports = {
   assetsDir: 'static',
   // eslint-loader 是否在保存的时候检查
   lintOnSave: false,
-  runtimeCompiler: false,
+  runtimeCompiler: true,
   configureWebpack: {
     resolve: {
       //extensions: [],
