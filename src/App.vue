@@ -7,6 +7,8 @@
 
 
 <style>
+@import "assets/css/base.css";
+
 * {
   padding: 0px;
   margin: 0;
@@ -18,9 +20,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: white;
-  background-color: #232e38;
-  height: 100vh;
+  /*color: white;*/
+  /*background-color: #232e38;*/
+  min-height: 100vh;
 }
 
 .el-menu.el-menu--horizontal {

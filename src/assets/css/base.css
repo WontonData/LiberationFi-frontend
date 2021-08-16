@@ -1,0 +1,69 @@
+/*@import "./normalize.css";*/
+
+/*:root -> 获取根元素html*/
+:root {
+    as:#a4a4a4;
+    --color-text: #666;
+    --color-background: #fff0f1;
+
+    --purple-dark-shade: #665794;
+    --purple-dark: #7C6EAB;
+    --purple: #9387C2;
+    --purple-light: #B3A9E1;
+
+    --pink-dark-shade: #AE6367;
+    --pink-dark: #C98488;
+    --pink: #E4A5A9;
+    --pink-light: #F6BCBF;
+
+    --blue-dark-shade: #57649E;
+    --blue-dark: #7280B7;
+    --blue: #8F9DCF;
+    --blue-light: #B6C4F0;
+
+    --font-size: 14px;
+    --line-height: 1.5;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    -webkit-tap-highlight-color: transparent; /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
+    background: var(--color-background);
+    color: var(--color-text);
+    /* rem vw/vh */
+}
+
+a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+
+.clear-fix::after {
+    clear: both;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.clear-fix {
+    zoom: 1;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}

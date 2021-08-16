@@ -37,43 +37,7 @@
       </div>
     </el-col>
     <transition name="el-zoom-in-top">
-      <el-col v-show="show" :span="20" :offset="2">
-        <div style="width: 17%">
-          <div class="left">
-            <img alt="美元" :src="'@/assets/token/' + token.icon + '.svg'" height="38"
-                 width="38">
-          </div>
-          <item-text class="left" :data=token.name title="向往金库"/>
-        </div>
-        <div style="width: 11%">
-          <item-text :data="token.elementTVL + ' 美元'"/>
-        </div>
-        <div style="width: 11%">
-          <item-text :data="token.vaultAPY + '%'"/>
-        </div>
-        <div style="width: 5%">
-          <item-text :data="token.lpAPY1 + '%'" title="主要的"/>
-          <item-text :data="token.lpAPY2 + '%'" title="屈服"/>
-        </div>
-        <div style="width: 11%">
-          <item-text :data="token.liquidity1 + ' 美元'" title="本金池"/>
-          <item-text :data="token.liquidity2 + ' 美元'" title="收益池"/>
-        </div>
-        <div style="width: 9%">
-          <item-text :data="token.price1" title="主体代币"/>
-          <item-text :data="token.price2" title="收益代币"/>
-        </div>
-        <div style="width: 8%">
-          <item-text :data="token.fixedAPR + '%'"/>
-        </div>
-        <div style="width: 18%">
-          <item-time :time="token.term" day="88天" rest="2 个月，还有 20 天"/>
-
-        </div>
-        <div style="width: 11%">
-          <button class="show" type="button">显示</button>
-        </div>
-      </el-col>
+      <eran-table-inner-item v-show="show" />
     </transition>
   </el-row>
 </template>
@@ -81,10 +45,11 @@
 <script>
 import ItemText from "@/components/txt/ItemText";
 import ItemTime from "@/components/txt/ItemTime";
+import EranTableInnerItem from "./EranTableInnerItem";
 
 export default {
   name: "EranTableItem",
-  components: {ItemTime, ItemText},
+  components: {EranTableInnerItem, ItemTime, ItemText},
   data() {
     return {
       show: false
@@ -121,6 +86,7 @@ img {
 
 .el-col div {
   padding: 7px;
+
 }
 
 .el-col {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about">
     <Nav :menuData=menuData >
       <template #logo>
         <span class="logo">WontonData</span>
@@ -97,6 +97,9 @@ export default {
 }
 .icon {
   margin-top: 20px;
+}
+.about {
+  padding-bottom: 50px;
 }
 </style>
 

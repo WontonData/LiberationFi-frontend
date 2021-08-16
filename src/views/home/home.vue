@@ -106,15 +106,15 @@
 
 <style>
   .el-footer {
-    background-color: rgba(48, 62, 77, 0.95);
-    color: #333;
+    background-color: var(--pink);
+    /*color: #333;*/
     text-align: center;
     line-height: 60px;
     height: 250px!important;
   }
   .el-main {
-    background-color: #232e38;
-    color: #ffffff;
+    /*background-color: #232e38;*/
+    /*color: #ffffff;*/
     text-align: center;
     line-height: 70px;
   }
@@ -125,7 +125,7 @@
   .main-title{
     height: 290px;
     /*background-color: rgba(66, 185, 131, 0.43);*/
-    color: white;
+    /*color: white;*/
     font-size: 65px;
     font-weight: bolder;
     padding-top: 220px;
@@ -163,7 +163,7 @@
   }
 
   .footer1-1 {
-    /*background: #99a9bf;*/
+    /*background: var(--pink);*/
     height: 160px;
   }
   .footer1-2 {
@@ -176,12 +176,12 @@
   .footer2{
     padding-top: 4px;
     height: 30px;
-    color: white;
+    /*color: white;*/
     font-size: 14px;
   }
   .footer3-1{
     float: left;
-    color: white;
+    /*color: white;*/
     font-size: 14px;
     padding-top: 4px;
     height: 55px;

@@ -2,9 +2,7 @@
   <el-menu
       router
       mode="horizontal"
-      background-color="#232e38"
-      text-color="#fff"
-      active-text-color="#d7dcef"
+      background-color="#fff0f1"
       :default-actie="$route.path">
     <el-menu-item v-for="item in menuData" :key="item.name" :index="item.routerPath">
       <template slot="title">
