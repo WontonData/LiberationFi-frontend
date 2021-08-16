@@ -21,7 +21,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   /*color: white;*/
-  /*background-color: #232e38;*/
+  background-color: var(--purple-background);
   min-height: 100vh;
 }
 

@@ -61,10 +61,8 @@ export default {
 .earn-table {
   margin-top: 45px;
 }
-div {
+p {
   color: #a7b6c2;
 }
-h1 {
-  color: white;
-}
+
 </style>

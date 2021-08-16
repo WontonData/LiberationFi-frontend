@@ -109,11 +109,12 @@ export default {
 }
 .el-button--warning.is-plain {
   background-color: transparent!important;
-  border-color: #E6A23C!important;
+  border-color: var(--purple-dark-shade)!important;
+  color: var(--purple-dark-shade)!important;
 }
 .el-button--warning.is-plain:hover {
-  color: #E6A23C!important;
-  background-color: #443a2b !important;
+  color: var(--purple-dark-shade)!important;
+  background-color: rgba(134, 170, 209, 0.15) !important;
 }
 .left {
   float: left;

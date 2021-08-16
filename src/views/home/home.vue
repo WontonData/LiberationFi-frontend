@@ -106,7 +106,7 @@
 
 <style>
   .el-footer {
-    background-color: var(--pink);
+    background-color: var(--purple-footer);
     /*color: #333;*/
     text-align: center;
     line-height: 60px;
