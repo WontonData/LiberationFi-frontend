@@ -2,17 +2,17 @@
   <div>
     <span class="item-time ">{{ time }}</span>
     <el-tag
-        style="margin-right: 15px"
+        style="margin-right: 5px"
+        type="info"
         class="right"
-        size="mini"
-        effect="dark">
+        size="mini">
       {{ day }}
     </el-tag>
     <el-progress
         :stroke-width="7"
         :percentage="50"
         :format="format"
-        color="#3174c1"></el-progress>
+        color="#7c6eab"></el-progress>
     <div class="item-rest">{{ rest }}</div>
   </div>
 </template>
@@ -42,7 +42,9 @@ export default {
 <style scoped>
 .item-time {
   font-size: 15px;
-  color: #f5f8fa;
+  color: var(--purple-dark-shade);
+  font-weight: 550;
+
 }
 
 .item-rest {
@@ -56,6 +58,6 @@ div {
 
 <style>
 .el-progress-bar__outer {
-  background-color: #232e38!important;
+  background-color: var(--purple-background)!important;
 }
 </style>

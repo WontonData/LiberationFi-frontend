@@ -52,7 +52,7 @@ export default {
 
 <style scoped>
 .introduce {
-  color: #a7b6c2;
+  /*color: var(--purple);*/
   font-weight: 400;
   width: 40%;
   margin: 15px auto;
@@ -61,8 +61,8 @@ export default {
 .earn-table {
   margin-top: 45px;
 }
-p {
-  color: #a7b6c2;
-}
+/*p {*/
+/*  color: #a7b6c2;*/
+/*}*/
 
 </style>

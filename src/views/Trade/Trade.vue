@@ -75,10 +75,10 @@ export default {
 
 <style scoped>
 div {
-  color: #a7b6c2;
+  /*color: #a7b6c2;*/
 }
 h2 {
-  color: white;
+  /*color: white;*/
 }
 .el-col {
   position: relative;
@@ -94,7 +94,7 @@ h2 {
   left: 18%;
   width: 66%;
   height: 100%;
-  border-bottom: 3.5px solid #00c4ff;
+  border-bottom: 3.5px solid var(--purple-dark);
 }
 .trade-table {
   margin-top: 45px;

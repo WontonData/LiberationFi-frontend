@@ -114,7 +114,7 @@ export default {
 }
 .el-button--warning.is-plain:hover {
   color: var(--purple-dark-shade)!important;
-  background-color: rgba(134, 170, 209, 0.15) !important;
+  background-color: rgba(180, 134, 209, 0.1) !important;
 }
 .left {
   float: left;

@@ -1,7 +1,7 @@
 <template>
   <el-row >
-    <el-col :span="20" :offset="2">
-      <div style="width: 25%">
+    <el-col class="card-col" :span="20" :offset="2">
+      <div style="width: 23%">
         <div class="left">
           <img alt="美元" :src="'img/token/' + token.icon + '.svg'" height="38" width="38">
         </div>
@@ -13,7 +13,7 @@
       <div style="width: 10%">
         <item-text :data="token.fixedAPR + '%'"/>
       </div>
-      <div style="width: 5%">
+      <div style="width: 7%">
         <item-text :data="token.lpAPY1 + '%'" />
       </div>
       <div style="width: 11%">
@@ -26,7 +26,7 @@
         <item-time :time="token.term" day="88 Day" rest="2 months, 18 days remaining"/>
       </div>
       <div style="width: 11%">
-        <button @click="showCard" class="show" type="button">Trade</button>
+        <el-button type="warning" class="show" plain @click="showCard">Trade</el-button>
 <!--        <button @click="showCard" class="show" type="button">LP</button>-->
       </div>
     </el-col>
@@ -57,24 +57,34 @@ img {
 }
 
 .show {
-  display: block;
-  background-color: transparent;
-  border-style: none;
-  color: #588bc6;
-  font-size: 16px;
-  margin: 35px;
+  margin-top: 25px!important;
 }
 
 .el-col div {
-  padding: 7px;
+  padding: 10px;
 }
 
 .el-col {
-  border: #1c1c1f .01rem solid;
-  background-color: #304050;
+  box-shadow: 0 5px 7px -5px rgba(0, 0, 0, .6);
+  background-color: var(--purple-card);
   display: flex;
-  margin-top: 20px;
+  border-radius: 7px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-weight: normal;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+}
 
+.card-col:hover {
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, .7);
+
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
 }
 
 </style>

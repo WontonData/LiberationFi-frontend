@@ -2,10 +2,10 @@
   <div>
     <el-row>
       <el-col :span="20" :offset="2">
-        <div style="width: 25%">Pool</div>
+        <div style="width: 23%">Pool</div>
         <div style="width: 11%" >Liquidity</div>
         <div style="width: 10%" >Fixed APR</div>
-        <div style="width: 5%" >LP APY</div>
+        <div style="width: 7%" >LP APY</div>
         <div style="width: 11%" >Vault APY</div>
         <div style="width: 9%" >Price</div>
 <!--        <div style="width: 8%" >Term</div>-->

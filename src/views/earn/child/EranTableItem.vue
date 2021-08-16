@@ -1,13 +1,13 @@
 <template>
   <el-row>
-    <el-col class="top-col" :span="20" :offset="2">
+    <el-col class="card-col" :span="20" :offset="2">
       <div style="width: 17%">
         <div class="left">
           <img alt="美元" :src="'img/token/' + token.icon + '.svg'" height="38" width="38">
         </div>
         <item-text class="left" :data=token.name title="向往金库"/>
       </div>
-      <div style="width: 11%">
+      <div style="width: 12%">
         <item-text :data="token.elementTVL + ' 美元'"/>
       </div>
       <div style="width: 10%">
@@ -32,8 +32,9 @@
         <item-time :time="token.term" day="88天" rest="2 个月，还有 20 天"/>
 
       </div>
-      <div style="width: 8%">
-        <button @click="showCard" class="show" type="button">显示</button>
+      <div style="width: 7%">
+        <el-button type="warning" class="show" plain @click="showCard">Mint</el-button>
+<!--        <button @click="showCard" class="show" type="button">显示</button>-->
       </div>
     </el-col>
     <transition name="el-zoom-in-top">
@@ -76,12 +77,7 @@ img {
 }
 
 .show {
-  display: block;
-  background-color: transparent;
-  border-style: none;
-  color: var(--color-background);
-  font-size: 16px;
-  margin: 35px;
+  margin-top: 40px!important;
 }
 
 .el-col div {
@@ -90,18 +86,26 @@ img {
 }
 
 .el-col {
-  /*box-shadow: 1px 1px 5px rgba(0, 0, 0, .8);*/
-  box-shadow: 0 5px 10px -5px rgba(0,0,0,.6);
-  /*box-shadow: 0 5px 5px 0 rgba(0 0 0 , .14), 0 6px 4px -2px rgba(0 0 0 , .2), 0 4px 7px 0 rgba(0 0 0 , .12);*/
-  /*!*border: #1c1c1f .01rem solid;*!*/
-  background-color: white;
+  box-shadow: 0 5px 7px -5px rgba(0, 0, 0, .6);
+  background-color: var(--purple-card);
   display: flex;
   border-radius: 7px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-weight: normal;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
 }
 
+.card-col:hover {
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, .7);
 
-.top-col {
-  margin-top: 30px;
-
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
 }
+
 </style>

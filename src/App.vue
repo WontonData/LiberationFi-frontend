@@ -20,8 +20,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /*color: white;*/
-  background-color: var(--purple-background);
+
+  background-image: linear-gradient(var(--purple-background), white);
   min-height: 100vh;
 }
 
