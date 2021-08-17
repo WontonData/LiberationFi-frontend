@@ -67,6 +67,7 @@ img {
 }
 
 .el-col {
+  padding: 10px;
   box-shadow: 0 5px 7px -5px rgba(0, 0, 0, .6);
   background-color: var(--purple-card);
   display: flex;

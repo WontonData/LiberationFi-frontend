@@ -8,7 +8,7 @@
         <div v-if="account">
           <span class="address">{{accountCut}}</span>
         </div>
-        <el-button v-else type="warning" plain @click="conn">连接钱包</el-button>
+        <el-button v-else class="wallet" type="warning" plain @click="conn">连接钱包</el-button>
 <!--        <el-button type="warning" plain @click="test">test</el-button>-->
       </template>
       <template #more>
@@ -104,7 +104,7 @@ export default {
 </style>
 
 <style>
-.el-button {
+.wallet {
   margin-top: 10px!important;
 }
 .el-button--warning.is-plain {

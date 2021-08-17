@@ -1,44 +1,127 @@
 <template>
   <el-card shadow="hover">
-    <div class="bp3-card bp3-elevation-0 flex flex-1 flex-col space-y-4 border border-gray-600">
-      <div class="flex flex-col w-full space-y-4">
-        <div class="flex flex-col space-y-2 mb-4"><span class="text-center mb-4 font-semibold">Mint Principal and Yield tokens with your USDC</span>
-          <div class="bp3-form-group w-full mb-0 col-span-2">
-            <div class="bp3-form-content">
-              <div class="bp3-input-group w-full TokenAmountInput_investmentAmount__1D1V5"><span
-                  class="bp3-input-left-container"><img alt="usdc" class="ml-2" src="/static/media/USDC.f08e02b1.svg"
-                                                        height="20" width="20"></span><input type="text" placeholder="0"
-                                                                                             class="bp3-input" value=""
-                                                                                             style="padding-left: 28px; padding-right: 61px;"><span
-                  class="bp3-input-action"><div class="pl-1 mr-1"><button type="button"
-                                                                          class="bp3-button bp3-outlined bp3-intent-primary"><span
-                  class="bp3-button-text">MAX</span></button></div></span></div>
-            </div>
-          </div>
-          <span class="text-right">Available balance: 0.0000 USDC</span></div>
-        <div class="flex flex-col space-y-6">
-          <div class="flex items-center w-full justify-center text-center">
-            <div class="flex flex-col"><span class="font-semibold"><span>Principal Tokens you receive</span></span><span
-                class="text-sm"><span class="text-base">0.0000 ePyvUSDC</span></span></div>
-          </div>
-          <div class="flex items-center w-full justify-center text-center">
-            <div class="flex flex-col"><span class="font-semibold"><span>Yield Tokens you receive</span></span><span
-                class="text-sm"><span class="text-base">0.0000 eYyvUSDC</span></span></div>
-          </div>
-          <button type="button" class="bp3-button bp3-large bp3-outlined bp3-intent-primary flex"><span
-              class="bp3-button-text">Connect wallet</span></button>
-        </div>
-      </div>
-    </div>
+    <el-row style="padding-top: 0">
+      <el-col :span="24"><span class="title">使用您的 {{ token.token1 }} 铸币本金和收益代币</span></el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-input @input="calculate" type="number" class="number-input" placeholder="0.00" v-model="number">
+          <template slot="prepend">
+            <img alt="美元" :src="'img/token/' + token.icon + '.svg'" height="22" width="22">
+          </template>
+        </el-input>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="12"><span class="left">余额：3.095 ETH</span></el-col>
+      <el-col :span="12">
+        <el-button @click="toMax" class="right" type="warning" plain size="mini">最大</el-button>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="12">
+        <item-text :data="Ynumber + ' eP'" title="您收到的主要代币" />
+<!--        <el-descriptions title="用户信息" :column="1">-->
+<!--          <el-descriptions-item label="用户名">kooriookami</el-descriptions-item>-->
+<!--          <el-descriptions-item label="手机号">18100000000</el-descriptions-item>-->
+<!--          <el-descriptions-item label="居住地">苏州市</el-descriptions-item>-->
+<!--          <el-descriptions-item label="备注">-->
+<!--            <el-tag size="small">学校</el-tag>-->
+<!--          </el-descriptions-item>-->
+<!--          <el-descriptions-item label="联系地址">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>-->
+<!--        </el-descriptions>-->
+      </el-col>
+      <el-col :span="12">
+        <item-text :data="Pnumber + ' eY'" title="您收到的收益代币" />
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="24" >
+        <el-button v-if="account" @click="mint" class="mint" type="warning" plain>Mint</el-button>
+        <el-button v-else @click="mint" disabled class="mint" type="warning" plain>请先连接钱包</el-button>
+      </el-col>
+    </el-row>
   </el-card>
 </template>
 
 <script>
+import {mapState} from "vuex";
+import ItemText from "../txt/ItemText";
 export default {
-  name: "MintCard"
+  name: "MintCard",
+  components: {ItemText},
+  computed: {
+    ...mapState(["account"]),
+  },
+  data() {
+    return {
+      number: 0.00,
+      Ynumber: 0.00,
+      Pnumber: 0.00,
+      max: 3.095
+    }
+  },
+  props: {
+    token: {
+      type: Object
+    }
+  },
+  methods: {
+    toMax() {
+      this.number = this.max
+      this.Ynumber = this.Pnumber = this.number
+
+    },
+    calculate() {
+      console.log(this.number)
+      this.Ynumber = this.Pnumber = this.number
+    },
+    mint() {
+      this.$emit("mint", this.number)
+    }
+  }
 }
 </script>
 
 <style scoped>
+.el-row {
+  padding-top: 14px;
+}
 
+.el-card {
+  background-color: var(--purple-background);
+  color: var(--color-text);
+  padding: 10px;
+  margin: 10px;
+}
+.mint {
+  width: 100%;
+}
+.title {
+  font-weight: 600;
+  font-size: 16px;
+}
+span {
+  font-size: 14px;
+}
+</style>
+<style>
+.el-input__inner {
+  text-align: right;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  border: 0;
+  outline: none;
+  /*background-color: rgba(0, 0, 0, 0);*/
+}
 </style>

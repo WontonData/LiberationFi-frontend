@@ -19,6 +19,9 @@ export default {
         {
           name: 'USDC v2',
           icon: 'USDC',
+          token1: 'USDC',
+          token2: 'ePyvUSDC',
+          token3: 'eYyvUSDC',
           elementTVL: '5,759,150',
           vaultAPY: '6.41',
           lpAPY1: '0.81',
@@ -33,6 +36,9 @@ export default {
         {
           name: 'USDC v2',
           icon: 'USDC',
+          token1: 'USDC',
+          token2: 'ePyvUSDC',
+          token3: 'eYyvUSDC',
           elementTVL: '5,759,150',
           vaultAPY: '6.41',
           lpAPY1: '0.81',
@@ -52,7 +58,6 @@ export default {
 
 <style scoped>
 .introduce {
-  /*color: var(--purple);*/
   font-weight: 400;
   width: 40%;
   margin: 15px auto;
@@ -61,8 +66,5 @@ export default {
 .earn-table {
   margin-top: 45px;
 }
-/*p {*/
-/*  color: #a7b6c2;*/
-/*}*/
 
 </style>
