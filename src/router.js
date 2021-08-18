@@ -76,6 +76,7 @@ export default new Router({
         },
         {
           path: '/pools/:address',
+          name: 'pool',
           component: Pools,
           meta: {
             title: "Pools"
