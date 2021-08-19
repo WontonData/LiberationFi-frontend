@@ -28,7 +28,7 @@
   .save-button {
     height: 65px;
     /*background-color: #8fb8d1;*/
-    padding-left: 500px;
+    padding-left: 575px;
   }
   .save-card {
     height: 535px;

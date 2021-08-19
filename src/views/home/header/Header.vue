@@ -4,23 +4,8 @@
       <template #logo>
         <span class="logo">WontonData</span>
       </template>
-      <template #account>
-
-      </template>
       <template #more>
         <div class="dropdown">
-          <el-dropdown trigger="click">
-          <span class="el-dropdown-link">
-            Docs<i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item class="clearfix">Documentation</el-dropdown-item>
-              <el-dropdown-item class="clearfix">Paper</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-
-          <span class="kongGe"></span>
-
           <el-dropdown trigger="click">
           <span class="el-dropdown-link">
             Community<i class="el-icon-arrow-down el-icon--right"></i>
@@ -28,7 +13,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item class="clearfix">Discord</el-dropdown-item>
               <el-dropdown-item class="clearfix">Twitter</el-dropdown-item>
-              <el-dropdown-item class="clearfix">Github</el-dropdown-item>
+              <el-dropdown-item class="clearfix"><el-link href="https://github.com/WontonData/element-conflux" type="info" :underline="false">Github</el-link></el-dropdown-item>
               <el-dropdown-item class="clearfix">Blog</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -70,9 +55,6 @@
 <style scoped>
   .dropdown {
     padding-top: 19px;
-  }
-  .kongGe{
-    margin-right: 30px;
   }
 
    .el-dropdown {

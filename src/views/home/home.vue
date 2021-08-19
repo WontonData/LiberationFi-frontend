@@ -113,7 +113,7 @@
     height: 250px!important;
   }
   .el-main {
-    /*background-color: #232e38;*/
+    /*background-color: var(--purple-light);*/
     /*color: #ffffff;*/
     text-align: center;
     line-height: 70px;
@@ -139,19 +139,19 @@
   .main-button{
     height: 240px;
     /*background-color: rgba(167, 182, 194, 0.3);*/
-    color: #b3d8ff;
+    color: var(--purple-dark-shade);
   }
 
   .el-button--primary.is-plain {
-    color: #b3d8ff!important;
+    color:  var(--purple-dark-shade)!important;
     background: rgba(236, 245, 255, 0)!important;
-    border-color: #b3d8ff!important;
+    border-color: var(--purple-dark-shade)!important;
   }
 
   .el-button--primary.is-plain:hover {
-    color: #7f95d1 !important;
+    color: var(--purple-dark-shade)!important;
     background-color: rgba(134, 175, 209, 0.09) !important;
-    border-color: #b3d8ff!important;
+    border-color: var(--purple-dark-shade)!important;
   }
 
   .grid-content {

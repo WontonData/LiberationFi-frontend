@@ -1,36 +1,38 @@
 <template>
-  <el-card class="box-card">
-    <el-row>
-      <el-col :span="24" class="from">From</el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24" class="from-coin">
-        <el-input v-model="input" placeholder="0.00" class="input"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10" class="to">To</el-col>
-      <el-col :span="14" class="to">
+  <div class="box-card">
+    <el-card>
+      <el-row>
+        <el-col :span="24" class="from">From</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24" class="from-coin">
+          <el-input v-model="input" placeholder="0.00" class="input"></el-input>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10" class="to">To</el-col>
+        <el-col :span="14" class="to">
 
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24" class="to-coin">
-        <el-input :rows="10" v-model="input" placeholder="0.00" class="input"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12" class="more">
-        <el-tag type="info" class="more-tag">
-          Earned at Maturity<br/>
-          <span style="font-weight: bolder">0 LUSD3CRV-f</span>
-        </el-tag>
-      </el-col>
-      <el-col :span="12" class="more">
-        <el-button type="primary" plain disabled class="more-button">Connect Wallet</el-button>
-      </el-col>
-    </el-row>
-  </el-card>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24" class="to-coin">
+          <el-input :rows="10" v-model="input" placeholder="0.00" class="input"></el-input>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12" class="more">
+          <el-tag type="info" class="more-tag">
+            Earned at Maturity<br/>
+            <span style="font-weight: bolder">0 LUSD3CRV-f</span>
+          </el-tag>
+        </el-col>
+        <el-col :span="12" class="more">
+          <el-button type="primary" plain disabled class="more-button">Connect Wallet</el-button>
+        </el-col>
+      </el-row>
+    </el-card>
+  </div>
 </template>
 
 <script>
@@ -45,9 +47,15 @@
 </script>
 
 <style scoped>
+  .box-card {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
   .el-card {
     height: 480px;
-    margin: 0 35px 600px 390px;
+    /*margin: 0 35px 600px 390px;*/
     width: 700px;
     background-color: rgba(143, 158, 172, 0.18);
     border-color: rgba(255, 255, 255, 0);
