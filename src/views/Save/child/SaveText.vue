@@ -3,13 +3,13 @@
   <div>
     <el-row>
       <el-col :span="24" class="save-title">
-        <span>The simplest way to grow your crypto.</span>
+        <span>增长加密货币的最简单方法</span>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24" class="save-word">
-        <span>No minimums, no withdrawal penalties, exit anytime. </span>
-        <span class="save-word-blue">Read more about Fixed Yield.</span>
+        <span>没有最低限额，没有提款罚款，随时退出。 </span>
+        <span class="save-word-blue">阅读有关固定收益的更多信息。</span>
       </el-col>
     </el-row>
   </div>
@@ -25,7 +25,7 @@
   .save-title{
     height: 150px;
     /*background-color: rgba(66, 185, 131, 0.43);*/
-    color: white;
+    color: var(--color-text);
     font-size: 35px;
     font-weight: bolder;
     padding-top: 85px;
@@ -37,6 +37,6 @@
     font-size: 18px;
   }
   .save-word-blue {
-    color: #4fb0d1;
+    color: var(--purple-dark);
   }
 </style>

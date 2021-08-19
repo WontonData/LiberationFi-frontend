@@ -4,20 +4,20 @@
       <el-main>
         <el-row>
           <el-col :span="24" class="main-title">
-              <span>DeFi's fixed rate protocol</span>
+              <span>DeFi的固定利率协议</span>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24" class="main-word">
-              Element is an open source protocol for fixed and variable yield markets
+              LiberationFi是用于固定和可变收益市场的开源协议
           </el-col>
         </el-row>
         <el-row :gutter="20" class="main-button">
           <el-col :span="3" :offset="9">
-            <el-button type="primary" plain>START SAVING</el-button>
+            <el-button type="primary" plain>开始储存</el-button>
           </el-col>
           <el-col :span="3">
-            <el-button type="primary" plain>START EARNING</el-button>
+            <el-button type="primary" plain>开始赚钱</el-button>
           </el-col>
         </el-row>
       </el-main>
@@ -77,18 +77,18 @@
 
           <el-col :span="8" class="grid-content">
             <el-row>
-              <el-col :span="24"><div class="footer3-1">Sign up for our newsletter</div></el-col>
+              <el-col :span="24"><div class="footer3-1">注册我们的通讯</div></el-col>
             </el-row>
             <el-row :gutter="10">
               <el-col :span="14"><div class="footer3-2">
-                <el-input placeholder="Email address"></el-input>
+                <el-input placeholder="电子邮件地址"></el-input>
               </div></el-col>
               <el-col :span="7"><div class="footer3-2">
-                <el-button type="primary" plain>SUBSCRIBE</el-button>
+                <el-button type="primary" plain>订阅</el-button>
               </div></el-col>
             </el-row>
             <el-row>
-              <el-col :span="24"><div class="footer3-3">Term of Service&nbsp&nbsp&nbsp&nbspPrivacy Policy</div></el-col>
+              <el-col :span="24"><div class="footer3-3">服务条款&nbsp&nbsp&nbsp&nbsp隐私政策</div></el-col>
             </el-row>
           </el-col>
         </el-row>
@@ -171,24 +171,24 @@
     height: 50px;
     font-size: 20px;
     font-weight: bold;
-    color: #8fb8d1;
+    color: var(--purple-light);
   }
   .footer2{
     padding-top: 4px;
     height: 30px;
-    /*color: white;*/
+    color: var(--purple-background);
     font-size: 14px;
   }
   .footer3-1{
     float: left;
-    /*color: white;*/
+    color: var(--color-text-light);
     font-size: 14px;
     padding-top: 4px;
     height: 55px;
   }
   .footer3-3{
     float: right;
-    color: #8c8c8c;
+    color: var(--color-text-light);
     font-size: 16px;
     padding-top: 45px;
   }

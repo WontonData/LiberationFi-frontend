@@ -1,8 +1,8 @@
 <template>
   <div class="box-card">
-    <el-card>
+    <el-card shadow="hover">
       <el-row>
-        <el-col :span="24" class="from">From</el-col>
+        <el-col :span="24" class="from">从</el-col>
       </el-row>
       <el-row>
         <el-col :span="24" class="from-coin">
@@ -10,7 +10,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="10" class="to">To</el-col>
+        <el-col :span="10" class="to">到</el-col>
         <el-col :span="14" class="to">
 
         </el-col>
@@ -23,12 +23,12 @@
       <el-row>
         <el-col :span="12" class="more">
           <el-tag type="info" class="more-tag">
-            Earned at Maturity<br/>
+            到期赚取<br/>
             <span style="font-weight: bolder">0 LUSD3CRV-f</span>
           </el-tag>
         </el-col>
         <el-col :span="12" class="more">
-          <el-button type="primary" plain disabled class="more-button">Connect Wallet</el-button>
+          <el-button type="primary" plain disabled class="more-button">连接钱包</el-button>
         </el-col>
       </el-row>
     </el-card>
@@ -57,9 +57,10 @@
     height: 480px;
     /*margin: 0 35px 600px 390px;*/
     width: 700px;
-    background-color: rgba(143, 158, 172, 0.18);
+    background-color: var(--purple-background);
     border-color: rgba(255, 255, 255, 0);
     padding: 10px;
+    border-radius: 12px;
   }
 
   .from{
@@ -67,8 +68,8 @@
     /*background-color: white;*/
     display: flex;
     float: left;
-    color: #a7b6c2;
-    font-size: 18px;
+    color: var(--color-text);
+    font-size: 16px;
     align-items: center;
   }
 
@@ -82,8 +83,8 @@
     /*background-color: white;*/
     display: flex;
     float: left;
-    color: #a7b6c2;
-    font-size: 18px;
+    color: var(--color-text);
+    font-size: 16px;
     align-items: center;
   }
 
@@ -101,18 +102,20 @@
   .more-tag {
     height: 100px;
     width: 310px;
-    margin: 10px;
+    /*margin: 10px;*/
     padding: 20px;
-    background-color: rgba(167, 182, 194, 0.3) !important;
+    background-color: var(--purple-card) !important;
     border-color: rgba(167, 182, 194, 0) !important;
-    color: white!important;
+    color: var(--color-text) !important;
     font-size: 16px;
+    border-radius: 8px;
   }
 
   .more-button {
     height: 100px;
     width: 310px;
     font-size: 20px;
+    border-radius: 8px;
   }
 
   .input {
@@ -121,9 +124,11 @@
   }
 
   >>> .el-input__inner{
+    margin-top: 8px;
     width: 660px;
-    height: 100px;
-    background-color: rgba(11, 11, 11, 0.3);
+    height: 90px;
+    /*background-color: rgba(11, 11, 11, 0.3);*/
     border-color: #7f8d9b;
+    border-radius: 10px!important;
   }
 </style>

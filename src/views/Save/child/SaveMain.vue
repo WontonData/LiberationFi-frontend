@@ -3,7 +3,7 @@
   <div>
     <el-row>
       <el-col :span="24" class="save-button">
-        <el-button icon="el-icon-thumb">View balances</el-button>
+        <el-button icon="el-icon-thumb">查看余额</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -41,7 +41,7 @@
     cursor: pointer;
     background: rgba(255,255,255,0);
     border: 0px solid #DCDFE6;
-    color: #ffffff;
+    color: var(--color-text);
     -webkit-appearance: none;
     text-align: center;
     -webkit-box-sizing: border-box;
@@ -56,11 +56,11 @@
     border-radius: 4px;
   }
   .el-button:hover {
-    background-color: rgba(160, 179, 194, 0.2);
-    color: white;
+    background-color: var(--purple-background);
+    color: var(--color-text);
   }
   .el-button:focus {
-    background-color: rgba(195, 191, 255, 0);
-    color: white;
+    background-color: var(--purple-background);
+    color: var(--color-text);
   }
 </style>

@@ -4,15 +4,16 @@
 :root {
     as:#a4a4a4;
     --color-text: #666;
+    --color-text-light: #a6a6a6;
     --color-background: #fff5f6;
     --purple-background: #e1dded;
-    --purple-footer: #242136;
-    /*--purple-footer: rgba(48, 62, 77, 0.95);*/
+    /*--purple-footer: #242136;*/
+    --purple-footer: #303952;
 
     --purple-dark-shade: #665794;
     --purple-dark: #7c6eab;
     --purple: #9387C2;
-    --purple-light: #B3A9E1;
+    --purple-light: #b7b5d2;
     --purple-card: #f5f5ff;
 
     --pink-dark-shade: #AE6367;

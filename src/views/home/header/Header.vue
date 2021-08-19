@@ -60,7 +60,7 @@
    .el-dropdown {
      display: inline-block;
      position: relative;
-     color: #ffffff;
+     color: var(--color-text);
      font-size: 14px;
    }
 
@@ -70,7 +70,7 @@
     padding: 0 20px;
     margin: 0;
     font-size: 14px;
-    color: #606266;
+    color: var(--purple-card);
     cursor: pointer;
     outline: 0;
     background-color: rgba(236, 245, 255, 0) !important;
@@ -82,8 +82,8 @@
     left: 0;
     padding: 10px 0;
     margin: 5px 0;
-    background-color: rgba(59, 79, 92, 0.2);
-    border: 1px solid #30404d;
+    background-color: var(--purple-background);
+    border: 1px solid var(--purple-card);
     border-radius: 4px;
     box-shadow: #a7b6c2;
   }
@@ -94,7 +94,7 @@
     padding: 0 20px;
     margin: 0;
     font-size: 14px;
-    color: white;
+    color: var(--color-text);
     cursor: pointer;
     outline: 0;
     background-color: rgba(236, 245, 255, 0) !important;
@@ -104,7 +104,7 @@
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color: #30404d!important;
+    border-bottom-color: var(--purple-card)!important;
   }
 
   .el-popper[x-placement^=bottom] .popper__arrow {
@@ -112,10 +112,10 @@
     left: 50%;
     margin-right: 3px;
     border-top-width: 0;
-    border-bottom-color: #30404d!important;
+    border-bottom-color: var(--purple-card)!important;
   }
 
   .el-dropdown-menu__item[data-v-58b75759][data-v-58b75759]:hover {
-    color: #b3d8ff;
+    color: var(--purple);
   }
 </style>

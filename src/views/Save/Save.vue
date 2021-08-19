@@ -1,15 +1,23 @@
 <template>
 <!--  <div>Save.vue</div>-->
   <div class="save">
-    <div class="SaveHeader">
-      <SaveHeader></SaveHeader>
-    </div>
-    <div class="SaveText">
-      <SaveText></SaveText>
-    </div>
-    <div class="SaveMain">
-      <SaveMain></SaveMain>
-    </div>
+    <el-row>
+      <el-col :span="24" class="SaveHeader">
+        <SaveHeader></SaveHeader>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="24" class="SaveText">
+        <SaveText></SaveText>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="24" class="SaveMain">
+        <SaveMain></SaveMain>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -27,7 +35,7 @@
 
 <style scoped>
   .save {
-    background-color: #232e38;
+    /*background-color: var(--purple-background);*/
   }
   .SaveHeader {
     height: 70px;
