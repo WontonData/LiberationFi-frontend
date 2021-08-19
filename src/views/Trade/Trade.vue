@@ -2,15 +2,15 @@
   <div>
     <el-row>
       <el-col :span="4" :offset="8">
-        <div @click="changeTab" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>Principal Pools</h2>
+        <div @click="changeTab('P')" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>主池</h2>
         </div>
       </el-col>
       <el-col :span="4">
-        <div @click="changeTab" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>Yield Pools</h2></div>
+        <div @click="changeTab('T')" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>收益池</h2></div>
       </el-col>
     </el-row>
     <el-row style="margin-top: 35px;">
-      <el-col>Buy and sell principal tokens or provide liquidity in Element principal pools.</el-col>
+      <el-col>买卖代币或在 Element 本金池中提供流动性。</el-col>
     </el-row>
 
     <p-trade-table v-if="selectPools" class="trade-table" :token-list="tokenList" />
@@ -34,8 +34,8 @@ export default {
           name: 'USDC v2',
           icon: 'USDC',
           token1: 'USDC',
-          token2: 'ePyvUSDC',
-          token3: 'eYyvUSDC',
+          token2: 'ePyUSDC',
+          token3: 'eYyUSDC',
           liquidity1: '5,378,950',
           liquidity2: '18,662',
           fixedAPR: '6.64',
@@ -50,8 +50,8 @@ export default {
           name: 'DAI v2',
           icon: 'DAI',
           token1: 'DAI',
-          token2: 'ePyvDAI',
-          token3: 'eYyvDAI',
+          token2: 'ePyDAI',
+          token3: 'eYyDAI',
           liquidity1: '5,304,503',
           liquidity2: '17,954',
           fixedAPR: '4.54',
@@ -66,8 +66,8 @@ export default {
     }
   },
   methods: {
-    changeTab() {
-      this.selectPools = !this.selectPools;
+    changeTab(type) {
+      this.selectPools = type == "P" ? true : false;
     }
   }
 }
@@ -91,8 +91,8 @@ h2 {
   content: "";
   position: absolute;
   top: 5%;
-  left: 18%;
-  width: 66%;
+  left: 35%;
+  width: 30%;
   height: 100%;
   border-bottom: 3.5px solid var(--purple-dark);
 }

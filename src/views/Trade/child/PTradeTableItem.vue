@@ -23,10 +23,10 @@
         <item-text :data="token.price1" :title=token.token1 />
       </div>
       <div style="width: 18%">
-        <item-time :time="token.term" day="88 Day" rest="2 months, 18 days remaining"/>
+        <item-time :time="token.term" day="88 Day" rest="2 个月"/>
       </div>
       <div style="width: 11%">
-        <el-button type="warning" class="show" plain @click="showCard">Trade</el-button>
+        <el-button type="warning" class="show" plain @click="toPool">Trade</el-button>
 <!--        <button @click="showCard" class="show" type="button">LP</button>-->
       </div>
     </el-col>
@@ -47,6 +47,18 @@ export default {
       type: Object
     }
   },
+  methods: {
+    toPool() {
+      this.$router.push({
+        name: 'pool',
+        params: {
+          token: this.token,
+          address: this.token.token1,
+          type: 'P'
+        }
+      })
+    }
+  }
 }
 </script>
 
@@ -65,6 +77,7 @@ img {
 }
 
 .el-col {
+  padding: 10px;
   box-shadow: 0 5px 7px -5px rgba(0, 0, 0, .6);
   background-color: var(--purple-card);
   display: flex;
