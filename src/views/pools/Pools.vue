@@ -16,11 +16,18 @@
       </el-col>
     </el-row>
 
-    <el-dialog title="信息核对" :visible.sync="dialogShow">
-      信息核对
+    <el-dialog class="msg-dialog" title="信息核对" :visible.sync="dialogShow">
+      <msg-dialog
+          class="msg-dialog-inner"
+        :token="token"
+        :token-name="tokenName"
+        :type="type"
+        :tokenNumber="tokenNumber"
+        :YPNumber="YPNumber"
+      />
       <div slot="footer" class="dialog-footer">
         <el-button type="warning" plain @click="dialogShow = false">取 消</el-button>
-        <el-button type="warning" @click="dialogShow = false">确 定</el-button>
+        <el-button type="warning" @click="mintSure">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -31,9 +38,10 @@
 <script>
 import ItemText from "../../components/txt/ItemText";
 import TradeCard from "../../components/card/TradeCard";
+import MsgDialog from "./child/MsgDialog";
 export default {
   name: "Pools",
-  components: {TradeCard, ItemText},
+  components: {MsgDialog, TradeCard, ItemText},
   created() {
     this.getRouterData()
   },
@@ -43,23 +51,8 @@ export default {
       tokenName: '',
       type: '',
       dialogShow: false,
-      gridData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }],
+      tokenNumber: 0,
+      YPNumber: 0
     }
   },
   methods: {
@@ -73,8 +66,17 @@ export default {
       }
       console.log(this.$route.params)
     },
-    mint() {
+    //类型 主币数量 收益币数量
+    mint(type, tokenNumber, YPNumber) {
+      this.type = type
+      this.tokenNumber = tokenNumber*1
+      this.YPNumber = YPNumber*1
       this.dialogShow = true
+    },
+    mintSure() {
+
+
+      this.dialogShow = false
     }
   }
 }
@@ -88,6 +90,16 @@ span {
 .card {
   margin-top: 3rem;
 }
+.msg-dialog-inner {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.el-tag {
+  line-height: 30px;
+  /*color: var(te);*/
+  /*font-size: 16px;*/
+}
 </style>
 <style>
 .el-button--warning {
@@ -97,5 +109,9 @@ span {
 .el-button--warning:hover {
   background-color: var(--purple) !important;
   border-color: var(--purple-dark-shade)!important;
+}
+.msg-dialog .el-dialog{
+  width: 30% !important;
+  border-radius: 7px;
 }
 </style>

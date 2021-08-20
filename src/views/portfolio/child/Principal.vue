@@ -147,17 +147,6 @@
     align-items: first;
     /*width: 100px;*/
   }
-  .el-tag--dark {
-    background-color: var(--purple-light);
-    border-color: var(--purple-light);
-    color: var(--color-text);
-  }
-  >>> .el-progress-bar__inner {
-    background-color: var(--purple-dark-shade) !important;
-  }
-  >>> .el-progress-bar__outer {
-    background-color: var(--purple-card) !important;
-  }
   .card3-tag {
     height: 80px;
     width: 420px;
@@ -187,4 +176,17 @@
     align-items: center;
     font-size: 14px;
   }
+</style>
+<style>
+.el-tag--dark {
+  background-color: var(--purple-light);
+  border-color: var(--purple-light);
+  color: var(--color-text);
+}
+>>> .el-progress-bar__inner {
+  background-color: var(--purple-dark-shade) !important;
+}
+>>> .el-progress-bar__outer {
+  background-color: var(--purple-card) !important;
+}
 </style>

@@ -7,52 +7,43 @@
           <el-tab-pane name="buy">
             <span slot="label"><i class="el-icon-sold-out"></i> 买入</span>
             <pool-buy
-                :max="max"
                 :token="token"
-                :number="number"
-                :buy-number="buyNumber"
                 :token-name="tokenName"
-                :p-ymax="YPmax"
-                @toMax="toMax"
+                :YPBalance="YPBalance"
+                :tokenBalance="tokenBalance"
+                @calculate="calculate"
             />
           </el-tab-pane>
 
           <el-tab-pane name="sell">
             <span slot="label"><i class="el-icon-sell"></i> 卖出</span>
             <pool-sell
-                :max="max"
                 :token="token"
-                :number="number"
-                :sell-number="sellNumber"
                 :token-name="tokenName"
-                :p-ymax="YPmax"
-                @toMax="toMax"
+                :YPBalance="YPBalance"
+                :tokenBalance="tokenBalance"
+                @calculate="calculate"
             />
           </el-tab-pane>
 
           <el-tab-pane name="add">
             <span slot="label"><i class="el-icon-s-claim"></i> 增加流动性</span>
             <pool-add
-                :max="max"
                 :token="token"
-                :number="number"
-                :add-number="addNumber"
                 :token-name="tokenName"
-                :p-ymax="YPmax"
-                @toMax="toMax"
+                :YPBalance="YPBalance"
+                :tokenBalance="tokenBalance"
+                @calculate="calculate"
             />
           </el-tab-pane>
 
           <el-tab-pane name="remove">
             <span slot="label"><i class="el-icon-s-release"></i> 去除流动性</span>
             <pool-remove
-                :max="max"
                 :token="token"
-                :number="number"
-                :remove-number="removeNumber"
                 :token-name="tokenName"
-                :p-ymax="YPmax"
-                @toMax="toMax"
+                :LPBalance="LPBalance"
+                @calculate="calculate"
             />
           </el-tab-pane>
         </el-tabs>
@@ -84,14 +75,11 @@ export default {
   },
   data() {
     return {
-      number: 0.00,
-      buyNumber: 0.00,
-      sellNumber: 0.00,
-      addNumber: 0.00,
-      removeNumber: 0.00,
-      YPmax: 4.670,
-      // Pnumber: 0.00,
-      max: 3.095,
+      tokenNumber: 0.00,
+      YPNumber: 0.00,
+      YPBalance: 4.670,
+      tokenBalance: 3.095,
+      LPBalance: 6.334,
       activeName: 'buy'
 
     }
@@ -105,48 +93,19 @@ export default {
     }
   },
   methods: {
-    toMax(type, direction) {
-      if (direction === "token") {
-        this.number = this.max
-
-        switch (type) {
-          case "buy":
-            this.buyNumber = this.max+1
-            break;
-          case "sell":
-            this.sellNumber = this.max+1
-            break;
-          case "add":
-            this.addNumber = this.max+1
-            break;
-        }
-      } else {
-        this.number = this.max+1
-
-        switch (type) {
-          case "buy":
-            this.buyNumber = this.YPmax
-              //补充
-            break;
-          case "sell":
-            this.sellNumber = this.YPmax
-            break;
-          case "add":
-            this.addNumber = this.YPmax
-            break;
-        }
-      }
-
-
+    calculate(tokenNumber, YPNumber) {
+      console.log(tokenNumber, YPNumber)
+      this.tokenNumber = tokenNumber*1
+      this.YPNumber = YPNumber*1
     },
-    calculate() {
-      console.log(this.number)
-      this.Ynumber = this.Pnumber = this.number
-    },
+    //类型 主币数量 收益币数量
     mint() {
-      this.$emit("mint", this.number)
+      console.log(this.activeName)
+      this.$emit("mint", this.activeName, this.tokenNumber, this.YPNumber)
     },
     handleClick(tab, event) {
+      this.YPNumber = 0;
+      this.tokenNumber = 0;
       console.log(tab, event);
     }
   }

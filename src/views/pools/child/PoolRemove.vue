@@ -2,16 +2,16 @@
   <div>
     <el-row>
       <el-col :span="22" :offset="1">
-        <el-input @input="calculate" type="number" class="number-input" placeholder="0.00" v-model="removeNumber">
+        <el-input @input="calculate" type="number" class="number-input" placeholder="0.00" v-model="number">
           <template slot="prepend">LP Tokens</template>
         </el-input>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">余额： {{PYmax + ' ' + tokenName }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">余额： {{LPBalance + ' ' + tokenName }}</span></el-col>
       <el-col :span="11">
-        <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">最大</el-button>
+        <el-button @click="toMax()" class="right" type="warning" plain size="mini">最大</el-button>
       </el-col>
     </el-row>
 
@@ -34,6 +34,11 @@ import ItemText from "../../../components/txt/ItemText";
 export default {
   name: "PoolRemove",
   components: {ItemText},
+  data() {
+    return {
+      number: 0.00,
+    }
+  },
   props: {
     token: {
       type: Object
@@ -41,34 +46,19 @@ export default {
     tokenName: {
       type: String
     },
-    number: {
+    LPBalance: {
       type: Number
     },
-    removeNumber: {
-      type: Number
-    },
-    max: {
-      type: Number
-    },
-    PYmax: {
-      type: Number
-    }
   },
   methods: {
-    toMax(direction) {
-      this.$emit("toMax", "add", direction)
-      this.number = this.max
-      this.removeNumber  = this.number
-
+    toMax() {
+      this.number = this.LPBalance
     },
     calculate() {
       console.log(this.number)
-      this.buyNumber = this.number
-    },
-    mint() {
-      this.$emit("mint", this.number)
-    },
+      this.$emit("calculate", this.number)
 
+    },
   }
 }
 </script>
