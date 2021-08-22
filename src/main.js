@@ -10,6 +10,8 @@ import 'element-ui/lib/theme-chalk/base.css';
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 
+// import conflux from "./network/conflux";
+
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.component(CollapseTransition.name, CollapseTransition)

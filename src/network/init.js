@@ -1,7 +1,9 @@
 
 import Web3 from "web3";
 import ConvergentPoolFactoryAbi from './abi/ConvergentPoolFactory.json'
+import ConvergentCurvePoolAbi from './abi/ConvergentCurvePool.json'
 import TrancheFactoryAbi from './abi/TrancheFactory.json'
+import ERC20Abi from './abi/IERC20.json'
 
 // 检查是否是新的MetaMask 或 DApp浏览器
 var web3Provider;
@@ -9,7 +11,9 @@ let web3;
 
 //合约
 let ConvergentPoolFactory;
+let ConvergentCurvePool;
 let TrancheFactory;
+let ERC20;
 
 const getWeb3 = async () => {
   if (window.ethereum) {
@@ -23,10 +27,26 @@ const getWeb3 = async () => {
 
   ConvergentPoolFactory =
       new web3.eth.Contract(ConvergentPoolFactoryAbi, '0x0766B218517d9dC198155f0dC3485270cF788aF7');
+  ConvergentCurvePool =
+      new web3.eth.Contract(ConvergentCurvePoolAbi, '0x4294005520c453EB8Fa66F53042cfC79707855c4');
   TrancheFactory =
       new web3.eth.Contract(TrancheFactoryAbi, '0x5690332C2f0c12F00c147cE350d95B19a0C24f14');
+  ERC20 =
+      new web3.eth.Contract(ERC20Abi, '0xdcf80c068b7ffdf7273d8adae4b076bf384f711a');
+  console.log(ConvergentCurvePool)
 
-  // console.log(ConvergentPoolFactory)
+  //USDC:0x78dEca24CBa286C0f8d56370f5406B48cFCE2f86
+  // ConvergentCurvePool.methods.bond().call().then(res => {
+  // LP Principal Token eyUSDC:10-AUG-22-GMT 0x4294005520c453EB8Fa66F53042cfC79707855c4
+  // LP Element Yield Token eyUSDC:10-AUG-22-GMT 0xCE3dE100bA6B1fd0d078a938F2d698Ed08a6a54D
+  // Principal Token eyUSDC:10-AUG-22-GMT 0xDCf80C068B7fFDF7273d8ADAE4B076BF384F711A
+  ERC20.methods.balanceOf("0x5938609206Bd2962c4Ee6af293bB963Ae6006727").call().then(res => {
+    console.log(res)
+    // resolve(res)
+  }).catch(err => {
+    console.log(err)
+    // reject(error)
+  })
   // getContract()
 
 }
@@ -93,6 +113,15 @@ const getAcc = async () => {
     // console.log(res.toNumber()); // 1000000000000
   });
 
+  // ConvergentPoolFactory.methods.create(
+  //
+  // ).send().then(res => {
+  //   console.log(res)
+  //   // resolve(res)
+  // }).catch(err => {
+  //   console.log(err)
+  //   // reject(error)
+  // })
   // return accounts[0]
   // // 获取账户ETH余额
   // Web3.eth.getBalance(accounts[0]).then(res => {

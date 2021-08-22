@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover">
+  <el-card shadow="always">
     <el-row style="padding-top: 0">
       <el-col :span="24">
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick" >
@@ -117,7 +117,7 @@ export default {
   padding-top: 35px;
 }
 .el-card {
-  background-color: var(--purple-background);
+  background-color: white;
   color: var(--color-text);
   padding: 10px;
   margin: 10px;
