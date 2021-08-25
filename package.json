@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage":"https://wontondata.github.io/element-conflux/",
-  "type": "module",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
