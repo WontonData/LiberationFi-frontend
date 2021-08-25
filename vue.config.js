@@ -5,7 +5,7 @@ module.exports = {
   assetsDir: 'static',
   // eslint-loader 是否在保存的时候检查
   lintOnSave: false,
-  runtimeCompiler: true,
+  runtimeCompiler: false,
   configureWebpack: {
     resolve: {
       //extensions: [],
@@ -17,6 +17,7 @@ module.exports = {
         "network": "@/network",
         "views": "@/views",
         "image": "@/assets/image",
+        "heyi": "@/components/common/heyi",
         "store": "@/store"
       }
     }
