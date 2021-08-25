@@ -1,4 +1,7 @@
-# element-conflux
+## Website
+```
+https://wontondata.github.io/element-conflux/
+```
 
 ## Project setup
 ```
