@@ -17,7 +17,6 @@ module.exports = {
         "network": "@/network",
         "views": "@/views",
         "image": "@/assets/image",
-        "heyi": "@/components/common/heyi",
         "store": "@/store"
       }
     }
