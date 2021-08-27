@@ -2,7 +2,7 @@
   <el-menu
       router
       mode="horizontal"
-      background-color="#E1DDED"
+      background-color="#cdc2ff"
       active-text-color="#665794"
       :default-actie="$route.path">
     <el-menu-item v-for="item in menuData" :key="item.name" :index="item.routerPath">
@@ -30,7 +30,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style >
+.el-menu--horizontal>.el-menu-item.is-active {
+  font-weight: 600;
+}
 
 </style>

@@ -83,7 +83,7 @@ export default {
 }
 
 .el-card {
-  background-color: var(--purple-background);
+  background-color: var(--purple-card-background);
   color: var(--color-text);
   padding: 10px;
   margin: 10px;

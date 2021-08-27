@@ -9,6 +9,7 @@ import About from "./views/About";
 import Save from "./views/Save/Save";
 import Build from "./views/Build/Build";
 import home from "./views/home/home";
+import Tools from "./views/Tools/Tools";
 
 Vue.use(Router)
 
@@ -97,7 +98,13 @@ export default new Router({
             title: "Portfolio"
           },
         },
+        {
+          path: '/tools',
+          component: Tools,
+          name: 'Tools',
+        },
       ]
-    }
+    },
+
   ]
 })

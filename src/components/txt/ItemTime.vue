@@ -58,6 +58,6 @@ div {
 
 <style>
 .el-progress-bar__outer {
-  background-color: var(--purple-background)!important;
+  background-color: var(--purple-card-background)!important;
 }
 </style>

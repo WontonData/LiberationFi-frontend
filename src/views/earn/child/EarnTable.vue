@@ -14,7 +14,7 @@
       </el-col>
     </el-row>
     <eran-table-item v-for="(item, index) in tokenList" :key="index" :token="item" />
-    <eran-table-item />
+<!--    <eran-table-item />-->
   </div>
 
 

@@ -18,7 +18,7 @@ export default new Vuex.Store({
       state.account = init.getAccounts();
     },
     initContract(state) {
-      state.web3 = init.web3;
+      state.web3 = init.getweb3();
       state.ConvergentPoolFactory = init.getContract()[0];
       state.TrancheFactory = init.getContract()[1];
     },
@@ -45,6 +45,12 @@ export default new Vuex.Store({
     mint({state}, data) {
       // console.log(state)
       console.log(data)
+      state.ConvergentPoolFactory.methods.governance().call().then(res => {
+        console.log(res)
+        // resolve(res)
+      }).catch(error => {
+        // reject(error)
+      })
       return new Promise((resolve, reject) => {
         state.ConvergentPoolFactory.methods.governance().call().then(res => {
           console.log(res)

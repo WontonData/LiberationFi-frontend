@@ -90,7 +90,7 @@ export default {
 <style scoped>
 .el-row {
   width: 100%;
-  border-top: 2px var(--purple-background) solid;
+  border-top: 2px var(--purple-card-background) solid;
   /*background-color: ;*/
 }
 .el-col {
@@ -116,6 +116,6 @@ export default {
   background-color: var(--purple);
 }
 .el-skeleton__item {
-  background: var(--purple-background)!important;
+  background: var(--purple-card-background)!important;
 }
 </style>

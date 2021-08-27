@@ -3,6 +3,7 @@ import Web3 from "web3";
 import ConvergentPoolFactoryAbi from './abi/ConvergentPoolFactory.json'
 import ConvergentCurvePoolAbi from './abi/ConvergentCurvePool.json'
 import TrancheFactoryAbi from './abi/TrancheFactory.json'
+import UserProxyAbi from './abi/UserProxy.json'
 import ERC20Abi from './abi/IERC20.json'
 
 // 检查是否是新的MetaMask 或 DApp浏览器
@@ -13,6 +14,7 @@ let web3;
 let ConvergentPoolFactory;
 let ConvergentCurvePool;
 let TrancheFactory;
+let UserProxy;
 let ERC20;
 
 const getWeb3 = async () => {
@@ -25,12 +27,15 @@ const getWeb3 = async () => {
   }
   web3 = new Web3(web3Provider);
 
+  //0x0766B218517d9dC198155f0dC3485270cF788aF7
   ConvergentPoolFactory =
       new web3.eth.Contract(ConvergentPoolFactoryAbi, '0x0766B218517d9dC198155f0dC3485270cF788aF7');
   ConvergentCurvePool =
       new web3.eth.Contract(ConvergentCurvePoolAbi, '0x4294005520c453EB8Fa66F53042cfC79707855c4');
   TrancheFactory =
       new web3.eth.Contract(TrancheFactoryAbi, '0x5690332C2f0c12F00c147cE350d95B19a0C24f14');
+  UserProxy =
+      new web3.eth.Contract(UserProxyAbi, '0xB8d8DD04385De3cbc84132F31dD84d5DaF0675fD');
   ERC20 =
       new web3.eth.Contract(ERC20Abi, '0xdcf80c068b7ffdf7273d8adae4b076bf384f711a');
   console.log(ConvergentCurvePool)
@@ -47,8 +52,67 @@ const getWeb3 = async () => {
     console.log(err)
     // reject(error)
   })
+  //0x78dEca24CBa286C0f8d56370f5406B48cFCE2f86
+  // ConvergentCurvePool.methods.underlying()
+  //1660165080
+  // ConvergentCurvePool.methods.expiration()
+  //0x65748E8287Ce4B9E6D83EE853431958851550311
+  // ConvergentCurvePool.methods.getVault()
+  ConvergentCurvePool.methods.getVault().call().then(res => {
+    console.log(res)
+    // resolve(res)
+  }).catch(err => {
+    console.log(err)
+    // reject(error)
+  })
   // getContract()
+  //0x4294005520c453eb8fa66f53042cfc79707855c400020000000000000000009a
+  // ConvergentCurvePool.methods.getPoolId()
 
+  // ConvergentCurvePool.methods.onSwap(
+  //     0,
+  //     '0x78dEca24CBa286C0f8d56370f5406B48cFCE2f86',
+  //     '0xDCf80C068B7fFDF7273d8ADAE4B076BF384F711A',
+  //     100000000000000000,
+  //     '0x4294005520c453eb8fa66f53042cfc79707855c400020000000000000000009a',
+  //     1234,
+  //     '0x75441ac9a1d2DaAA5638beae207546c8D14a7f6d',
+  //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+
+
+  // const sign = web3.eth.accounts.sign('0xB8d8DD04385De3cbc84132F31dD84d5DaF0675fD',
+  //     '')
+  // console.log(sign)
+
+
+  // UserProxy.methods.mint(
+  //     10000000000000,
+  //     '0x78dEca24CBa286C0f8d56370f5406B48cFCE2f86',
+  //     1660165080,
+  //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+  //     [{
+  //       tokenContract: '0x4294005520c453EB8Fa66F53042cfC79707855c4',
+  //       who: '0x5938609206Bd2962c4Ee6af293bB963Ae6006727',
+  //       amount: 100000000000000,
+  //       expiration: 1660165080,
+  //       r: sign.r,
+  //       s: sign.s,
+  //       v: sign.v,
+  //     }]
+  // ).send({from: '0x5938609206Bd2962c4Ee6af293bB963Ae6006727'})
+  //     .on('transactionHash', function(hash){
+  //       console.log(hash);
+  //     })
+  //     .on('confirmation', function(confirmationNumber, receipt){
+  //       console.log(confirmationNumber, receipt);
+  //     })
+  //     .on('receipt', function(receipt){
+  //       // receipt 相关例子
+  //       console.log(receipt);
+  //     })
+  //     .on('error', function(error, receipt) { // 如果交易被网络拒绝并带有交易收据，则第二个参数将是交易收据。
+  //       console.log(error, receipt);
+  //     });
 }
 
 const getWeb322 = () =>
@@ -145,6 +209,10 @@ const getContract = () => {
   return [ConvergentPoolFactory, TrancheFactory]
 }
 
+const getweb3 = () => {
+  return web3
+}
+
 
 const transfer = () => {
 // transfer(){
@@ -236,7 +304,7 @@ export default {
   transfer,
   getAcc,
   con,
-  web3,
+  getweb3,
   getAccounts,
   getContract
 };

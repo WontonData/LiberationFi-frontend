@@ -6,15 +6,16 @@
     --color-text: #666;
     --color-text-light: #a6a6a6;
     --color-background: #fff5f6;
-    --purple-background: #e1dded;
+    --purple-card-background: #e1dded;
     /*--purple-footer: #242136;*/
     --purple-footer: #303952;
+    --purple-background: #cdc2ff;
 
     --purple-dark-shade: #665794;
     --purple-dark: #7c6eab;
     --purple: #9387C2;
     --purple-light: #b7b5d2;
-    --purple-card: #f5f5ff;
+    --purple-card: #f1f1ff;
 
     --pink-dark-shade: #AE6367;
     --pink-dark: #C98488;

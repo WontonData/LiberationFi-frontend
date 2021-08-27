@@ -140,21 +140,28 @@ i {
 </style>
 <style>
 .el-tabs--card>.el-tabs__header .el-tabs__item {
+  border-radius: 7px;
   border: none!important;
+  /*background-color: #123342;*/
 }
 .el-tabs--card>.el-tabs__header .el-tabs__nav {
   border: none!important;
 }
 .el-tabs__item.is-active {
   color: var(--purple-dark-shade) !important;
+  background-color: var(--purple-card-background);
   font-weight: 600;
 }
 .el-tabs__item {
   color: var(--color-text) !important;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 .el-tabs__item:hover {
   color: var(--purple-dark-shade) !important;
-  cursor: pointer;
+  /*cursor: pointer;*/
+}
+.number-input, .el-input__inner {
+  background-color: var(--purple-card) !important;
+  border-radius: 7px;
 }
 </style>
