@@ -1,0 +1,59 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address",
+        "networkId": 1
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "tranche",
+        "type": "address",
+        "networkId": 1
+      }
+    ],
+    "name": "InterestTokenCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tranche",
+        "type": "address",
+        "networkId": 1
+      },
+      {
+        "internalType": "string",
+        "name": "_strategySymbol",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_expiration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_underlyingDecimals",
+        "type": "uint8"
+      }
+    ],
+    "name": "deployInterestToken",
+    "outputs": [
+      {
+        "internalType": "contract InterestToken",
+        "name": "",
+        "type": "address",
+        "networkId": 1
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

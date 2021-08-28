@@ -61,6 +61,10 @@ export default {
       //0x82184314d27b9e63bf16ac2005059086566a9a9f
     },
     sign() {
+      const messageBuffer = Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+      const privateKeyBuffer = Buffer.from("207D3178BD4B15EDF1D6354721591F9E")//5321ADBC 4F421E1D78 3A1BBD8866 23E2
+      console.log(messageBuffer)
+      console.log(privateKeyBuffer)
       const typedData = { /*...*/};
       // const message = getMessage(typedData).toString('hex'); // Build message
       const message = '1901f2cee375fa42b42143804025fc449deafd50cc031ca257e0b194a650a912090fc52c0ee5d84264471806290a3f2c4cecfc5490626bf912d01f240d7a274b371e' // Build message
@@ -70,10 +74,11 @@ export default {
 // be609aee343fb3c4b28e1df9e632fca64fcfaede20f02e86244efddf30957bd2
       const privateKey = '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'; // use your own private key here
 // Sign message hash with private key
-//       const sig = sign.ecdsaSign(messageHash, privateKey);
+      const sig = sign.ecdsaSign(messageBuffer, privateKeyBuffer);
       //0a83fb83e86946bef4334d80b4400ee3a896c2137b5d41f2d2de8d4a8b613114
-      this.result = this.web3.eth.accounts.sign(this.address, this.key)
-      console.log(this.result)
+      // this.result = this.web3.eth.accounts.sign(this.address, this.key)
+      // console.log(this.result)
+      console.log(sig)
     },
   }
 }

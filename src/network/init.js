@@ -17,6 +17,31 @@ let TrancheFactory;
 let UserProxy;
 let ERC20;
 
+function toHex(s) {
+  var hex = '';
+  for(var i=0;i<s.length;i++) { hex += ''+s.charCodeAt(i).toString(16); }
+  return `0x${hex}`;
+}
+
+const createDelegateBySigMessage = (compAddress, delegatee, expiry = 10e9, chainId = 5, nonce = 0) => {
+  const types = {
+    EIP712Domain: [
+      { name: 'name', type: 'string' },
+      { name: 'chainId', type: 'uint256' },
+      { name: 'verifyingContract', type: 'address' },
+    ],
+    Delegation: [
+      { name: 'delegatee', type: 'address' },
+      { name: 'nonce', type: 'uint256' },
+      { name: 'expiry', type: 'uint256' }
+    ]
+  };
+  const primaryType = 'Delegation';
+  const domain = { name: 'Compound', chainId, verifyingContract: compAddress };
+  const message = { delegatee, nonce, expiry };//签名内容
+  return JSON.stringify({ types, primaryType, domain, message });
+};
+
 const getWeb3 = async () => {
   if (window.ethereum) {
     web3Provider = window.ethereum;
@@ -26,6 +51,34 @@ const getWeb3 = async () => {
     web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
   }
   web3 = new Web3(web3Provider);
+
+  var data = toHex('i am a string');
+  const msgParams = createDelegateBySigMessage('0x0766B218517d9dC198155f0dC3485270cF788aF7', data);
+  console.log(JSON.stringify(data))
+  const acc = '0x5938609206Bd2962c4Ee6af293bB963Ae6006727'
+  //被委托人以太坊地址
+  // 使用签名账户从COMP智能合约中获得的的nonce
+  // 以时间戳样式的交易过期时间
+  var params = [acc, msgParams]
+  // web3.currentProvider.sendAsync({
+  //   method: 'eth_signTypedData_v4',
+  //   params,
+  //   from: acc
+  // }, (err, sign) => {
+  //   console.log(err);
+  //   console.log(sign);
+  //   //"0x8f8c31d22fc1e16eb020274509455517b9577c7ff18f00df9db7f33082ab6be04d597f15aecc6630e5aeea8b88e572c5d2ba8a1675c62434ad0f2148a22c7ce51b"
+  //   const sig = result.result;
+  //   // delegatee.value = _delegatee;
+  //   // nonce.value = _nonce;
+  //   // expiry.value = _expiry;
+  //   // signature.value = sig;
+  //   console.log('signature', sig);
+  //   // console.log('msgParams', JSON.parse(msgParams));
+  //   const r = '0x' + sig.substring(2).substring(0, 64);
+  //   const s = '0x' + sig.substring(2).substring(64, 128);
+  //   const v = '0x' + sig.substring(2).substring(128, 130);
+  // })
 
   //0x0766B218517d9dC198155f0dC3485270cF788aF7
   ConvergentPoolFactory =
@@ -115,42 +168,6 @@ const getWeb3 = async () => {
   //     });
 }
 
-const getWeb322 = () =>
-    new Promise((resolve, reject) => {
-      // Wait for loading completion to avoid race conditions with web3 injection timing.
-      window.addEventListener("load", async () => {
-        // Modern dapp browsers...
-        if (window.ethereum) {
-          const web3 = new Web3(window.ethereum);
-          console.log(web3)
-          try {
-            // Request account access if needed
-            await window.ethereum.enable();
-            // Acccounts now exposed
-            resolve(web3);
-          } catch (error) {
-            reject(error);
-          }
-        }
-        // Legacy dapp browsers...
-        else if (window.web3) {
-          // Use Mist/MetaMask's provider.
-          const web3 = window.web3;
-          console.log("Injected web3 detected.");
-          resolve(web3);
-        }
-        // Fallback to localhost; use dev console port by default...
-        else {
-          const provider = new Web3.providers.HttpProvider(
-              "http://127.0.0.1:9545"
-          );
-          const web3 = new Web3(provider);
-          console.log("No web3 instance injected, using Local web3.");
-          resolve(web3);
-        }
-      });
-    });
-
 let accounts;
 const getAcc = async () => {
   try {
@@ -169,13 +186,13 @@ const getAcc = async () => {
   // 设置默认地址
   web3.eth.defaultAccount = accounts[0];
   var defaultAccount = web3.eth.defaultAccount;
-  console.log(defaultAccount);
 
   var balance = web3.eth.getBalance(accounts[0]).then(res => {
     console.log(res); // instanceof BigNumber
     console.log(res.toString(10)); // '1000000000000'
     // console.log(res.toNumber()); // 1000000000000
   });
+
 
   // ConvergentPoolFactory.methods.create(
   //
