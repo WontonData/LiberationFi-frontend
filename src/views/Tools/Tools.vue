@@ -5,15 +5,15 @@
       <el-col :span="10" :offset="7">
         <el-card shadow="always">
           <el-input placeholder="请输入内容" v-model="address">
-            <template slot="prepend">data</template>
+            <template slot="prepend">address</template>
           </el-input>
-          <el-input placeholder="请输入内容" v-model="key">
-            <template slot="prepend">privateKey</template>
+          <el-input placeholder="请输入内容" v-model="spender">
+            <template slot="prepend">spender</template>
           </el-input>
           <el-button type="warning" plain @click="addressHex">地址转换</el-button>
           <el-button type="warning" plain @click="sign">签名</el-button>
           <el-button type="warning" plain @click="permit">permit</el-button>
-          <div v-show="result">
+          <div >
             <el-divider>message</el-divider>
             <span>{{ this.result.message }}</span>
             <el-divider>messageHash</el-divider>
@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       address: '',
-      key: '',
+      spender: '',
       result: '',
     }
   },
@@ -63,8 +63,22 @@ export default {
       console.log(format.hexAddress('cfxtest:acbbuu2y4k736279c40cabjfwcdfp4y4x66eep7ee1'));
       //0x82184314d27b9e63bf16ac2005059086566a9a9f
     },
-    async sign() {
+    sign() {
+      const params = {
+        address: this.address,
+        spender: this.spender,
+      }
+      confluxPortal.sign(params).then(res => {
 
+        const sig = res.result;
+        console.log('signature', sig);
+        this.result.r = '0x' + sig.substring(2).substring(0, 64);
+        this.result.s = '0x' + sig.substring(2).substring(64, 128);
+        this.result.v = '0x' + sig.substring(2).substring(128, 130);
+        // console.log("r:" + r)
+        // console.log("s:" + s)
+        // console.log("v:" + v)
+      })
       // confluxPortal.sign()
 
       //function
@@ -108,19 +122,19 @@ export default {
       //      this.ConvergentCurvePool['name'].call().then(res => {
 
       //sign
-      await confluxPortal.sign()
+      // await confluxPortal.sign()
 
     },
 
     permit() {
       const called = this.USDA['permit'].call(
+          "cfxtest:aar9fe37w61vadm62ds132ntxgn5ngnnej277edujw",
           "cfxtest:aam90kc4anf1941w2sysbpcnm31vt6eepjvvg8k231",
-          "cfxtest:acfr36z84u1t9km1j3c3ppb0tcas88r5se30k3e8bx",
           "1000000000000000000000",
-          "1630996903621",
-          "27",
-          "0x451aa907d31abb3d8014741de048aac4f9b7fb6d3e50010d2ee5cb582b562a29",
-          "0x0a05a643cb40c3f9792f9ad81380e21dae49ea861de1b71c90c5d976076a1f00"
+          "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "28",
+          "0x75c4cc109df18bf9ca88d1b9a076cf83d935dd74d5a26234273d87c9bde3fe6f",
+          "0x3eff39b074aeb28618b58f7df5e06e448261f72439816a95df17870df8add116"
       )
       console.log(called)
       const result = confluxPortal.sendTransaction({
