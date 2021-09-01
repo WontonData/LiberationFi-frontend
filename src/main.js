@@ -10,7 +10,14 @@ import 'element-ui/lib/theme-chalk/base.css';
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 
-// import conflux from "./network/conflux";
+import portal from "./network/conflux-portal";
+portal.enable().then(() => {
+  // commit("initAccount");
+}).catch(err => {
+  console.error(err);
+});
+import conflux from "./network/conflux";
+
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);

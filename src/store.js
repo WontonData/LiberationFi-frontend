@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import init from "./network/init";
 import da from "element-ui/src/locale/lang/da";
+import * as contract from "./network/conflux";
 
 Vue.use(Vuex)
 
@@ -10,7 +11,11 @@ export default new Vuex.Store({
     web3: null,
     account: null,
     ConvergentPoolFactory: null,
-    TrancheFactory: null
+    ConvergentCurvePool: null,
+    TrancheFactory: null,
+    Tranche: null,
+    UserProxy: null,
+    USDA: null
   },
   mutations: {
     initAccount(state) {
@@ -20,7 +25,11 @@ export default new Vuex.Store({
     initContract(state) {
       state.web3 = init.getweb3();
       state.ConvergentPoolFactory = init.getContract()[0];
-      state.TrancheFactory = init.getContract()[1];
+      state.ConvergentCurvePool = contract.ConvergentCurvePool;
+      state.TrancheFactory = contract.TrancheFactory;
+      state.Tranche = contract.eP;
+      state.UserProxy = contract.UserProxy;
+      state.USDA = contract.USDA;
     },
     // toMint(state) {
     //   return state.ConvergentPoolFactory.methods.governance().call()

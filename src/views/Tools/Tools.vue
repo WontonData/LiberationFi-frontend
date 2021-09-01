@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>web3签名</h2>
+    <h2>web3签名</h2>
     <el-row>
       <el-col :span="10" :offset="7">
         <el-card shadow="always">
@@ -12,6 +12,7 @@
           </el-input>
           <el-button type="warning" plain @click="addressHex">地址转换</el-button>
           <el-button type="warning" plain @click="sign">签名</el-button>
+          <el-button type="warning" plain @click="permit">permit</el-button>
           <div v-show="result">
             <el-divider>message</el-divider>
             <span>{{ this.result.message }}</span>
@@ -23,8 +24,8 @@
             <span>{{ this.result.s }}</span>
             <el-divider>v</el-divider>
             <span>{{ this.result.v }}</span>
-<!--            <el-divider>signature</el-divider>-->
-<!--            <span>{{ this.result.signature }}</span>-->
+            <!--            <el-divider>signature</el-divider>-->
+            <!--            <span>{{ this.result.signature }}</span>-->
           </div>
 
 
@@ -41,11 +42,12 @@
 import {format} from 'js-conflux-sdk'
 import {sign} from 'js-conflux-sdk';
 import {mapActions, mapState} from "vuex";
+import confluxPortal from '@/network/conflux-portal'
 
 export default {
   name: "Tools",
   computed: {
-    ...mapState(["web3"]),
+    ...mapState(["web3", "TrancheFactory", "Tranche", "ConvergentCurvePool", "USDA"]),
   },
   data() {
     return {
@@ -55,31 +57,84 @@ export default {
     }
   },
   methods: {
-    addressHex() {
+    async addressHex() {
+
       this.address = format.hexAddress(this.address)
       console.log(format.hexAddress('cfxtest:acbbuu2y4k736279c40cabjfwcdfp4y4x66eep7ee1'));
       //0x82184314d27b9e63bf16ac2005059086566a9a9f
     },
-    sign() {
-      const messageBuffer = Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
-      const privateKeyBuffer = Buffer.from("207D3178BD4B15EDF1D6354721591F9E")//5321ADBC 4F421E1D78 3A1BBD8866 23E2
-      console.log(messageBuffer)
-      console.log(privateKeyBuffer)
-      const typedData = { /*...*/};
-      // const message = getMessage(typedData).toString('hex'); // Build message
-      const message = '1901f2cee375fa42b42143804025fc449deafd50cc031ca257e0b194a650a912090fc52c0ee5d84264471806290a3f2c4cecfc5490626bf912d01f240d7a274b371e' // Build message
-//
-//       const messageHash = getMessage(typedData, true).toString('hex'); // Build message hash
-      const messageHash = '0x82184314d27b9e63bf16ac2005059086566a9a9f' // Build message hash
-// be609aee343fb3c4b28e1df9e632fca64fcfaede20f02e86244efddf30957bd2
-      const privateKey = '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'; // use your own private key here
-// Sign message hash with private key
-      const sig = sign.ecdsaSign(messageBuffer, privateKeyBuffer);
-      //0a83fb83e86946bef4334d80b4400ee3a896c2137b5d41f2d2de8d4a8b613114
-      // this.result = this.web3.eth.accounts.sign(this.address, this.key)
-      // console.log(this.result)
-      console.log(sig)
+    async sign() {
+
+      // confluxPortal.sign()
+
+      //function
+      // const called = this.TrancheFactory['deployTranche'].call(
+      //         1630996603621,
+      //         "cfxtest:acfkmkfse864y16cn9261y5j2785d75rmeed68hskd")
+      // console.log(called)
+      // const result = confluxPortal.sendTransaction({
+      //   from: confluxPortal.getAccount(),
+      //   to: called.to,
+      //   data: called.data,
+      // }).then(res => {
+      //   console.log(res)
+      // })
+      //"0x17af1e089ed5a4a4b6a1e7fad366e2c669ae3679fa5d63c5d33d6d5d3cec5c37"
+      //"0x01693097e8572b2c4f83c38984a1b343958ede12ba003abd6aa149c5c459d7ab"
+      // console.log(result)
+
+      //event
+      // console.log(Array(2))
+      // const res = await this.TrancheFactory['TrancheCreated'].call(
+      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+      // ).getLogs()
+      // console.log(res)
+
+      //read
+      //cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j
+      // this.Tranche['interestToken'].call().then(res => {
+      //0: -559939584  1: 902409669  2: 54
+      // this.Tranche['interestSupply'].call().then(res => {
+      //Element Principal Token wp-30SEP21
+      // this.Tranche['name'].call().then(res => {
+      //   console.log(res)
+      //   // resolve(res)
+      // }).catch(error => {
+      //   console.log(error)
+      //   // reject(error)
+      // })
+      //      this.ConvergentCurvePool['name'].call().then(res => {
+
+      //sign
+      await confluxPortal.sign()
+
     },
+
+    permit() {
+      const called = this.USDA['permit'].call(
+          "cfxtest:aam90kc4anf1941w2sysbpcnm31vt6eepjvvg8k231",
+          "cfxtest:acfr36z84u1t9km1j3c3ppb0tcas88r5se30k3e8bx",
+          "1000000000000000000000",
+          "1630996903621",
+          "27",
+          "0x451aa907d31abb3d8014741de048aac4f9b7fb6d3e50010d2ee5cb582b562a29",
+          "0x0a05a643cb40c3f9792f9ad81380e21dae49ea861de1b71c90c5d976076a1f00"
+      )
+      console.log(called)
+      const result = confluxPortal.sendTransaction({
+        from: confluxPortal.getAccount(),
+        to: called.to,
+        data: called.data,
+      }).then(res => {
+        console.log(res)
+      })
+      // "0x17af1e089ed5a4a4b6a1e7fad366e2c669ae3679fa5d63c5d33d6d5d3cec5c37"
+      // "0x01693097e8572b2c4f83c38984a1b343958ede12ba003abd6aa149c5c459d7ab"
+      console.log(result)
+    }
+
   }
 }
 </script>
@@ -92,6 +147,7 @@ export default {
 .el-input, .el-button {
   margin-top: 1rem;
 }
+
 span {
   font-size: 15px
 }
@@ -99,6 +155,6 @@ span {
 <style>
 
 .el-divider {
-  font-size: 12px!important;
+  font-size: 12px !important;
 }
 </style>
