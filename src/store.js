@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     web3: null,
     account: null,
+    conflux: null,
     ConvergentPoolFactory: null,
     ConvergentCurvePool: null,
     TrancheFactory: null,
@@ -23,6 +24,7 @@ export default new Vuex.Store({
       state.account = init.getAccounts();
     },
     initContract(state) {
+      state.conflux = contract.conflux;
       state.web3 = init.getweb3();
       state.ConvergentPoolFactory = init.getContract()[0];
       state.ConvergentCurvePool = contract.ConvergentCurvePool;

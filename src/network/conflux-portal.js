@@ -54,6 +54,7 @@ class ConfluxPortal {
         param.address,
         this.getAccount(),
         param.spender,);
+    console.log(msgParams)
     const acc = this.getAccount()
     //r:0x9c1144dbac0ee058112b115d74c98d6788e1cd8221e2352062cafc5b809c279a
     // s:0x5b524b59688dcc32f8d400d8898182b5dd723d8818a919162b39f642617d5bf0
@@ -96,9 +97,49 @@ class ConfluxPortal {
       })
     })
   }
+  async _sign(param) {
+
+    const msgParams = createSigMessage(
+        param.address,
+        this.getAccount(),
+        param.spender,
+        param.name,
+        1,
+        param.nonces);
+    console.log(msgParams)
+    const acc = this.getAccount()
+    let params = [acc, msgParams]
+
+    return new Promise((resolve, reject) => {
+      this.conflux.sendAsync({
+        chainId: 1,
+        method: 'cfx_signTypedData_v4',
+        params,
+        from: acc
+      }, (err, sign) => {
+        let res = {
+          sig: "",
+          r: "",
+          s: "",
+          v: ""
+        }
+
+        res.sig = sign.result;
+        // console.log('signature', sig);
+        res.r = '0x' + res.sig.substring(2).substring(0, 64);
+        res.s = '0x' + res.sig.substring(2).substring(64, 128);
+        res.v = '0x' + res.sig.substring(2).substring(128, 130);
+        // console.log("r:" + r)
+        // console.log("s:" + s)
+        // console.log("v:" + v)
+
+        resolve(res)
+      })
+    })
+  }
 }
 
-function createSigMessage(contract, owner, spender, chainId = 1, nonce = 0) {
+function createSigMessage(contract, owner, spender,name = "USDA", chainId = 1 , nonce = 0, version = 1) {
   const deadline = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 
   const types = {
@@ -117,8 +158,15 @@ function createSigMessage(contract, owner, spender, chainId = 1, nonce = 0) {
     ]
   };
   const primaryType = 'Permit';
-  const domain = {name: 'USDA', version: '1', chainId, verifyingContract: contract};
-  const message = {owner, spender, value: '100000000000000000000', nonce, deadline};//签名内容
+  const domain = {name: name, version: version, chainId, verifyingContract: contract};
+  // const message = {owner, spender, value: '100000000000000000000', nonce, deadline};//签名内容
+  const message = {
+    "owner": owner,
+    "spender": spender,
+    "value": '100000000000000000000',
+    "nonce": nonce,
+    "deadline": deadline
+  }
   return JSON.stringify({types, primaryType, domain, message});
 }
 

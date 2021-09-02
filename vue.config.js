@@ -1,3 +1,8 @@
+const path = require('path')
+
+function resolve (dir) {
+  return path.join(__dirname, dir)
+}
 module.exports = {
   publicPath: './',
   // 输出文件目录
@@ -8,16 +13,17 @@ module.exports = {
   runtimeCompiler: false,
   configureWebpack: {
     resolve: {
-      //extensions: [],
+      extensions: ['.js', '.vue', '.json'],
       alias: {
-        //"@": "src"
+        "@": "src",
         "assets": "@/assets",
         "common": "@/common",
         "components": "@/components",
         "network": "@/network",
         "views": "@/views",
         "image": "@/assets/image",
-        "store": "@/store"
+        "store": "@/store",
+        "abi": "src/network/abi"
       }
     }
   },
