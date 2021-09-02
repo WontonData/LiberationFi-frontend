@@ -106,7 +106,7 @@ class ConfluxPortal {
         param.name,
         1,
         param.nonces);
-    console.log(msgParams)
+    // console.log(msgParams)
     const acc = this.getAccount()
     let params = [acc, msgParams]
 

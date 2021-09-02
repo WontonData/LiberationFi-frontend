@@ -15,7 +15,7 @@ module.exports = {
     resolve: {
       extensions: ['.js', '.vue', '.json'],
       alias: {
-        "@": "src",
+        // "@": "src",
         "assets": "@/assets",
         "common": "@/common",
         "components": "@/components",
@@ -23,7 +23,7 @@ module.exports = {
         "views": "@/views",
         "image": "@/assets/image",
         "store": "@/store",
-        "abi": "src/network/abi"
+        "abi": "@/network/abi"
       }
     }
   },

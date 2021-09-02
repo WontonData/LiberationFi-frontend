@@ -58,9 +58,16 @@
           <el-input placeholder="时间戳" v-model="expiration">
             <template slot="prepend">expiration</template>
           </el-input>
-          <el-button type="warning" plain @click="genSignature">生成签名</el-button>
+          <el-button type="warning" plain @click="genSignature_calldata">生成签名</el-button>
           <el-button type="warning" plain @click="deriveTranche(wrappedPositionAddr,expiration)">生成预测地址</el-button>
-
+          <el-input
+            style="margin-top:20px"
+            type="textarea"
+            :autosize="{ minRows: 10, maxRows: 20}"
+            resize="none"
+            placeholder=""
+            v-model="textarea">
+          </el-input>
         </el-card>
       </el-col>
     </el-row>
@@ -71,7 +78,7 @@
 <script>
 // import web3 from 'web3'
 // import {Conflux, Drip, format} from 'js-conflux-sdk'
-import { keccak256,keccakFromString, ecsign,isValidPrivate,privateToPublic} from 'ethereumjs-util'
+import { keccak256,keccakFromString,keccakFromHexString, ecsign,isValidPrivate,privateToPublic} from 'ethereumjs-util'
 import {Conflux,format} from 'js-conflux-sdk'
 import {sign} from 'js-conflux-sdk';
 import {mapActions, mapState} from "vuex";
@@ -79,6 +86,7 @@ import confluxPortal from '@/network/conflux-portal'
 
 import ERC20PermitAbi from "@/network/abi/ERC20Permit.json"
 import UserProxyAbi from 'abi/UserProxy.json'
+import TrancheAbi from "@/network/abi/Tranche.json"
 
 export default {
   name: "Tools",
@@ -98,7 +106,8 @@ export default {
       wrappedPositionAddr: 'cfxtest:acfkmkfse864y16cn9261y5j2785d75rmeed68hskd',
       trancheFactoryAddr: 'cfxtest:acgk31mt25khe2mhc6ak60c1u0c49wa5xjjnrrddbv',
       trancheBytecodeHash: '33353283da9febabe800962de594ae7c9f274743d76e7af5f88afe3e6ea5a94a',
-      expiration: ''
+      expiration: '1633023038',
+      textarea: ''
     }
   },
   methods: {
@@ -138,61 +147,6 @@ export default {
           v: res.v
         })
       })
-      // confluxPortal.sign(params).then(res => {
-
-      //   const sig = res.result;
-      //   console.log('signature', sig);
-      //   this.result.r = '0x' + sig.substring(2).substring(0, 64);
-      //   this.result.s = '0x' + sig.substring(2).substring(64, 128);
-      //   this.result.v = '0x' + sig.substring(2).substring(128, 130);
-      //   // console.log("r:" + r)
-      //   // console.log("s:" + s)
-      //   // console.log("v:" + v)
-      // })
-      // confluxPortal.sign()
-
-      //function
-      // const called = this.TrancheFactory['deployTranche'].call(
-      //         1630996603621,
-      //         "cfxtest:acfkmkfse864y16cn9261y5j2785d75rmeed68hskd")
-      // console.log(called)
-      // const result = confluxPortal.sendTransaction({
-      //   from: confluxPortal.getAccount(),
-      //   to: called.to,
-      //   data: called.data,
-      // }).then(res => {
-      //   console.log(res)
-      // })
-      //"0x17af1e089ed5a4a4b6a1e7fad366e2c669ae3679fa5d63c5d33d6d5d3cec5c37"
-      //"0x01693097e8572b2c4f83c38984a1b343958ede12ba003abd6aa149c5c459d7ab"
-      // console.log(result)
-
-      //event
-      // console.log(Array(2))
-      // const res = await this.TrancheFactory['TrancheCreated'].call(
-      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
-      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
-      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
-      // ).getLogs()
-      // console.log(res)
-
-      //read
-      //cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j
-      // this.Tranche['interestToken'].call().then(res => {
-      //0: -559939584  1: 902409669  2: 54
-      // this.Tranche['interestSupply'].call().then(res => {
-      //Element Principal Token wp-30SEP21
-      // this.Tranche['name'].call().then(res => {
-      //   console.log(res)
-      //   // resolve(res)
-      // }).catch(error => {
-      //   console.log(error)
-      //   // reject(error)
-      // })
-      //      this.ConvergentCurvePool['name'].call().then(res => {
-
-      //sign
-      // await confluxPortal.sign()
 
     },
 
@@ -226,27 +180,27 @@ export default {
         }
       }, 100);
     },
-    callFunction(call) {
-      return confluxPortal.sendTransaction({
-          from: confluxPortal.getAccount(),
-          to: call.to,
-          data: call.data,
-      })
-    },
     deriveTranche(_position, _expiration) {
-      _position = format.hexAddress(_position).substring(2)
-      console.log(_position)
-      let salt =  keccak256(Buffer.alloc(32, _position+_expiration, 'hex')).toString('hex')
-      console.log(salt)
+      let _expirationHex = parseInt(_expiration).toString(16);
+      while(_expirationHex.length<64){
+        _expirationHex = "0" + _expirationHex;
+      }
+      _position = format.hexAddress(_position)+_expirationHex
+      // console.log(_position,keccakFromHexString(_position).toString('hex'))
+      let salt =  keccakFromHexString(_position).toString('hex')
+      // console.log("0xff"+format.hexAddress(this.trancheFactoryAddr)+salt+this.trancheBytecodeHash)
       
-      let address = keccak256(Buffer.alloc(32, 
-        "ff"+this.trancheFactoryAddr+salt+this.trancheBytecodeHash
-      , 'hex')).toString('hex')
+      let address = keccakFromHexString(
+        "0xff"+format.hexAddress(this.trancheFactoryAddr).substring(2)+salt+this.trancheBytecodeHash
+      ).toString('hex')
 
-      console.log(address);
+      // console.log("0x8"+address.substring(24).substring(1))
+      this.textarea = "0x8"+address.substring(24).substring(1)
+      return "0x8"+address.substring(24).substring(1)
+      // console.log(keccakFromString("aaaab").toString('hex'))
     },
-    async genSignature() {
-      let signs = []
+    async genSignature(address,spender,abi = ERC20PermitAbi,contract = undefined){
+      let sign = ""
       let params = {
         address: "",
         spender: "",
@@ -255,20 +209,25 @@ export default {
       }
 
       // uToekn-userProxy 
-      let underlyingToken =  this.conflux.Contract({
-        abi: ERC20PermitAbi,
-        address: this.underlyingTokenAddr
-      });
-      let res = await underlyingToken.nonces(this.signer)
+      let thisContract 
+      if(contract){
+        thisContract = contract
+      }else{
+        thisContract =  this.conflux.Contract({
+          abi: abi,
+          address: address
+        });
+      }
+      let res = await thisContract.nonces(this.signer)
       params.nonces = res.toJSON()
-      res= await underlyingToken.name()
+      res= await thisContract.name()
       params.name = res
-      params.address = this.underlyingTokenAddr
-      params.spender = this.userProxyAddr
+      params.address = address
+      params.spender = spender
       // console.log(params)
-      confluxPortal._sign(params).then((res) => {
-        console.log('signature', res);
-        signs.append({
+      await confluxPortal._sign(params).then((res) => {
+        // console.log('signature', res);
+        sign = {
           tokanContract: params.address,
           who: params.spender,
           amount: '100000000000000000000',
@@ -276,57 +235,52 @@ export default {
           r: res.r,
           s: res.s,
           v: res.v
-        })
+        }
+      })
+      return sign
+    },
+    async genSignature_calldata() {
+      let signs = []
+
+      // uToekn-userProxy 
+      this.genSignature(this.underlyingTokenAddr,this.userProxyAddr).then((res) => {
+        signs.push(res)
       })
 
       // uToekn-YVaultAssetProxy 
-      underlyingToken =  this.conflux.Contract({
-        abi: ERC20PermitAbi,
-        address: this.underlyingTokenAddr
-      });
-      params.nonces += 1
-      res= await underlyingToken.name()
-      params.name = res
-      params.address = this.underlyingTokenAddr
-      params.spender = this.wrappedPositionAddr
-      // console.log(params)
-      confluxPortal._sign(params).then((res) => {
-        console.log('signature', res);
-        signs.append({
-          tokanContract: params.address,
-          who: params.spender,
-          amount: '100000000000000000000',
-          expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
-          r: res.r,
-          s: res.s,
-          v: res.v
-        })
+      this.genSignature(this.underlyingTokenAddr,this.wrappedPositionAddr).then((res) => {
+        signs.push(res)
       })
 
       // pToekn-userProxy 
-      // let underlyingToken =  this.conflux.Contract({
-      //   abi: ERC20PermitAbi,
-      //   address: this.underlyingTokenAddr
-      // });
-      // let res = await underlyingToken.nonces(this.signer)
-      // params.nonces = res.toJSON()
-      // res= await underlyingToken.name()
-      // params.name = res
-      // params.address = this.underlyingTokenAddr
-      // params.spender = this.userProxyAddr
-      // // console.log(params)
-      // confluxPortal._sign(params).then((res) => {
-      //   console.log('signature', res);
-      //   signs.append({
-      //     tokanContract: params.address,
-      //     who: params.spender,
-      //     amount: '100000000000000000000',
-      //     expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
-      //     r: res.r,
-      //     s: res.s,
-      //     v: res.v
-      //   })
-      // })
+      let TrancheAddr = this.deriveTranche(this.wrappedPositionAddr,this.expiration)
+      let Tranche =  this.conflux.Contract({
+        abi: TrancheAbi,
+        address: TrancheAddr
+      });
+      this.genSignature(this.underlyingTokenAddr,this.wrappedPositionAddr,TrancheAbi,Tranche).then((res) => {
+        signs.push(res)
+      })
+
+      // yToekn-userProxy 
+      let yTokenAddr = await Tranche.interestToken()
+      this.genSignature(yTokenAddr,this.wrappedPositionAddr).then((res) => {
+        signs.push(res)
+      })
+
+      while(signs.length<4) {
+        await this.wait(50)
+      }
+      // console.log(signs)
+      this.textarea = JSON.stringify(signs,undefined, 2)
+      return signs
+    },
+    wait (time) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, time)
+      })
     }
   },
   
