@@ -41,7 +41,7 @@
         </div>
         <div class="inner">
           <transition name="el-zoom-in-top">
-            <eran-table-inner-item v-show="show" :token="token"/>
+            <eran-table-inner-item v-show="show" :token="token" :show="show"/>
           </transition>
         </div>
       </div>
@@ -86,9 +86,14 @@ img {
   margin-top: 40px !important;
 }
 
+.el-col div div div div {
+  width: 100%;
+  text-align: center;
+}
 .el-col div div div {
   padding: 10px;
   float: left;
+  text-align: center;
 }
 
 .inner {

@@ -14,7 +14,7 @@
     </el-row>
 
     <el-row>
-      <el-col :span="12"><span class="left">余额：3.095 ETH</span></el-col>
+      <el-col :span="12"><span class="left">余额：{{ max }} {{ token.token1 }}</span></el-col>
       <el-col :span="12">
         <el-button @click="toMax" class="right" type="warning" plain size="mini">最大</el-button>
       </el-col>
@@ -22,15 +22,15 @@
 
     <el-row>
       <el-col :span="12">
-        <item-text :data="Ynumber + ' eP'" title="您收到的主要代币" />
+        <item-text :data="Pnumber + ' ' + token.token2" title="您收到的主要代币"/>
       </el-col>
       <el-col :span="12">
-        <item-text :data="Pnumber + ' eY'" title="您收到的收益代币" />
+        <item-text :data="Ynumber + ' ' + token.token3" title="您收到的收益代币"/>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="24" >
+      <el-col :span="24">
         <el-button v-if="account" @click="mint" class="mint" type="warning" plain>Mint</el-button>
         <el-button v-else @click="mint" disabled class="mint" type="warning" plain>请先连接钱包</el-button>
       </el-col>
@@ -41,24 +41,39 @@
 <script>
 import {mapState} from "vuex";
 import ItemText from "../txt/ItemText";
+
 export default {
   name: "MintCard",
   components: {ItemText},
   computed: {
-    ...mapState(["account"]),
+    ...mapState(["conflux", "account", "USDA"]),
+  },
+  watch: {
+    account() {
+      this.USDA.balanceOf(this.account).then(res => {
+        this.max = res.toString() / 1000000000000000000
+      })
+    }
   },
   data() {
     return {
-      number: 0.00,
+      IERC20: null,
+      number: null,
       Ynumber: 0.00,
       Pnumber: 0.00,
-      max: 3.095
+      max: 0.000
     }
   },
   props: {
     token: {
       type: Object
+    },
+    show: {
+      type: Boolean
     }
+  },
+  created() {
+
   },
   methods: {
     toMax() {
@@ -90,13 +105,16 @@ export default {
   border-radius: 10px;
 
 }
+
 .mint {
   width: 100%;
 }
+
 .title {
   font-weight: 600;
   font-size: 16px;
 }
+
 span {
   font-size: 14px;
 }

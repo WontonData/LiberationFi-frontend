@@ -21,14 +21,14 @@
     <el-row>
       <el-col :span="5"><span class="left front">主要代币：</span></el-col>
       <el-col :span="19">
-        <span class="left">{{ number }} eP</span>
+        <span class="left">{{ number }} {{ token.token2 }}</span>
       </el-col>
     </el-row>
 
     <el-row>
       <el-col :span="5"><span class="left front">收益代币：</span></el-col>
       <el-col :span="19">
-        <span class="left">{{ number }} eY</span>
+        <span class="left">{{ number }} {{ token.token3 }}</span>
       </el-col>
     </el-row>
 

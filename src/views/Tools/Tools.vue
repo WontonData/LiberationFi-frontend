@@ -76,8 +76,6 @@
 </template>
 
 <script>
-// import web3 from 'web3'
-// import {Conflux, Drip, format} from 'js-conflux-sdk'
 import { keccak256,keccakFromString,keccakFromHexString, ecsign,isValidPrivate,privateToPublic} from 'ethereumjs-util'
 import {Conflux,format} from 'js-conflux-sdk'
 import {sign} from 'js-conflux-sdk';
@@ -147,6 +145,46 @@ export default {
           v: res.v
         })
       })
+
+      //function
+      // const called = this.TrancheFactory['deployTranche'].call(
+      //         1630996603621,
+      //         "cfxtest:acfkmkfse864y16cn9261y5j2785d75rmeed68hskd")
+      // console.log(called)
+      // const result = confluxPortal.sendTransaction({
+      //   from: confluxPortal.getAccount(),
+      //   to: called.to,
+      //   data: called.data,
+      // }).then(res => {
+      //   console.log(res)
+      // })
+      //"0x17af1e089ed5a4a4b6a1e7fad366e2c669ae3679fa5d63c5d33d6d5d3cec5c37"
+      //"0x01693097e8572b2c4f83c38984a1b343958ede12ba003abd6aa149c5c459d7ab"
+      // console.log(result)
+
+      //event
+      // console.log(Array(2))
+      // const res = await this.TrancheFactory['TrancheCreated'].call(
+      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+      //     '0x65748E8287Ce4B9E6D83EE853431958851550311',
+      // ).getLogs()
+      // console.log(res)
+
+      //read
+      //cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j
+      // this.Tranche['interestToken'].call().then(res => {
+      //0: -559939584  1: 902409669  2: 54
+      // this.Tranche['interestSupply'].call().then(res => {
+      //Element Principal Token wp-30SEP21
+      // this.Tranche['name'].call().then(res => {
+      //   console.log(res)
+      //   // resolve(res)
+      // }).catch(error => {
+      //   console.log(error)
+      //   // reject(error)
+      // })
+      //      this.ConvergentCurvePool['name'].call().then(res => {
 
     },
 

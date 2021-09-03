@@ -1,5 +1,4 @@
 const {Conflux, sign} = require('js-conflux-sdk');
-import confluxPortal from './conflux-portal'
 
 export const conflux = new Conflux({
   url: 'http://test.confluxrpc.org/v2',
@@ -63,52 +62,7 @@ export const eY = conflux.Contract({
   address: 'cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j'
 });
 
-//"cfxtest:aatjmdpyhmgf1wbe3h4b3m6x7yy7esd0525m76vk3m"
-console.log(TrancheFactory)
-
-// .call()
-// .then(res => {
-//   console.log(res)
-// })
-// conflux.wallet.addPrivateKey("cfxtest:aatjmdpyhmgf1wbe3h4b3m6x7yy7esd0525m76vk3m")
-// console.log(sign.randomPrivateKey()+" ");
-// conflux.wallet.addPrivateKey('0x207D3178BD4B15EDF1D6354721591F9E5321ADBC4F421E1D783A1BBD886623E2');
-async function eventTest() {
-
-  // const called = this.props.contract[selected.name].call(...params)
-  // const result = await confluxPortal.sendTransaction({
-  //   from: confluxPortal.getAccount(),
-  //   // to: called.to,
-  //   data: (
-  //     1231414,
-  //     'cfxtest:acaerfrd3m80tasx02ghkgwywkerbzdrup0dzt0x9s'
-  //   )
-  // })
-
-  // const deploy = await TrancheFactory.deployTranche(
-  //     1231414,
-  //     'cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j'
-  // ).sendTransaction({
-  //   from: "cfxtest:aatjmdpyhmgf1wbe3h4b3m6x7yy7esd0525m76vk3m"
-  // }).executed().then(res => {
-  //   console.log(res)
-  // })
-  // console.log(result)
-  //     .then(res => {
-  //   console.log(res)
-  // })
-
-  // TrancheFactory.TrancheCreated().watch(function(error, result) {
-  //   if (!error)
-  //   {
-  //     console.log(result)
-  //   } else {
-  //     console.log(error);
-  //   }
-  // });
-}
-
-eventTest();
+// export const USDAAdd = 'cfxtest:acgfgvhxwfeduu07a6pf6u538aj7at2veasb6fxhu0'
 
 async function main() {
   // use conflux to get balance (in Drip) of a conflux address
@@ -147,5 +101,5 @@ export default {
   ConvergentCurvePool,
   USDA,
   Yault_xUSDA,
-  YVaultAssetProxy
+  YVaultAssetProxy,
 }

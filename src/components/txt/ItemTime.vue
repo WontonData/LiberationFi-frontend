@@ -1,19 +1,23 @@
 <template>
   <div>
-    <span class="item-time ">{{ time }}</span>
+    <div class="item-time ">{{ time }}</div>
+
+    <div>
+      <el-progress
+          type="circle"
+          :width="50"
+          :stroke-width="7"
+          :percentage="percentage"
+          :format="format"
+          color="#7c6eab"></el-progress>
+    </div>
     <el-tag
         style="margin-right: 5px"
         type="info"
-        class="right"
         size="mini">
       {{ day }}
     </el-tag>
-    <el-progress
-        :stroke-width="7"
-        :percentage="50"
-        :format="format"
-        color="#7c6eab"></el-progress>
-    <div class="item-rest">{{ rest }}</div>
+    <!--    <div class="item-rest">{{ rest }}</div>-->
   </div>
 </template>
 
@@ -27,8 +31,9 @@ export default {
     day: {
       type: String,
     },
-    rest: {
-      type: String
+    percentage: {
+      type: Number,
+      default: 56
     }
   },
   methods: {
@@ -44,13 +49,14 @@ export default {
   font-size: 15px;
   color: var(--purple-dark-shade);
   font-weight: 550;
-
+  margin-bottom: 5px;
 }
 
 .item-rest {
   font-size: 14px;
   /*line-height: 35px;*/
 }
+
 div {
   line-height: 25px;
 }
@@ -58,6 +64,6 @@ div {
 
 <style>
 .el-progress-bar__outer {
-  background-color: var(--purple-card-background)!important;
+  background-color: var(--purple-card-background) !important;
 }
 </style>

@@ -2,11 +2,11 @@
   <div>
     <el-row>
       <el-col :span="4" :offset="8">
-        <div @click="changeTab('P')" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>主池</h2>
+        <div @click="changeTab('P')" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>Principal Pools</h2>
         </div>
       </el-col>
       <el-col :span="4">
-        <div @click="changeTab('T')" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>收益池</h2></div>
+        <div @click="changeTab('T')" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>Yield Pools</h2></div>
       </el-col>
     </el-row>
     <el-row style="margin-top: 35px;">
@@ -29,45 +29,17 @@ export default {
   data() {
     return {
       selectPools: true,
-      tokenList: [
-        {
-          name: 'USDC v2',
-          icon: 'USDC',
-          token1: 'USDC',
-          token2: 'ePyUSDC',
-          token3: 'eYyUSDC',
-          liquidity1: '5,378,950',
-          liquidity2: '18,662',
-          fixedAPR: '6.64',
-          lpAPY1: '0.81',
-          lpAPY2: '0.18',
-          vaultAPY: '6.41',
-          price1: '0.9851',
-          price2: '0.0151',
-          term: 'Oct 30, 2021'
-        },
-        {
-          name: 'DAI v2',
-          icon: 'DAI',
-          token1: 'DAI',
-          token2: 'ePyDAI',
-          token3: 'eYyDAI',
-          liquidity1: '5,304,503',
-          liquidity2: '17,954',
-          fixedAPR: '4.54',
-          lpAPY1: '0.05',
-          lpAPY2: '0.18',
-          vaultAPY: '6.43',
-          price1: '0.9919',
-          price2: '0.0118',
-          term: 'Oct 30, 2021'
-        }
-      ]
+
+    }
+  },
+  props: {
+    tokenList: {
+      type: Array
     }
   },
   methods: {
     changeTab(type) {
-      this.selectPools = type == "P" ? true : false;
+      this.selectPools = type === "P";
     }
   }
 }
@@ -91,8 +63,8 @@ h2 {
   content: "";
   position: absolute;
   top: 5%;
-  left: 35%;
-  width: 30%;
+  left: 20%;
+  width: 60%;
   height: 100%;
   border-bottom: 3.5px solid var(--purple-dark);
 }

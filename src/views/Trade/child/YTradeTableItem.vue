@@ -2,10 +2,10 @@
   <el-row >
     <el-col :span="20" :offset="2">
       <div style="width: 25%">
-        <div class="left">
+        <div>
           <img alt="美元" :src="'img/token/' + token.icon + '.svg'" height="38" width="38">
         </div>
-        <item-text class="left" :data="token.token1 + ' - ' + token.token3" />
+        <item-text :data="token.token1 + ' - ' + token.token3" />
       </div>
       <div style="width: 11%">
         <item-text :data="'$' + token.liquidity2"/>

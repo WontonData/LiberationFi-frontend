@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import init from "./network/init";
+// import init from "./network/init";
 import da from "element-ui/src/locale/lang/da";
 import * as contract from "./network/conflux";
+import portal from "./network/conflux-portal";
 
 Vue.use(Vuex)
 
@@ -15,21 +16,21 @@ export default new Vuex.Store({
     ConvergentCurvePool: null,
     TrancheFactory: null,
     Tranche: null,
+    InterestToken: null,
     UserProxy: null,
     USDA: null
   },
   mutations: {
     initAccount(state) {
       state.walletDialog = false;
-      state.account = init.getAccounts();
+      state.account = portal.getAccount();
     },
     initContract(state) {
       state.conflux = contract.conflux;
-      state.web3 = init.getweb3();
-      state.ConvergentPoolFactory = init.getContract()[0];
       state.ConvergentCurvePool = contract.ConvergentCurvePool;
       state.TrancheFactory = contract.TrancheFactory;
       state.Tranche = contract.eP;
+      state.InterestToken = contract.eY;
       state.UserProxy = contract.UserProxy;
       state.USDA = contract.USDA;
     },
@@ -38,39 +39,48 @@ export default new Vuex.Store({
     // }
   },
   actions: {
-    getContract({commit}) {
-      init.getWeb3().then(() => {
-        console.log("getContract")
-        commit("initContract");
-      }).catch(err => {
-        console.error(err);
-      });
-    },
     getAccount({commit}) {
-      init.getAcc().then(() => {
+      portal.enable().then(() => {
         commit("initAccount");
       }).catch(err => {
         console.error(err);
       });
     },
-    mint({state}, data) {
-      // console.log(state)
+    UserProxy_mint({state}, data) {
+      const called = state.UserProxy['mint'].call(
+          data._amount,
+          data._underlying,
+          data._expiration,
+          data._position,
+          [{
+            tokenContract: data.tokenContract,
+            who: data.who,
+            amount: data.amount,
+            expiration: data.expiration,
+            // r: data.r,
+            // s: data.s,
+            // v: data.v,
+          }]
+    )
+      console.log(called)
+
+      console.log(state)
       console.log(data)
-      state.ConvergentPoolFactory.methods.governance().call().then(res => {
-        console.log(res)
-        // resolve(res)
-      }).catch(error => {
-        // reject(error)
-      })
+
       return new Promise((resolve, reject) => {
-        state.ConvergentPoolFactory.methods.governance().call().then(res => {
+        portal.sendTransaction({
+          from: state.account,
+          to: called.to,
+          data: called.data,
+        }).then(res => {
           console.log(res)
           resolve(res)
         }).catch(error => {
           reject(error)
         })
+
       })
 
+    }
   }
-}
 })

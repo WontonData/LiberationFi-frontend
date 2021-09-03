@@ -56,25 +56,6 @@ class ConfluxPortal {
         param.spender,);
     console.log(msgParams)
     const acc = this.getAccount()
-    //r:0x9c1144dbac0ee058112b115d74c98d6788e1cd8221e2352062cafc5b809c279a
-    // s:0x5b524b59688dcc32f8d400d8898182b5dd723d8818a919162b39f642617d5bf0
-    //  v:0x1c
-
-    // r:0x451aa907d31abb3d8014741de048aac4f9b7fb6d3e50010d2ee5cb582b562a29
-    // s:0x0a05a643cb40c3f9792f9ad81380e21dae49ea861de1b71c90c5d976076a1f00
-    // v:0x1b
-
-    //r:0x5eba6fc8d98ce5d6a3603249d1e93e6689fedc8051990a3f3fc2eef332042591
-    //s:0x67b197cc1f1b7c26889ba1a9ab1a6f27749f2f0a0812183cbb65b5337124b1d5
-    //v:0x1c
-
-    //r:0xe8278ebea02f137f5a5ddcaeb1cfdc5cba9b874d0382f4ac810225cafc5d3c7c
-    //s:0x63e402bdc5153c4be90ea7a57b9c00765760e7774fa9f6f7dabed2a5c37c39bc
-    //v:0x1b
-
-    //r:0x75c4cc109df18bf9ca88d1b9a076cf83d935dd74d5a26234273d87c9bde3fe6f
-    //s:0x3eff39b074aeb28618b58f7df5e06e448261f72439816a95df17870df8add116
-    //v:0x1c
     let params = [acc, msgParams]
 
     return new Promise((resolve, reject) => {
