@@ -14,18 +14,26 @@
           <el-button type="warning" plain @click="sign">签名</el-button>
           <el-button type="warning" plain @click="permit">permit</el-button>
           <div >
-            <el-divider>message</el-divider>
-            <span>{{ this.result.message }}</span>
-            <el-divider>messageHash</el-divider>
-            <span>{{ this.result.messageHash }}</span>
-            <el-divider>r</el-divider>
-            <span>{{ this.result.r }}</span>
-            <el-divider>s</el-divider>
-            <span>{{ this.result.s }}</span>
-            <el-divider>v</el-divider>
-            <span>{{ this.result.v }}</span>
+<!--            <el-divider>message</el-divider>-->
+<!--            <span>{{ this.result.message }}</span>-->
+<!--            <el-divider>messageHash</el-divider>-->
+<!--            <span>{{ this.result.messageHash }}</span>-->
+<!--            <el-divider>r</el-divider>-->
+<!--            <span>{{ this.result.r }}</span>-->
+<!--            <el-divider>s</el-divider>-->
+<!--            <span>{{ this.result.s }}</span>-->
+<!--            <el-divider>v</el-divider>-->
+<!--            <span>{{ this.result.v }}</span>-->
             <!--            <el-divider>signature</el-divider>-->
             <!--            <span>{{ this.result.signature }}</span>-->
+            <el-input
+                style="margin-top:20px"
+                type="textarea"
+                :autosize="{ minRows: 10, maxRows: 20}"
+                resize="none"
+                placeholder=""
+                v-model="textarea">
+            </el-input>
           </div>
 
 
@@ -143,7 +151,17 @@ export default {
           r: res.r,
           s: res.s,
           v: res.v
-        })
+        });
+        let sign = {
+          tokanContract: params.address,
+          who: params.spender,
+          amount: '100000000000000000000',
+          expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
+          r: res.r,
+          s: res.s,
+          v: res.v
+        }
+        this.textarea = JSON.stringify(sign,undefined, 2);
       })
 
       //function
