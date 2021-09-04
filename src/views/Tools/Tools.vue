@@ -148,18 +148,18 @@ export default {
           who: params.spender,
           amount: '100000000000000000000',
           expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
+          v: res.v,
           r: res.r,
-          s: res.s,
-          v: res.v
+          s: res.s
         });
         let sign = {
           tokanContract: params.address,
           who: params.spender,
           amount: '100000000000000000000',
           expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
+          v: res.v,
           r: res.r,
-          s: res.s,
-          v: res.v
+          s: res.s
         }
         this.textarea = JSON.stringify(sign,undefined, 2);
       })
@@ -299,9 +299,9 @@ export default {
           who: params.spender,
           amount: '100000000000000000000',
           expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
+          v: res.v,
           r: res.r,
-          s: res.s,
-          v: res.v
+          s: res.s
         }
       })
       return sign
