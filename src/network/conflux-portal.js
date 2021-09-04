@@ -1,4 +1,4 @@
-import {util} from "js-conflux-sdk";
+import {util,format} from "js-conflux-sdk";
 // const util = require('js-conflux-sdk/src/util');
 import {conflux} from "@/network/conflux";
 
@@ -87,7 +87,7 @@ class ConfluxPortal {
         param.name,
         1,
         param.nonces);
-    // console.log(msgParams)
+    console.log(JSON.stringify(JSON.parse(msgParams),undefined, 2))
     const acc = this.getAccount()
     let params = [acc, msgParams]
 
@@ -120,7 +120,7 @@ class ConfluxPortal {
   }
 }
 
-function createSigMessage(contract, owner, spender,name = "USDA", chainId = 1 , nonce = 0, version = 1) {
+function createSigMessage(contract, owner, spender,name = "USDA", chainId = 1 , nonce = 0, version = "1") {
   const deadline = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 
   const types = {

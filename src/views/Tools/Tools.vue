@@ -91,7 +91,7 @@ import {mapActions, mapState} from "vuex";
 import confluxPortal from '@/network/conflux-portal'
 
 import ERC20PermitAbi from "@/network/abi/ERC20Permit.json"
-import UserProxyAbi from 'abi/UserProxy.json'
+import UserProxyAbi from '@/network/abi/UserProxy.json'
 import TrancheAbi from "@/network/abi/Tranche.json"
 
 export default {
@@ -137,7 +137,7 @@ export default {
         address: this.address
       });
       let res = await ERC20PermitToken.nonces(this.signer)
-      params.nonces = res.toJSON()
+      params.nonces = parseInt(res.toJSON())
       res= await ERC20PermitToken.name()
       params.name = res
       // console.log(params)
@@ -255,7 +255,7 @@ export default {
       return "0x8"+address.substring(24).substring(1)
       // console.log(keccakFromString("aaaab").toString('hex'))
     },
-    async genSignature(address,spender,abi = ERC20PermitAbi,contract = undefined){
+    async genSignature(address,spender,abi = ERC20PermitAbi,contract = undefined,nonces = undefined,name = undefined){
       let sign = ""
       let params = {
         address: "",
@@ -265,6 +265,7 @@ export default {
       }
 
       // uToekn-userProxy 
+      let res
       let thisContract 
       if(contract){
         thisContract = contract
@@ -274,10 +275,20 @@ export default {
           address: address
         });
       }
-      let res = await thisContract.nonces(this.signer)
-      params.nonces = res.toJSON()
-      res= await thisContract.name()
-      params.name = res
+      if(nonces){
+        params.nonces = nonces
+      }else{
+        res = await thisContract.nonces(this.signer)
+        params.nonces = parseInt(res.toJSON())
+      }
+      
+      if(name){
+        params.name = name
+        console.log(params.name)
+      }else{
+        res= await thisContract.name()
+        params.name = res
+      }
       params.address = address
       params.spender = spender
       // console.log(params)
@@ -299,28 +310,35 @@ export default {
       let signs = []
 
       // uToekn-userProxy 
-      this.genSignature(this.underlyingTokenAddr,this.userProxyAddr).then((res) => {
+      let underlyingToken = this.conflux.Contract({
+        abi: ERC20PermitAbi,
+        address: this.underlyingTokenAddr
+      });
+      let res = await underlyingToken.nonces(this.signer)
+      let nonces = parseInt(res.toJSON())
+      this.genSignature(this.underlyingTokenAddr,this.userProxyAddr,ERC20PermitAbi,underlyingToken,nonces).then((res) => {
         signs.push(res)
       })
 
       // uToekn-YVaultAssetProxy 
-      this.genSignature(this.underlyingTokenAddr,this.wrappedPositionAddr).then((res) => {
+      nonces++
+      this.genSignature(this.underlyingTokenAddr,this.wrappedPositionAddr,ERC20PermitAbi,underlyingToken,nonces).then((res) => {
         signs.push(res)
       })
 
-      // pToekn-userProxy 
+      // pToekn-userProxy
       let TrancheAddr = this.deriveTranche(this.wrappedPositionAddr,this.expiration)
       let Tranche =  this.conflux.Contract({
         abi: TrancheAbi,
         address: TrancheAddr
       });
-      this.genSignature(this.underlyingTokenAddr,this.wrappedPositionAddr,TrancheAbi,Tranche).then((res) => {
+      this.genSignature(TrancheAddr,this.wrappedPositionAddr,TrancheAbi,Tranche).then((res) => {
         signs.push(res)
       })
 
       // yToekn-userProxy 
       let yTokenAddr = await Tranche.interestToken()
-      this.genSignature(yTokenAddr,this.wrappedPositionAddr).then((res) => {
+      this.genSignature(yTokenAddr,this.wrappedPositionAddr,ERC20PermitAbi).then((res) => {
         signs.push(res)
       })
 
