@@ -225,7 +225,7 @@
             "type": "uint8"
           }
         ],
-        "internalType": "struct UserProxy.PermitData[]",
+          "internalType": "struct UserProxy.PermitData[]",
         "name": "_permitCallData",
         "type": "tuple[]"
       }

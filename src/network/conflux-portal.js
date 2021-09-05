@@ -29,14 +29,15 @@ class ConfluxPortal {
 
   //发送交易
   async sendTransaction(params) {
+    console.log(params)
     return new Promise((resolve, reject) => {
       this.conflux.sendAsync({
         method: 'cfx_sendTransaction',
         params: [params],
         from: params.from,
-        gasPrice: '0x09184e72a000', // customizable by user during ConfluxPortal confirmation.
-        gas: '0x2710',  // customizable by user during ConfluxPortal confirmation.
-        value: '0x00',
+        // gasPrice: '0x09184e72a000', // customizable by user during ConfluxPortal confirmation.
+        // gas: '0x2710',  // customizable by user during ConfluxPortal confirmation.
+        // value: '0x00',
       }, (err, data) => {
         if (err) {
           reject(err)
@@ -47,37 +48,6 @@ class ConfluxPortal {
     })
   }
 
-
-  async sign(param) {
-
-    const msgParams = createSigMessage(
-        param.address,
-        this.getAccount(),
-        param.spender,);
-    console.log(msgParams)
-    const acc = this.getAccount()
-    let params = [acc, msgParams]
-
-    return new Promise((resolve, reject) => {
-      this.conflux.sendAsync({
-        chainId: 1,
-        method: 'cfx_signTypedData_v4',
-        params,
-        from: acc
-      }, (err, sign) => {
-        resolve(sign)
-
-        const sig = sign.result;
-        console.log('signature', sig);
-        const r = '0x' + sig.substring(2).substring(0, 64);
-        const s = '0x' + sig.substring(2).substring(64, 128);
-        const v = '0x' + sig.substring(2).substring(128, 130);
-        console.log("r:" + r)
-        console.log("s:" + s)
-        console.log("v:" + v)
-      })
-    })
-  }
   async _sign(param) {
 
     const msgParams = createSigMessage(
@@ -87,7 +57,7 @@ class ConfluxPortal {
         param.name,
         1,
         param.nonces);
-    console.log(JSON.stringify(JSON.parse(msgParams),undefined, 2))
+    // console.log(JSON.stringify(JSON.parse(msgParams),undefined, 2))
     const acc = this.getAccount()
     let params = [acc, msgParams]
 
@@ -110,9 +80,6 @@ class ConfluxPortal {
         res.r = '0x' + res.sig.substring(2).substring(0, 64);
         res.s = '0x' + res.sig.substring(2).substring(64, 128);
         res.v = '0x' + res.sig.substring(2).substring(128, 130);
-        // console.log("r:" + r)
-        // console.log("s:" + s)
-        // console.log("v:" + v)
 
         resolve(res)
       })

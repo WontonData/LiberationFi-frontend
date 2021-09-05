@@ -47,25 +47,17 @@ export default new Vuex.Store({
       });
     },
     UserProxy_mint({state}, data) {
+
       const called = state.UserProxy['mint'].call(
           data._amount,
           data._underlying,
           data._expiration,
           data._position,
-          [{
-            tokenContract: data.tokenContract,
-            who: data.who,
-            amount: data.amount,
-            expiration: data.expiration,
-            // r: data.r,
-            // s: data.s,
-            // v: data.v,
-          }]
-    )
+          data._permitCallData
+      )
       console.log(called)
 
       console.log(state)
-      console.log(data)
 
       return new Promise((resolve, reject) => {
         portal.sendTransaction({

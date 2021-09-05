@@ -29,7 +29,7 @@ export const WCFX = conflux.Contract({
 
 export const UserProxy = conflux.Contract({
   abi: require("./abi/UserProxy.json"),
-  address: 'cfxtest:acfr36z84u1t9km1j3c3ppb0tcas88r5se30k3e8bx'
+  address: 'cfxtest:acc8k6yz4s9fxu85j397b1k1je1jzferxpgr65ngzx'
 });
 
 export const ConvergentCurvePool = conflux.Contract({
@@ -44,7 +44,7 @@ export const USDA = conflux.Contract({
 
 export const Yault_xUSDA = conflux.Contract({
   abi: require("./abi/Yault_xUSDA.json"),
-  address: 'cfxtest:acav86b6evga8h1vs0v4nhrev326912xspn6trz4gg'
+  address: 'cfxtest:acfj6eu4w68d0732kn77afa9agrj9uzpmpeyvsue5g'
 });
 
 export const YVaultAssetProxy = conflux.Contract({
@@ -61,6 +61,11 @@ export const eY = conflux.Contract({
   abi: require("./abi/InterestToken.json"),
   address: 'cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j'
 });
+
+// export const eY = conflux.Contract({
+//   abi: require("./abi/ERC20Permit.json"),
+//   address: 'cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j'
+// });
 
 // export const USDAAdd = 'cfxtest:acgfgvhxwfeduu07a6pf6u538aj7at2veasb6fxhu0'
 
