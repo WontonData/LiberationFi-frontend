@@ -10,7 +10,7 @@
       </el-col>
     </el-row>
     <el-row style="margin-top: 35px;">
-      <el-col>买卖代币或在 Element 本金池中提供流动性。</el-col>
+      <el-col>Buy and sell principal tokens or provide liquidity in principal pools.</el-col>
     </el-row>
 
     <p-trade-table v-if="selectPools" class="trade-table" :token-list="tokenList" />

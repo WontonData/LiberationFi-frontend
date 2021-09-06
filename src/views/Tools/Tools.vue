@@ -14,18 +14,6 @@
           <el-button type="warning" plain @click="sign">签名</el-button>
           <el-button type="warning" plain @click="permit">permit</el-button>
           <div >
-<!--            <el-divider>message</el-divider>-->
-<!--            <span>{{ this.result.message }}</span>-->
-<!--            <el-divider>messageHash</el-divider>-->
-<!--            <span>{{ this.result.messageHash }}</span>-->
-<!--            <el-divider>r</el-divider>-->
-<!--            <span>{{ this.result.r }}</span>-->
-<!--            <el-divider>s</el-divider>-->
-<!--            <span>{{ this.result.s }}</span>-->
-<!--            <el-divider>v</el-divider>-->
-<!--            <span>{{ this.result.v }}</span>-->
-            <!--            <el-divider>signature</el-divider>-->
-            <!--            <span>{{ this.result.signature }}</span>-->
             <el-input
                 style="margin-top:20px"
                 type="textarea"

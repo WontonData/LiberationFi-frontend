@@ -7,7 +7,7 @@
             <div class="left">
               <img alt="美元" :src="'img/token/' + token.icon + '.svg'" height="38" width="38">
             </div>
-            <item-text class="left" :data=token.name title="向往金库"/>
+            <item-text class="left" :data=token.name title="Asset"/>
           </div>
           <div style="width: 12%">
             <item-text :data="token.elementTVL + ' 美元'"/>
@@ -16,22 +16,22 @@
             <item-text :data="token.vaultAPY + '%'"/>
           </div>
           <div style="width: 7%">
-            <item-text :data="token.lpAPY1 + '%'" title="主要的"/>
-            <item-text :data="token.lpAPY2 + '%'" title="屈服"/>
+            <item-text :data="token.lpAPY1 + '%'" title="Principal"/>
+            <item-text :data="token.lpAPY2 + '%'" title="Yield"/>
           </div>
           <div style="width: 12%">
-            <item-text :data="token.liquidity1 + ' 美元'" title="本金池"/>
-            <item-text :data="token.liquidity2 + ' 美元'" title="收益池"/>
+            <item-text :data="token.liquidity1 + ' 美元'" title="Principal Pool"/>
+            <item-text :data="token.liquidity2 + ' 美元'" title="Yield Pool"/>
           </div>
           <div style="width: 9%">
-            <item-text :data="token.price1" title="主体代币"/>
-            <item-text :data="token.price2" title="收益代币"/>
+            <item-text :data="token.price1" title="Ptoken"/>
+            <item-text :data="token.price2" title="Ytoken"/>
           </div>
           <div style="width: 8%">
             <item-text :data="token.fixedAPR + '%'"/>
           </div>
           <div style="width: 18%">
-            <item-time :time="token.term" day="88天" rest="2 个月，还有 20 天"/>
+            <item-time :time="token.term" day="88天" :percentage="token.proportion"/>
 
           </div>
           <div style="width: 7%">

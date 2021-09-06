@@ -2,15 +2,19 @@
   <div>
     <el-row>
       <el-col :span="22" :offset="1">
-        <el-input @input="calculate('token')" type="number" class="number-input" placeholder="0.00" v-model="number">
+        <el-input @input="calculate('token')"
+                  type="number"
+                  class="number-input"
+                  placeholder="0.00"
+                  v-model="number">
           <template slot="prepend">{{ token.token1 }}</template>
         </el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">余额： {{ tokenBalance + ' ' + token.token1 }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{ tokenBalance + ' ' + token.token1 }}</span></el-col>
       <el-col :span="11">
-        <el-button @click="toMax('token')" class="right" type="warning" plain size="mini">最大</el-button>
+        <el-button @click="toMax('token')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -26,9 +30,9 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">余额： {{ YPBalance + ' ' + tokenName }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{ YPBalance + ' ' + tokenName }}</span></el-col>
       <el-col :span="11">
-        <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">最大</el-button>
+        <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
     </el-row>
   </div>
@@ -39,8 +43,8 @@ export default {
   name: "PoolSell",
   data() {
     return {
-      number: 0.00,
-      buyNumber: 0.00,
+      number: null,
+      buyNumber: null,
     }
   },
   props: {

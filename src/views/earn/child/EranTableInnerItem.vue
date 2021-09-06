@@ -21,7 +21,7 @@
       </div>
       <div style="width: 40%">
         <div v-if="isConfirm" class="skeleton">
-          <el-skeleton :rows="5"/>
+          <el-skeleton :rows="6"/>
           <el-skeleton-item variant="button" style="width: 100%; margin-top: 25px"/>
         </div>
         <div v-else>
@@ -40,17 +40,13 @@
 <script>
 import MintCard from "../../../components/card/MintCard";
 import ConfirmCard from "../../../components/card/ConfirmCard";
-// import store from "../../../store";
 
 import {mapState, mapActions} from "vuex";
 import confluxPortal from '@/network/conflux-portal'
 import ERC20PermitAbi from "@/network/abi/ERC20Permit.json"
-import UserProxyAbi from '@/network/abi/UserProxy.json'
 import TrancheAbi from "@/network/abi/Tranche.json"
 import {format} from "js-conflux-sdk";
 import {keccakFromHexString} from "ethereumjs-util";
-
-// import USDAAdd from '@/network/conflux'
 
 export default {
   name: "EranTableInnerItem",
@@ -61,15 +57,15 @@ export default {
   data() {
     return {
       activities: [{
-        content: '输入铸币金额',
+        content: 'Enter the coinage amount',
         type: '',
         icon: ''
       }, {
-        content: '确认信息',
+        content: 'Confirm the information',
         type: '',
         icon: ''
       }, {
-        content: '交易成功',
+        content: 'trade successfully',
         type: '',
         icon: ''
       }],
@@ -98,19 +94,19 @@ export default {
     ...mapActions(["UserProxy_mint",]),
     deriveTranche(_position, _expiration) {
       let _expirationHex = parseInt(_expiration).toString(16);
-      while(_expirationHex.length<64){
+      while (_expirationHex.length < 64) {
         _expirationHex = "0" + _expirationHex;
       }
-      _position = format.hexAddress(_position)+_expirationHex
-      let salt =  keccakFromHexString(_position).toString('hex')
+      _position = format.hexAddress(_position) + _expirationHex
+      let salt = keccakFromHexString(_position).toString('hex')
       let address = keccakFromHexString(
-          "0xff"+format.hexAddress(this.trancheFactoryAddr).substring(2)+salt+this.trancheBytecodeHash
+          "0xff" + format.hexAddress(this.trancheFactoryAddr).substring(2) + salt + this.trancheBytecodeHash
       ).toString('hex')
 
-      this.textarea = "0x8"+address.substring(24).substring(1)
-      return "0x8"+address.substring(24).substring(1)
+      this.textarea = "0x8" + address.substring(24).substring(1)
+      return "0x8" + address.substring(24).substring(1)
     },
-    async genSignature(address,spender,abi = ERC20PermitAbi,contract = undefined,nonces = undefined,name = undefined){
+    async genSignature(address, spender, abi = ERC20PermitAbi, contract = undefined, nonces = undefined, name = undefined) {
       let sign = ""
       let params = {
         address: "",
@@ -122,38 +118,38 @@ export default {
       // uToekn-userProxy
       let res
       let thisContract
-      if(contract){
+      if (contract) {
         thisContract = contract
-      }else{
-        thisContract =  this.conflux.Contract({
+      } else {
+        thisContract = this.conflux.Contract({
           abi: abi,
           address: address
         });
       }
-      if(nonces){
+      if (nonces) {
         params.nonces = nonces
-      }else{
+      } else {
         res = await thisContract.nonces(this.account)
         params.nonces = parseInt(res.toJSON())
       }
 
-      if(name){
+      if (name) {
         params.name = name
         console.log(params.name)
-      }else{
-        res= await thisContract.name()
+      } else {
+        res = await thisContract.name()
         params.name = res
       }
       params.address = address
       params.spender = spender
+      params.value = (this.number * 1000000000000000000) + ''
       console.log(params)
       await confluxPortal._sign(params).then((res) => {
         // console.log('signature', res);
         sign = {
           tokenContract: params.address,
           who: params.spender,
-          // amount: this.number * 1000000000000000000,
-          amount: 100000000000000000000,
+          amount: (this.number * 1000000000000000000) + '',
           expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
           v: res.v,
           r: res.r,
@@ -177,42 +173,42 @@ export default {
       console.log('signs')
 
       let nonces = parseInt(res.toJSON())
-      this.genSignature(this.underlyingTokenAddr,this.userProxyAddr,ERC20PermitAbi,underlyingToken,nonces).then((res) => {
+      await this.genSignature(this.underlyingTokenAddr, this.userProxyAddr, ERC20PermitAbi, underlyingToken, nonces).then((res) => {
         signs.push(res)
       })
 
       // uToekn-YVaultAssetProxy
       nonces++
-      this.genSignature(this.underlyingTokenAddr,this.wrappedPositionAddr,ERC20PermitAbi,underlyingToken,nonces).then((res) => {
+      this.genSignature(this.underlyingTokenAddr, this.wrappedPositionAddr, ERC20PermitAbi, underlyingToken, nonces).then((res) => {
         signs.push(res)
       })
 
       //判断allowance Tranche
       // pToekn-userProxy
-      let TrancheAddr = this.deriveTranche(this.wrappedPositionAddr,this.expiration)
-      let Tranche =  this.conflux.Contract({
+      let TrancheAddr = this.deriveTranche(this.wrappedPositionAddr, this.expiration)
+      let Tranche = this.conflux.Contract({
         abi: TrancheAbi,
         address: TrancheAddr
       });
-      this.genSignature(TrancheAddr,this.wrappedPositionAddr,TrancheAbi,Tranche).then((res) => {
+      this.genSignature(TrancheAddr, this.wrappedPositionAddr, TrancheAbi, Tranche).then((res) => {
         signs.push(res)
       })
 
       //判断allowance interestToken
       // yToekn-userProxy
       let yTokenAddr = await Tranche.interestToken()
-      this.genSignature(yTokenAddr,this.wrappedPositionAddr,ERC20PermitAbi).then((res) => {
+      this.genSignature(yTokenAddr, this.wrappedPositionAddr, ERC20PermitAbi).then((res) => {
         signs.push(res)
       })
 
-      while(signs.length<4) {
+      while (signs.length < 4) {
         await this.wait(50)
       }
       console.log(signs)
       // this.textarea = JSON.stringify(signs,undefined, 2)
       return signs
     },
-    wait (time) {
+    wait(time) {
       return new Promise(resolve => {
         setTimeout(() => {
           resolve()
@@ -231,55 +227,40 @@ export default {
     //确认mint
     confirm() {
 
-      // console.log();
       this.genSignature_calldata().then(res => {
         console.log(res)
+        this.activities[1].type = 'success';
+        this.activities[1].icon = 'el-icon-check';
+
         const mintParams = {
-          _amount: 100000000000000000000,
+          _amount: (this.number * 1000000000000000000) + '',
           _underlying: this.token.underlying,
           _expiration: this.token.unlockTimestamp,
           _position: this.token.position,
-
           _permitCallData: res
-          // tokenContract: this.USDA.address,
-          // who: this.account,
-          // amount: this.number * 1000000000000000000,
-          // expiration: this.token.unlockTimestamp,
-          // // r: sign.r,
-          // // s: sign.s,
-          // // v: sign.v,
         }
         console.log(mintParams)
 
-        // let UserProxy = window.confluxJS.Contract({
-        //   abi: require("@/network/abi/UserProxy.json"),
-        //   address: 'cfxtest:acfr36z84u1t9km1j3c3ppb0tcas88r5se30k3e8bx'
-        // });
-        // console.log(format.hexBuffer('0x6222f5ae6a12eca3d3a14f843aac63934c298b1b380b180f52d0d31e5742e712'))
-        // UserProxy.mint(
-        //     mintParams._amount,
-        //     mintParams._underlying,
-        //     mintParams._expiration,
-        //     mintParams._position,
-        //     mintParams._permitCallData
-        // ).sendTransaction({
-        //   from: this.account
-        // }).then(res => {
-        //   console.log(res)
-        // })
-
-
         this.UserProxy_mint(mintParams).then(res => {
+
           console.log(res)
-          this.activities[2].type = 'success';
-          this.activities[2].icon = 'el-icon-check';
+          if (res.result) {
+            this.activities[2].type = 'success';
+            this.activities[2].icon = 'el-icon-check';
+            const msg = "交易成功！ <b><a target='_blank' href=https://testnet.confluxscan.io/address/"
+                + res.result + " >点击查看</a></b>"
+            this.$message({
+              type: 'success',
+              dangerouslyUseHTMLString: true,
+              message: msg
+            });
+
+          }
+
         });
       })
-      this.$emit("confirm", this.number)
-      this.activities[1].type = 'success';
-      this.activities[1].icon = 'el-icon-check';
-      //签名
 
+      //签名
 
 
       // store.dispatch("mint", {number: 123, type: 'mint'}).then(res => {

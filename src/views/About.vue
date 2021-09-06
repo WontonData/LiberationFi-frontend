@@ -108,6 +108,8 @@ export default {
       const unlockTimestamp = await this.Tranche.unlockTimestamp()
       this.tokenList[0].unlockTimestamp = unlockTimestamp[0]
       this.tokenList[0].term = this.formatDate(unlockTimestamp)
+      this.tokenList[0].proportion = this.proportionDate(unlockTimestamp)
+
       // let valueSupplied = await this.Tranche.valueSupplied()
       // let totalSupply1 = await this.Tranche.totalSupply()
       // let hitSpeedbump = await this.Tranche.hitSpeedbump()
@@ -126,8 +128,16 @@ export default {
       const month = date.getMonth() + 1;
       const day = date.getDate();
 
-      return year + '-' + (String(month).length > 1 ? month : '0' + month) + '-' +
-          (String(day).length > 1 ? day : '0' + day)
+      return year + ' 年 ' + (String(month).length > 1 ? month : '0' + month) + ' 月 ' +
+          (String(day).length > 1 ? day : '0' + day) + ' 日 '
+    },
+
+    proportionDate(timestamp) {
+      const now = new Date().getTime();
+      const start = new Date('2021-8-1').getTime()
+      // const end =Date.parse(timestamp);
+      console.log(now, start, timestamp)
+      return (now-start)/(timestamp*1000-start)*100
     },
 
     splitName(name) {

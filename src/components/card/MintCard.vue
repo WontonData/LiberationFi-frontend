@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="hover">
     <el-row style="padding-top: 0">
-      <el-col :span="24"><span class="title">使用您的 {{ token.token1 }} 铸币本金和收益代币</span></el-col>
+      <el-col :span="24"><span class="title">Mint Principal and Yield tokens with your {{ token.token1 }}</span></el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
@@ -14,25 +14,28 @@
     </el-row>
 
     <el-row>
-      <el-col :span="12"><span class="left">余额：{{ max }} {{ token.token1 }}</span></el-col>
+      <el-col :span="12"><span class="left">Available balance：{{ max }} {{ token.token1 }}</span></el-col>
       <el-col :span="12">
-        <el-button @click="toMax" class="right" type="warning" plain size="mini">最大</el-button>
+        <el-button @click="toMax" class="right" type="warning" plain size="mini">MAX</el-button>
       </el-col>
     </el-row>
 
     <el-row>
       <el-col :span="12">
-        <item-text :data="Pnumber + ' ' + token.token2" title="您收到的主要代币"/>
+        <item-text :data="Pnumber + ' ' + token.token2" title="Principal Tokens you receive"/>
       </el-col>
       <el-col :span="12">
-        <item-text :data="Ynumber + ' ' + token.token3" title="您收到的收益代币"/>
+        <item-text :data="Ynumber + ' ' + token.token3" title="Yield Tokens you receive"/>
       </el-col>
     </el-row>
 
     <el-row>
       <el-col :span="24">
-        <el-button v-if="account" @click="mint" class="mint" type="warning" plain>Mint</el-button>
-        <el-button v-else @click="mint" disabled class="mint" type="warning" plain>请先连接钱包</el-button>
+        <el-button v-if="account"
+                   @click="mint"
+                   :disabled="number == null || number === '' || number >= max"
+                   class="mint" type="warning" plain>Mint</el-button>
+        <el-button v-else @click="mint" disabled class="mint" type="warning" plain>Enter an amount</el-button>
       </el-col>
     </el-row>
   </el-card>
@@ -94,7 +97,7 @@ export default {
 
 <style scoped>
 .el-row {
-  padding-top: 14px;
+  padding-top: 18px;
 }
 
 .el-card {

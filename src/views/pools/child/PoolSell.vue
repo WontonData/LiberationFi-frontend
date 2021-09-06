@@ -8,9 +8,9 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">余额： {{YPBalance + ' ' + tokenName }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{YPBalance + ' ' + tokenName }}</span></el-col>
       <el-col :span="11">
-        <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">最大</el-button>
+        <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -26,9 +26,9 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">余额： {{tokenBalance + ' ' + token.token1 }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{tokenBalance + ' ' + token.token1 }}</span></el-col>
       <el-col :span="11">
-        <el-button @click="toMax('token')" class="right" type="warning" plain size="mini">最大</el-button>
+        <el-button @click="toMax('token')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
     </el-row>
   </div>
@@ -39,8 +39,8 @@ export default {
   name: "PoolSell",
   data() {
     return {
-      number: 0.00,
-      sellNumber: 0.00,
+      number: null,
+      sellNumber: null,
     }
   },
   props: {

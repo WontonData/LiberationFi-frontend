@@ -2,14 +2,14 @@
   <div>
     <el-row>
       <el-col :span="20" :offset="2">
-        <div style="width: 25%">水池</div>
-        <div style="width: 11%" >流动性</div>
+        <div style="width: 25%">Pool</div>
+        <div style="width: 11%" >Liquidity</div>
 <!--        <div style="width: 10%" >Fixed APR</div>-->
         <div style="width: 6%" >LP APY</div>
-        <div style="width: 11%" >保险库APY</div>
-        <div style="width: 11%" >价钱</div>
+        <div style="width: 11%" >Vault APY</div>
+        <div style="width: 11%" >Price</div>
         <!--        <div style="width: 8%" >Term</div>-->
-        <div style="width: 25%" >学期</div>
+        <div style="width: 25%" >Term</div>
         <div style="width: 11%"></div>
       </el-col>
     </el-row>

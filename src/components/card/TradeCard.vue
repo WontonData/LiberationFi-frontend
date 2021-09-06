@@ -5,7 +5,7 @@
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick" >
 
           <el-tab-pane name="buy">
-            <span slot="label"><i class="el-icon-sold-out"></i> 买入</span>
+            <span slot="label"><i class="el-icon-sold-out"></i> buy</span>
             <pool-buy
                 :token="token"
                 :token-name="tokenName"
@@ -16,7 +16,7 @@
           </el-tab-pane>
 
           <el-tab-pane name="sell">
-            <span slot="label"><i class="el-icon-sell"></i> 卖出</span>
+            <span slot="label"><i class="el-icon-sell"></i> sell</span>
             <pool-sell
                 :token="token"
                 :token-name="tokenName"
@@ -27,7 +27,7 @@
           </el-tab-pane>
 
           <el-tab-pane name="add">
-            <span slot="label"><i class="el-icon-s-claim"></i> 增加流动性</span>
+            <span slot="label"><i class="el-icon-s-claim"></i> Add LP</span>
             <pool-add
                 :token="token"
                 :token-name="tokenName"
@@ -38,7 +38,7 @@
           </el-tab-pane>
 
           <el-tab-pane name="remove">
-            <span slot="label"><i class="el-icon-s-release"></i> 去除流动性</span>
+            <span slot="label"><i class="el-icon-s-release"></i> Remove LP</span>
             <pool-remove
                 :token="token"
                 :token-name="tokenName"
@@ -66,22 +66,25 @@ import PoolBuy from "../../views/pools/child/PoolBuy";
 import PoolSell from "../../views/pools/child/PoolSell";
 import PoolAdd from "../../views/pools/child/PoolAdd";
 import PoolRemove from "../../views/pools/child/PoolRemove";
+import {conflux} from "../../network/conflux";
 
 export default {
   name: "TradeCard",
   components: {PoolRemove, PoolAdd, PoolSell, PoolBuy, ItemText},
   computed: {
-    ...mapState(["account"]),
+    ...mapState(["account", "Tranche", "InterestToken", "USDA"]),
   },
   data() {
     return {
+      YPContract: null,
       tokenNumber: 0.00,
       YPNumber: 0.00,
+
       YPBalance: 4.670,
       tokenBalance: 3.095,
       LPBalance: 6.334,
-      activeName: 'buy'
 
+      activeName: 'buy'
     }
   },
   props: {
@@ -92,7 +95,22 @@ export default {
       type: String
     }
   },
+  created() {
+    const type = this.tokenName.split(':')[0]
+    if (type === 'eY') {
+      this.YPContract = this.InterestToken
+    } else {
+      this.YPContract = this.Tranche
+    }
+    this.YPContract.balanceOf(this.account).then(res => {
+      this.YPBalance = res.toString()/1000000000000000000
+    })
+    this.USDA.balanceOf(this.account).then(res => {
+      this.tokenBalance = res.toString()/1000000000000000000
+    })
+  },
   methods: {
+
     calculate(tokenNumber, YPNumber) {
       console.log(tokenNumber, YPNumber)
       this.tokenNumber = tokenNumber*1
@@ -106,7 +124,6 @@ export default {
     handleClick(tab, event) {
       this.YPNumber = 0;
       this.tokenNumber = 0;
-      console.log(tab, event);
     }
   }
 }

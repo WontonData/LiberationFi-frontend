@@ -35,9 +35,9 @@ class ConfluxPortal {
         method: 'cfx_sendTransaction',
         params: [params],
         from: params.from,
-        // gasPrice: '0x09184e72a000', // customizable by user during ConfluxPortal confirmation.
-        // gas: '0x2710',  // customizable by user during ConfluxPortal confirmation.
-        // value: '0x00',
+        gasPrice: '0x09184e72a000', // customizable by user during ConfluxPortal confirmation.
+        gas: '0x2710',  // customizable by user during ConfluxPortal confirmation.
+        value: '0x00',
       }, (err, data) => {
         if (err) {
           reject(err)
@@ -54,6 +54,7 @@ class ConfluxPortal {
         param.address,
         this.getAccount(),
         param.spender,
+        param.value,
         param.name,
         1,
         param.nonces);
@@ -87,7 +88,7 @@ class ConfluxPortal {
   }
 }
 
-function createSigMessage(contract, owner, spender,name = "USDA", chainId = 1 , nonce = 0, version = "1") {
+function createSigMessage(contract, owner, spender, value, name = "USDA", chainId = 1 , nonce = 0, version = "1") {
   const deadline = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 
   const types = {
@@ -111,7 +112,7 @@ function createSigMessage(contract, owner, spender,name = "USDA", chainId = 1 , 
   const message = {
     "owner": owner,
     "spender": spender,
-    "value": '100000000000000000000',
+    "value": value,
     "nonce": nonce,
     "deadline": deadline
   }

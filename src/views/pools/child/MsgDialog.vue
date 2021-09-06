@@ -12,15 +12,15 @@
       </el-input>
 
       <div class="box">
-        <div class="item-title left">兑换率</div>
+        <div class="item-title left">Market rate</div>
         <div class="item-data right">{{ '1 Principal Token ≈ 0.993 ' + token.token1 }}</div>
       </div>
       <div class="box">
-        <div class="item-title left">交易费</div>
+        <div class="item-title left">Trade fee</div>
         <div class="item-data right">0.31%</div>
       </div>
       <div class="box">
-        <div class="item-title left">滑点公差</div>
+        <div class="item-title left">Price impact</div>
         <span class="item-data right">0.30%</span>
       </div>
     </div>
@@ -35,15 +35,15 @@
       </el-input>
 
       <div class="box">
-        <div class="item-title left">兑换率</div>
+        <div class="item-title left">Market rate</div>
         <div class="item-data right">{{ '1 Principal Token ≈ 0.993 ' + token.token1 }}</div>
       </div>
       <div class="box">
-        <div class="item-title left">交易费</div>
+        <div class="item-title left">Trade fee</div>
         <div class="item-data right">0.31%</div>
       </div>
       <div class="box">
-        <div class="item-title left">滑点公差</div>
+        <div class="item-title left">Price impact</div>
         <span class="item-data right">0.30%</span>
       </div>
     </div>
@@ -58,11 +58,11 @@
       </el-input>
 
       <div class="box">
-        <div class="item-title left">池份额</div>
+        <div class="item-title left">Share of pool</div>
         <div class="item-data right">{{ '0.07%' }}</div>
       </div>
       <div class="box">
-        <div class="item-title left">LPAPY</div>
+        <div class="item-title left">LP APY</div>
         <div class="item-data right">0.01%</div>
       </div>
       <div class="box">
@@ -136,11 +136,11 @@ i {
 </style>
 <style>
 .dialog-input .el-input__inner {
-  background-color: var(--purple-background) !important;
+  background-color: var(--purple-card) !important;
   color: var(--color-text) !important;
 }
 .dialog-input .el-input-group__prepend {
-  background-color: var(--purple-light);
+  background-color: var(--purple-card-background);
   color: var(--color-text) !important;
 }
 </style>

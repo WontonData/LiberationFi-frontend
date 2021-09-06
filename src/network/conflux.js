@@ -62,40 +62,6 @@ export const eY = conflux.Contract({
   address: 'cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j'
 });
 
-// export const eY = conflux.Contract({
-//   abi: require("./abi/ERC20Permit.json"),
-//   address: 'cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j'
-// });
-
-// export const USDAAdd = 'cfxtest:acgfgvhxwfeduu07a6pf6u538aj7at2veasb6fxhu0'
-
-async function main() {
-  // use conflux to get balance (in Drip) of a conflux address
-  const address = 'cfxtest:aatjmdpyhmgf1wbe3h4b3m6x7yy7esd0525m76vk3m';
-  const balance = await conflux.getBalance(address);
-  console.log(balance);
-  // const account = conflux.wallet.addPrivateKey('0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef');
-
-  const TrancheFactory = conflux.Contract({
-    abi: require("./abi/TrancheFactory.json"),
-    address: 'cfxtest:acc8skess5tg8eg9zuvmuj8vxysgca0w9uvtgjmkzn'
-  });
-
-  console.log();
-
-  const data = await TrancheFactory.getData()
-  // DonateFactory.charities(2).call()
-  TrancheFactory.getData().call()
-      .then(res => {
-        console.log(res)
-      })
-  console.log(data.toString());
-
-}
-
-// main();
-
-
 export default {
   conflux,
   InterestTokenFactory,

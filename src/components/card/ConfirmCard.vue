@@ -1,46 +1,46 @@
 <template>
   <el-card shadow="hover">
     <el-row style="padding-top: 0">
-      <el-col :span="24"><span class="title">信息确认</span></el-col>
+      <el-col :span="24"><span class="title">Confirm the information</span></el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">用户地址：</span></el-col>
+      <el-col :span="5"><span class="left front">amount：</span></el-col>
       <el-col :span="19">
         <span class="left">{{ accountCut }}</span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">押金：</span></el-col>
+      <el-col :span="5"><span class="left front">deposit：</span></el-col>
       <el-col :span="19">
         <span class="left">{{ number + ' ' + token.token1}} </span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">主要代币：</span></el-col>
+      <el-col :span="5"><span class="left front">Principal：</span></el-col>
       <el-col :span="19">
         <span class="left">{{ number }} {{ token.token2 }}</span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">收益代币：</span></el-col>
+      <el-col :span="5"><span class="left front">Yield：</span></el-col>
       <el-col :span="19">
         <span class="left">{{ number }} {{ token.token3 }}</span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">到期时间：</span></el-col>
+      <el-col :span="5"><span class="left front">Term date：</span></el-col>
       <el-col :span="19">
         <span class="left">{{ token.term }}</span>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24" >
-        <el-button @click="confirm" class="mint" type="warning" plain>确认</el-button>
+        <el-button @click="confirm" class="mint" type="warning" plain>Confirm</el-button>
       </el-col>
     </el-row>
   </el-card>
@@ -75,7 +75,7 @@ export default {
 
 <style scoped>
 .el-row {
-  padding-top: 14px;
+  padding-top: 16px;
   line-height: 18px;
 }
 

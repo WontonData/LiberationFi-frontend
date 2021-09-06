@@ -34,9 +34,6 @@ export default new Vuex.Store({
       state.UserProxy = contract.UserProxy;
       state.USDA = contract.USDA;
     },
-    // toMint(state) {
-    //   return state.ConvergentPoolFactory.methods.governance().call()
-    // }
   },
   actions: {
     getAccount({commit}) {
@@ -56,8 +53,6 @@ export default new Vuex.Store({
           data._permitCallData
       )
       console.log(called)
-
-      console.log(state)
 
       return new Promise((resolve, reject) => {
         portal.sendTransaction({
