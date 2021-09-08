@@ -80,7 +80,7 @@
   .box-card {
     width: 500px;
     height: 570px;
-    background-color: var(--purple-background);
+    background-color: var(--purple-card-save);
     border-radius: 15px;
   }
   .card1 {

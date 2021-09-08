@@ -4,20 +4,20 @@
       <el-main>
         <el-row>
           <el-col :span="24" class="main-title">
-              <span>DeFi的固定利率协议</span>
+              <span class="title">DeFi's fixed rate protocol</span>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24" class="main-word">
-              LiberationFi是用于固定和可变收益市场的开源协议
+              LiberationFi is an open source protocol for fixed and variable yield markets
           </el-col>
         </el-row>
         <el-row :gutter="20" class="main-button">
           <el-col :span="3" :offset="9">
-            <el-button type="primary" plain>开始储存</el-button>
+            <el-button type="primary" plain @click="toEarn()">START SAVING</el-button>
           </el-col>
           <el-col :span="3">
-            <el-button type="primary" plain>开始赚钱</el-button>
+            <el-button type="primary" plain @click="toEarn()">START EARNING</el-button>
           </el-col>
         </el-row>
       </el-main>
@@ -77,18 +77,18 @@
 
           <el-col :span="8" class="grid-content">
             <el-row>
-              <el-col :span="24"><div class="footer3-1">注册我们的通讯</div></el-col>
+              <el-col :span="24"><div class="footer3-1">Sign up for our newsletter</div></el-col>
             </el-row>
             <el-row :gutter="10">
               <el-col :span="14"><div class="footer3-2">
-                <el-input placeholder="电子邮件地址"></el-input>
+                <el-input placeholder="Email address"></el-input>
               </div></el-col>
               <el-col :span="7"><div class="footer3-2">
-                <el-button type="primary" plain>订阅</el-button>
+                <el-button type="primary" plain>SUBSCRIBE</el-button>
               </div></el-col>
             </el-row>
             <el-row>
-              <el-col :span="24"><div class="footer3-3">服务条款&nbsp&nbsp&nbsp&nbsp隐私政策</div></el-col>
+              <el-col :span="24"><div class="footer3-3">Term of Service&nbsp&nbsp&nbsp&nbspPrivacy Policy</div></el-col>
             </el-row>
           </el-col>
         </el-row>
@@ -99,8 +99,17 @@
 </template>
 
 <script>
+  import Earn from "../earn/Earn";
+
   export default {
     name: "home",
+    methods: {
+      toEarn() {
+        this.$router.push({
+          path: "Earn",
+        });
+      }
+    }
   }
 </script>
 
@@ -126,15 +135,20 @@
     height: 290px;
     /*background-color: rgba(66, 185, 131, 0.43);*/
     /*color: white;*/
-    font-size: 65px;
-    font-weight: bolder;
     padding-top: 220px;
   }
   .main-word{
     height: 80px;
     /*background-color: rgba(88, 139, 198, 0.15);*/
-    color: #a4a4a4;
+    /*color: #a4a4a4;*/
     font-size: 18px;
+    position: relative;
+    text-indent:30px;
+    font-weight: bolder;
+    line-height: 50px;
+    background-image: -webkit-linear-gradient(100deg, #6de9ba, #6ad4ef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .main-button{
     height: 240px;
@@ -144,14 +158,16 @@
 
   .el-button--primary.is-plain {
     color:  var(--purple-dark-shade)!important;
-    background: rgba(236, 245, 255, 0)!important;
-    border-color: var(--purple-dark-shade)!important;
+    background: #6fedcf!important;
+    border-color: #6fedcf!important;
+    border-radius: 20px;
+    font-weight: 700;
   }
 
   .el-button--primary.is-plain:hover {
-    color: var(--purple-dark-shade)!important;
+    color: #6fedcf!important;
     background-color: rgba(134, 175, 209, 0.09) !important;
-    border-color: var(--purple-dark-shade)!important;
+    border-color: #6fedcf!important;
   }
 
   .grid-content {
@@ -171,25 +187,42 @@
     height: 50px;
     font-size: 20px;
     font-weight: bold;
-    color: var(--purple-light);
+    /*color: #42b983;*/
+    background-image: -webkit-linear-gradient(30deg, #58e998, #53bcef);
+    position: relative;
+    text-indent:30px;
+    line-height: 50px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .footer2{
     padding-top: 4px;
     height: 30px;
-    color: var(--purple-background);
+    color: #ffffff;
     font-size: 14px;
   }
   .footer3-1{
     float: left;
-    color: var(--color-text-light);
+    color: #ffffff;
     font-size: 14px;
     padding-top: 4px;
     height: 55px;
   }
   .footer3-3{
     float: right;
-    color: var(--color-text-light);
+    color: #ffffff;
     font-size: 16px;
     padding-top: 45px;
+  }
+  .title {
+    position: relative;
+    text-align: left;
+    text-indent:30px;
+    font-size: 65px;
+    font-weight: bolder;
+    line-height: 50px;
+    background-image: -webkit-linear-gradient(180deg, #58e998, #53bcef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 </style>

@@ -47,4 +47,23 @@ export default {
   margin-top: 45px;
 }
 
+  div h1 {
+    position: relative;
+    /*text-indent:30px;*/
+    font-weight: bolder;
+    /*line-height: 50px;*/
+    background-image: -webkit-linear-gradient(0deg, #53bcef, #58e998);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+div p {
+  position: relative;
+  /*text-indent:30px;*/
+  font-weight: bolder;
+  /*line-height: 50px;*/
+  background-image: -webkit-linear-gradient(0deg, #99d7ef, #8be9cb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 </style>

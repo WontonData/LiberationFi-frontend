@@ -60,8 +60,9 @@
    .el-dropdown {
      display: inline-block;
      position: relative;
-     color: var(--color-text);
-     font-size: 14px;
+     color: #6fedcf;
+     font-size: 16px;
+     font-weight: 700;
    }
 
   .el-dropdown-menu__item {
@@ -82,8 +83,8 @@
     left: 0;
     padding: 10px 0;
     margin: 5px 0;
-    background-color: var(--purple-background);
-    border: 1px solid var(--purple-card);
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #2c3e50;
     border-radius: 4px;
     box-shadow: #a7b6c2;
   }
@@ -94,7 +95,7 @@
     padding: 0 20px;
     margin: 0;
     font-size: 14px;
-    color: var(--color-text);
+    color: #ffffff;
     cursor: pointer;
     outline: 0;
     background-color: rgba(236, 245, 255, 0) !important;
@@ -104,7 +105,7 @@
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color: var(--purple-card)!important;
+    border-bottom-color: #ffffff!important;
   }
 
   .el-popper[x-placement^=bottom] .popper__arrow {
@@ -112,10 +113,10 @@
     left: 50%;
     margin-right: 3px;
     border-top-width: 0;
-    border-bottom-color: var(--purple-card)!important;
+    border-bottom-color: #ffffff!important;
   }
 
   .el-dropdown-menu__item[data-v-58b75759][data-v-58b75759]:hover {
-    color: var(--purple);
+    color: #6fedcf;
   }
 </style>

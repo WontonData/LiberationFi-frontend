@@ -3,7 +3,7 @@
   <div>
     <el-row>
       <el-col :span="24" class="save-button">
-        <el-button icon="el-icon-thumb">查看余额</el-button>
+        <el-button icon="el-icon-thumb">View balances</el-button>
       </el-col>
     </el-row>
     <el-row>

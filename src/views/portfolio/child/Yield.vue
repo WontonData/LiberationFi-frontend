@@ -79,7 +79,7 @@
   .box-card {
     width: 500px;
     height: 570px;
-    background-color: var(--purple-background);
+    background-color: var(--purple-card-save);
     border-radius: 15px;
   }
   .card1 {
@@ -185,5 +185,15 @@
     justify-content: center;
     align-items: center;
     font-size: 14px;
+  }
+  >>> .el-tabs__item.is-active {
+    color: var(--purple-dark-shade) !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+    font-weight: 600;
+  }
+  >>> .el-tabs--card>.el-tabs__header .el-tabs__item {
+    border-radius: 7px;
+    border: none!important;
+    background-color: rgba(255, 255, 255, 0) !important;
   }
 </style>

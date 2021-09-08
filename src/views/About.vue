@@ -151,12 +151,13 @@ export default {
 
 <style >
 .logo , .address, .icon{
-  font-size: 19px;
+  font-size: 24px;
   display: flex;
   height:60px;
   letter-spacing: 1px;
   justify-content: center;
   align-items: center;
+  font-weight: bolder;
 }
 .address {
   font-size: 17px;
@@ -175,13 +176,15 @@ export default {
   margin-top: 10px!important;
 }
 .el-button--warning.is-plain {
-  background-color: transparent!important;
-  border-color: var(--purple-dark-shade)!important;
-  color: var(--purple-dark-shade)!important;
+  color: #6fedcf!important;
+  background-color: rgba(134, 175, 209, 0.09) !important;
+  border-color: #6fedcf!important;
+  font-weight: 600;
 }
 .el-button--warning.is-plain:hover {
-  color: var(--purple-dark-shade)!important;
-  background-color: rgba(180, 134, 209, 0.1) !important;
+  color:  var(--purple-dark-shade)!important;
+  background: #6fedcf!important;
+  border-color: #6fedcf!important;
 }
 .left {
   float: left;

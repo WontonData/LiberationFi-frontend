@@ -32,7 +32,6 @@
           </div>
           <div style="width: 18%">
             <item-time :time="token.term" day="88天" :percentage="token.proportion"/>
-
           </div>
           <div style="width: 7%">
             <el-button type="warning" class="show" plain @click="showCard">Mint</el-button>
@@ -105,9 +104,10 @@ img {
 .el-col {
   padding: 10px;
   box-shadow: 0 5px 7px -5px rgba(0, 0, 0, .6);
-  background-color: var(--purple-card);
+  background: linear-gradient(to bottom right, #7a3e99, #361d7a);
+  /*background-color: var(--purple-card);*/
   display: flex;
-  border-radius: 7px;
+  border-radius: 20px;
   margin-top: 10px;
   margin-bottom: 30px;
   font-weight: normal;
@@ -119,7 +119,6 @@ img {
 
 .card-col:hover {
   box-shadow: 0 5px 15px -5px rgba(0, 0, 0, .7);
-
   -webkit-transition: all .5s;
   -moz-transition: all .5s;
   -o-transition: all .5s;

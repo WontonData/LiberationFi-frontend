@@ -277,7 +277,7 @@ export default {
 <style scoped>
 .el-row {
   width: 100%;
-  border-top: 2px var(--purple-card-background) solid;
+  border-top: 2px #c1d2d8 solid;
   /*background-color: ;*/
 }
 
@@ -289,6 +289,10 @@ export default {
 .el-timeline {
   text-align: left;
   margin-top: 10px;
+}
+
+ >>> .el-timeline-item__content {
+  color: #ffffff!important;
 }
 
 .skeleton {
@@ -308,6 +312,6 @@ export default {
 }
 
 .el-skeleton__item {
-  background: var(--purple-card-background) !important;
+  background: #7787c6 !important;
 }
 </style>

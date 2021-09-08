@@ -23,13 +23,13 @@ export default {
 .item-data {
   font-size: 15px;
   /*color: #f5f8fa;*/
-  color: var(--purple-dark-shade);
+  color: #e8eaed;
   font-weight: 550;
 
 }
 .item-title {
   font-size: 14px;
   line-height: 25px;
-  /*color: white;*/
+  color: white;
 }
 </style>

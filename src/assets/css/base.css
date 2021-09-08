@@ -3,12 +3,11 @@
 /*:root -> 获取根元素html*/
 :root {
     as:#a4a4a4;
-    --color-text: #666;
-    --color-text-light: #a6a6a6;
+    --color-text: #ffffff;
+    --color-text-light: #e4e4e4;
     --color-background: #fff5f6;
     --purple-card-background: #e1dded;
-    /*--purple-footer: #242136;*/
-    --purple-footer: #303952;
+    --purple-footer: #161b32;
     --purple-background: #cbc9ea;
 
     --purple-dark-shade: #665794;
@@ -16,6 +15,7 @@
     --purple: #9387C2;
     --purple-light: #b7b5d2;
     --purple-card: #f1f1ff;
+    --purple-card-save: rgba(97, 79, 148, 0.13);
 
     --pink-dark-shade: #AE6367;
     --pink-dark: #C98488;
@@ -43,12 +43,12 @@ body {
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
     -webkit-tap-highlight-color: transparent; /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
     background: var(--color-background);
-    color: var(--color-text);
+    color: #ffffff;
     /* rem vw/vh */
 }
 
 a {
-    color: var(--color-text);
+    color: #ffffff;
     text-decoration: none;
 }
 

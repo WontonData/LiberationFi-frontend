@@ -2,7 +2,7 @@
   <div class="box-card">
     <el-card shadow="hover">
       <el-row>
-        <el-col :span="24" class="from">从</el-col>
+        <el-col :span="24" class="from">From</el-col>
       </el-row>
       <el-row>
         <el-col :span="24" class="from-coin">
@@ -10,7 +10,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="10" class="to">到</el-col>
+        <el-col :span="10" class="to">To</el-col>
         <el-col :span="14" class="to">
 
         </el-col>
@@ -23,12 +23,12 @@
       <el-row>
         <el-col :span="12" class="more">
           <el-tag type="info" class="more-tag">
-            到期赚取<br/>
+            Earned at Maturity<br/>
             <span style="font-weight: bolder">0 LUSD3CRV-f</span>
           </el-tag>
         </el-col>
         <el-col :span="12" class="more">
-          <el-button type="primary" plain disabled class="more-button">连接钱包</el-button>
+          <el-button type="primary" plain disabled class="more-button">Connect Wallet</el-button>
         </el-col>
       </el-row>
     </el-card>
@@ -57,7 +57,7 @@
     height: 480px;
     /*margin: 0 35px 600px 390px;*/
     width: 700px;
-    background-color: var(--purple-background);
+    background-color: var(--purple-card-save);
     border-color: rgba(255, 255, 255, 0);
     padding: 10px;
     border-radius: 12px;

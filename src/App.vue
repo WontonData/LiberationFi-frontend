@@ -20,8 +20,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-
-  background-image: linear-gradient(var(--purple-background), white);
+  /*background-image: linear-gradient(45deg, #180c40, #484c79);*/
+  background-image: linear-gradient(135deg, #150b29, rgba(27, 35, 64, 0.9));
   min-height: 100vh;
 }
 

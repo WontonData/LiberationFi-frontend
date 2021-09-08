@@ -134,11 +134,13 @@ export default {
   padding-top: 35px;
 }
 .el-card {
-  background-color: white;
+  /*background-color: white;*/
+  background: linear-gradient(to bottom right, #7a3e99, #361d7a);
+  border: 0px;
   color: var(--color-text);
   padding: 10px;
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 .mint {
   width: 100%;

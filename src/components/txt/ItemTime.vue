@@ -9,11 +9,11 @@
           :stroke-width="7"
           :percentage="percentage"
           :format="format"
-          color="#7c6eab"></el-progress>
+          color="#273652"></el-progress>
     </div>
     <el-tag
         style="margin-right: 5px"
-        type="info"
+        type="success"
         size="mini">
       {{ day }}
     </el-tag>
@@ -47,7 +47,7 @@ export default {
 <style scoped>
 .item-time {
   font-size: 15px;
-  color: var(--purple-dark-shade);
+  color: #e8eaed;
   font-weight: 550;
   margin-bottom: 5px;
 }
@@ -64,6 +64,9 @@ div {
 
 <style>
 .el-progress-bar__outer {
-  background-color: var(--purple-card-background) !important;
+  background-color: #273652 !important;
 }
+  .el-tag {
+    color: #000000!important;
+  }
 </style>
