@@ -54,12 +54,27 @@ export const YVaultAssetProxy = conflux.Contract({
 
 export const eP = conflux.Contract({
   abi: require("./abi/Tranche.json"),
-  address: 'cfxtest:acc9k14s6k76wau198gu0yy8wyfe53kdu2cr19tkmv'
+  address: 'cfxtest:achy04gdsz9b3w6uv8yg65w3rhf3x9m6325115x9zt'
 });
 
 export const eY = conflux.Contract({
   abi: require("./abi/InterestToken.json"),
-  address: 'cfxtest:acegc96nmps0hb7we2zb29d5eth1f5fcv6bu6jwp3j'
+  address: 'cfxtest:acg2689cr42ejgu9wpbk30du2rf944cp06jx8ew6zy'
+});
+
+export const BalancerVault = conflux.Contract({
+  abi: require("./abi/BalancerVault.json"),
+  address: 'cfxtest:acfgzsywmpxbb7tkf4j8jvuejc3ffhuvjycga9rjhy'
+});
+
+export const CCPool = conflux.Contract({
+  abi: require("./abi/ConvergentCurvePool.json"),
+  address: 'cfxtest:acdm6nunrjhgvtmbbdvhd0uu494hjh9ajpaa64cbr8'
+});
+
+export const WeightPool = conflux.Contract({
+  abi: require("./abi/WeightPool.json"),
+  address: 'cfxtest:acg7ajvvs82xn7wu1zecv0utj52sxh4n26cmmp0pmf'
 });
 
 
@@ -75,4 +90,7 @@ export default {
   USDA,
   Yault_xUSDA,
   YVaultAssetProxy,
+  BalancerVault,
+  CCPool,
+  WeightPool
 }

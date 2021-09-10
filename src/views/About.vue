@@ -92,6 +92,9 @@ export default {
       this.getAccount()
     },
     async init() {
+      this.tokenList[0].poolId1 = '0x86ae2e0b6a0e68bd4108e271da10d7f4741fe04300020000000000000000000a'
+      this.tokenList[0].poolId2 = '0x8dd0223177b135f650bd4828da0f46f0e99f4bc700020000000000000000000b'
+
       let token1 = await this.USDA.name()
       this.tokenList[0].token1 = token1
       this.tokenList[0].name = token1 + " v2"

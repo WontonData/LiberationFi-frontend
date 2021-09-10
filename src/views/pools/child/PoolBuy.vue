@@ -39,6 +39,12 @@
 </template>
 
 <script>
+import {
+  calcSwapOutGivenInCCPoolUnsafe,
+  calcSwapInGivenOutCCPoolUnsafe,
+  calcSwapOutGivenInWeightedPoolUnsafe
+} from '@/network/helpers/calcPoolSwap'
+
 export default {
   name: "PoolSell",
   data() {
@@ -63,25 +69,50 @@ export default {
   },
   methods: {
     toMax(direction) {
-      // this.$emit("toMax", "buy", direction)
-      // this.number = this.max
-      // this.buyNumber = this.number
       if (direction === "token") {
         this.number = this.tokenBalance
-        this.buyNumber = this.tokenBalance + 1
+        // this.buyNumber = this.tokenBalance + 1
       } else {
         this.buyNumber = this.YPBalance
-        this.number = this.YPBalance - 1
+        // this.number = this.YPBalance - 1
       }
+      this.calculate(direction)
+
     },
     calculate(direction) {
       if (direction === "token") {
-        this.buyNumber = this.number
+        this.buyNumber = calcSwapOutGivenInCCPoolUnsafe(
+            this.number * 1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves,
+            this.token.totalSupply,
+            this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
+            this.token.unitSeconds,
+            true
+        ) / 1000000000000000000 - 0.1
+        this.limit = calcSwapOutGivenInWeightedPoolUnsafe(
+            this.number * 1000000000000000000,
+            this.token.yReserves,
+            this.token.xReserves,
+        ) / 1000000000000000000 * 0.95
       } else {
-        this.number = this.buyNumber
+        this.number = calcSwapInGivenOutCCPoolUnsafe(
+            this.buyNumber * 1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves,
+            this.token.totalSupply,
+            this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
+            this.token.unitSeconds,
+            false
+        ) / 1000000000000000000 - 0.1
+        this.limit = calcSwapOutGivenInWeightedPoolUnsafe(
+            this.sellNumber * 1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves
+        ) / 1000000000000000000 * 0.95
       }
       // console.log(this.number)
-      this.$emit("calculate", this.number, this.buyNumber)
+      this.$emit("calculate", this.number, this.buyNumber, this.limit)
 
     },
   }

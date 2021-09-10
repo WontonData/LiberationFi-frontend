@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import da from "element-ui/src/locale/lang/da";
 import * as contract from "./network/conflux";
 import portal from "./network/conflux-portal";
+import {BalancerVault, CCPool, WeightPool} from "./network/conflux";
 
 Vue.use(Vuex)
 
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     Tranche: null,
     InterestToken: null,
     UserProxy: null,
+    BalancerVault: null,
+    CCPool: null,
+    WeightPool: null,
     USDA: null
   },
   mutations: {
@@ -32,6 +36,9 @@ export default new Vuex.Store({
       state.Tranche = contract.eP;
       state.InterestToken = contract.eY;
       state.UserProxy = contract.UserProxy;
+      state.BalancerVault = contract.BalancerVault;
+      state.CCPool = contract.CCPool;
+      state.WeightPool = contract.WeightPool;
       state.USDA = contract.USDA;
     },
   },

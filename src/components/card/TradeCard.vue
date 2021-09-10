@@ -84,7 +84,8 @@ export default {
       tokenBalance: 3.095,
       LPBalance: 6.334,
 
-      activeName: 'buy'
+      activeName: 'buy',
+      limit: 0.00
     }
   },
   props: {
@@ -111,15 +112,16 @@ export default {
   },
   methods: {
 
-    calculate(tokenNumber, YPNumber) {
-      console.log(tokenNumber, YPNumber)
+    calculate(tokenNumber, YPNumber, limit) {
+      console.log(tokenNumber, YPNumber, limit)
       this.tokenNumber = tokenNumber*1
       this.YPNumber = YPNumber*1
+      this.limit = limit*1
     },
     //类型 主币数量 收益币数量
     mint() {
       console.log(this.activeName)
-      this.$emit("mint", this.activeName, this.tokenNumber, this.YPNumber)
+      this.$emit("mint", this.activeName, this.tokenNumber, this.YPNumber, this.limit)
     },
     handleClick(tab, event) {
       this.YPNumber = 0;

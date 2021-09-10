@@ -104,7 +104,7 @@ export default {
       trancheFactoryAddr: 'cfxtest:acgk31mt25khe2mhc6ak60c1u0c49wa5xjjnrrddbv',
       trancheBytecodeHash: '33353283da9febabe800962de594ae7c9f274743d76e7af5f88afe3e6ea5a94a',
       expiration: '1633023038',
-      value: '1633023038',
+      value: '10',
       textarea: ''
     }
   },

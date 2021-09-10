@@ -22,13 +22,13 @@
           :token="token"
           :token-name="tokenName"
           :token-address="tokenAddress"
-          :type="type"
+          :type="transactionType"
           :tokenNumber="tokenNumber"
           :YPNumber="YPNumber"
       />
       <div slot="footer" class="dialog-footer">
         <el-button type="warning" plain @click="dialogShow = false">取 消</el-button>
-        <el-button type="warning" @click="mintSure">确 定</el-button>
+        <el-button type="warning" @click="tradeSure">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -40,22 +40,37 @@
 import ItemText from "../../components/txt/ItemText";
 import TradeCard from "../../components/card/TradeCard";
 import MsgDialog from "./child/MsgDialog";
+import {mapState} from "vuex";
+// import ethers from 'ethers'
+// import {BigNumber, utils} from 'ethers'
+import {ethers} from 'ethers';
+import portal from "../../network/conflux-portal";
 
 export default {
   name: "Pools",
   components: {MsgDialog, TradeCard, ItemText},
   created() {
     this.getRouterData()
+
+  },
+  computed: {
+    ...mapState(["account", "USDA", "InterestToken", "Tranche", "CCPool", "WeightPool", "BalancerVault"]),
   },
   data() {
     return {
       token: null,
       tokenName: '',
       tokenAddress: '',
+      tokenContract: '',
+      poolContract: '',
+      poolId: '',
       type: '',
+      userdata: '',
       dialogShow: false,
       tokenNumber: 0,
-      YPNumber: 0
+      YPNumber: 0,
+      transactionType: '',
+      limit: 0
     }
   },
   methods: {
@@ -65,24 +80,152 @@ export default {
       if (this.type === "Y") {
         this.tokenName = this.token.token3
         this.tokenAddress = this.token.interestToken
+        this.poolId = this.token.poolId2
+        this.poolContract = this.WeightPool
+        this.tokenContract = this.InterestToken
       } else {
         this.tokenName = this.token.token2
         this.tokenAddress = this.token.tranche
+        this.poolId = this.token.poolId1
+        this.poolContract = this.CCPool
+        this.tokenContract = this.Tranche
       }
       console.log(this.$route.params)
+      console.log(this.token)
+
+      this.BalancerVault.getPoolTokens(this.poolId).then(res => {
+        console.log(res)
+        this.token.xReserves = res[1][0].toString()
+        this.token.yReserves = res[1][1].toString()
+      })
+      this.poolContract.totalSupply().then(res => {
+        console.log(res)
+        this.token.totalSupply = res.toString()
+        console.log(this.token.totalSupply)
+      })
+      this.CCPool.unitSeconds().then(res => {
+        console.log(res)
+        this.token.unitSeconds = res.toString()
+        console.log(this.token.unitSeconds)
+      })
     },
     //类型 主币数量 收益币数量
-    mint(type, tokenNumber, YPNumber) {
-      this.type = type
+    mint(type, tokenNumber, YPNumber, limit) {
+      this.transactionType = type
       this.tokenNumber = tokenNumber * 1
       this.YPNumber = YPNumber * 1
+      this.limit = limit*1
 
       this.dialogShow = true
     },
-    mintSure() {
+    getUserData() {
+      const initialBalances = [ethers.BigNumber.from(this.tokenNumber).pow(18).mul(100),
+        ethers.BigNumber.from(this.YPNumber).pow(18).mul(100)];
+      const JOIN_KIND_INIT = 0;
+      const initUserData =
+          ethers.utils.defaultAbiCoder.encode(['uint256', 'uint256[]'],
+              [JOIN_KIND_INIT, initialBalances]);
+      const userdata = ethers.utils.defaultAbiCoder.encode(["uint256[]"], [initialBalances]);
+      console.log("userdata:" + userdata);
+      console.log("initUserData:" + initUserData);
+      console.log("amountA:" + initialBalances[0].toString());
+      console.log("amountB:" + initialBalances[1].toString());
+      return [userdata, initUserData]
 
+    },
+    tradeSure() {
+      // if (this.type === "Y") {
+      //   this.userdata = this.getUserData()[1]
+      // } else {
+      //   this.userdata = this.getUserData()[0]
+      // }
+
+      switch (this.transactionType) {
+        case "buy":
+          //授权
+          let buyCalled = this.USDA["approve"].call(
+              this.BalancerVault.address,
+              this.tokenNumber * 1000000000000000000,
+          )
+          console.log(buyCalled)
+          this.transaction(buyCalled).then(res => {
+            console.log(res)
+            const balancerCalled = this.BalancerVault["swap"].call(
+                [this.poolId,
+                  0,
+                  this.USDA.address,
+                  this.tokenAddress,
+                  this.tokenNumber * 1000000000000000000,
+                  '0x00'],
+                [this.account,
+                  false,
+                  this.account,
+                  false,],
+                this.YPNumber * 1000000000000000000,
+                '9700327120539288000'
+            )
+            console.log(balancerCalled)
+            this.transaction(balancerCalled).then(res => {
+              console.log(res)
+            })
+          })
+
+
+          break;
+        case "sell":
+          //授权
+          let sellCalled = this.tokenContract["approve"].call(
+              this.BalancerVault.address,
+              this.YPNumber * 1000000000000000000,
+          )
+          console.log(sellCalled)
+          this.transaction(sellCalled).then(res => {
+            console.log(res)
+
+            const balancerCalled = this.BalancerVault["swap"].call(
+                [this.poolId,
+                  0,
+                  this.tokenAddress,
+                  this.USDA.address,
+                  this.YPNumber * 1000000000000000000,
+                  '0x00'],
+                [this.account,
+                  false,
+                  this.account,
+                  false,],
+                this.limit * 1000000000000000000,
+                '1733023038'
+            )
+            console.log(balancerCalled)
+            this.transaction(balancerCalled).then(res => {
+              console.log(res)
+            })
+          })
+          break;
+        case "add":
+
+          break;
+        case "remove":
+
+          break;
+      }
 
       this.dialogShow = false
+    },
+    transaction(called) {
+      return new Promise((resolve, reject) => {
+        portal.sendTransaction({
+          from: this.account,
+          to: called.to,
+          data: called.data,
+        }).then(res => {
+          console.log(res)
+          resolve(res)
+        }).catch(error => {
+          reject(error)
+        })
+
+      })
     }
   }
 }

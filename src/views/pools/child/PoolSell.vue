@@ -8,7 +8,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">Balance： {{YPBalance + ' ' + tokenName }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{ YPBalance + ' ' + tokenName }}</span></el-col>
       <el-col :span="11">
         <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
@@ -26,7 +26,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">Balance： {{tokenBalance + ' ' + token.token1 }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{ tokenBalance + ' ' + token.token1 }}</span></el-col>
       <el-col :span="11">
         <el-button @click="toMax('token')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
@@ -35,12 +35,19 @@
 </template>
 
 <script>
+import {
+  calcSwapOutGivenInCCPoolUnsafe,
+  calcSwapInGivenOutCCPoolUnsafe,
+  calcSwapOutGivenInWeightedPoolUnsafe
+} from '@/network/helpers/calcPoolSwap'
+
 export default {
   name: "PoolSell",
   data() {
     return {
       number: null,
       sellNumber: null,
+      limit: null,
     }
   },
   props: {
@@ -61,20 +68,45 @@ export default {
     toMax(direction) {
       if (direction === "token") {
         this.number = this.tokenBalance
-        this.sellNumber = this.tokenBalance + 1
       } else {
         this.sellNumber = this.YPBalance
-        this.number = this.YPBalance - 1
       }
-
+      this.calculate(direction)
     },
     calculate(direction) {
       if (direction === "token") {
-        this.sellNumber = this.number
+        this.sellNumber = calcSwapOutGivenInCCPoolUnsafe(
+            this.number * 1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves,
+            this.token.totalSupply,
+            this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
+            this.token.unitSeconds,
+            true
+        ) / 1000000000000000000 - 0.1
+        this.limit = calcSwapOutGivenInWeightedPoolUnsafe(
+            this.number * 1000000000000000000,
+            this.token.yReserves,
+            this.token.xReserves,
+        ) / 1000000000000000000 * 0.95
       } else {
-        this.number = this.sellNumber
+        console.log(this.sellNumber)
+        this.number = calcSwapInGivenOutCCPoolUnsafe(
+            this.sellNumber * 1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves,
+            this.token.totalSupply,
+            this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
+            this.token.unitSeconds,
+            false
+        ) / 1000000000000000000 - 0.1
+        this.limit = calcSwapOutGivenInWeightedPoolUnsafe(
+            this.sellNumber * 1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves
+        ) / 1000000000000000000 * 0.95
       }
-      this.$emit("calculate", this.number, this.sellNumber)
+      this.$emit("calculate", this.number, this.sellNumber, this.limit)
 
     },
   }
@@ -85,9 +117,11 @@ export default {
 .el-row {
   padding-top: 14px;
 }
+
 span {
   font-size: 14px;
 }
+
 i {
   font-size: 20px;
   font-weight: 600;
