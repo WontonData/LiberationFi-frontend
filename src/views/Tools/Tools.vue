@@ -54,6 +54,9 @@
           <el-input placeholder="时间戳" v-model="expiration">
             <template slot="prepend">expiration</template>
           </el-input>
+          <el-input placeholder="value" v-model="value">
+            <template slot="prepend">value</template>
+          </el-input>
           <el-button type="warning" plain @click="genSignature_calldata">生成签名</el-button>
           <el-button type="warning" plain @click="deriveTranche(wrappedPositionAddr,expiration)">生成预测地址</el-button>
           <el-input
@@ -101,6 +104,7 @@ export default {
       trancheFactoryAddr: 'cfxtest:acgk31mt25khe2mhc6ak60c1u0c49wa5xjjnrrddbv',
       trancheBytecodeHash: '33353283da9febabe800962de594ae7c9f274743d76e7af5f88afe3e6ea5a94a',
       expiration: '1633023038',
+      value: '1633023038',
       textarea: ''
     }
   },
@@ -128,6 +132,7 @@ export default {
       params.nonces = parseInt(res.toJSON())
       res= await ERC20PermitToken.name()
       params.name = res
+      params.value = (this.number * 1000000000000000000) + ''
       // console.log(params)
       confluxPortal._sign(params).then((res) => {
         console.log('signature', res);
