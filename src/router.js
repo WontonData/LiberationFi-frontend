@@ -9,6 +9,7 @@ import About from "./views/About";
 import Save from "./views/Save/Save";
 import Build from "./views/Build/Build";
 import home from "./views/home/home";
+import Sign from "./views/Sign/Sign";
 import Tools from "./views/Tools/Tools";
 
 Vue.use(Router)
@@ -85,6 +86,7 @@ export default new Router({
         },
         {
           path: '/pools',
+          name: 'trade',
           component: Trade,
           props: true,
           meta: {
@@ -97,6 +99,11 @@ export default new Router({
           meta: {
             title: "Portfolio"
           },
+        },
+        {
+          path: '/sign',
+          component: Sign,
+          name: 'Sign',
         },
         {
           path: '/tools',

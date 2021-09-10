@@ -8,14 +8,14 @@
           <img src="img/token/USDC.svg" alt="" height="75" width="75">
         </el-col>
         <el-col :span="18" class="card1-2">
-          <div class="card1-2-1">USDC收益代币</div>
-          <div class="card1-2-2"><el-tag effect="dark">2022年8月11日</el-tag></div>
+          <div class="card1-2-1">USDC Yield Token</div>
+          <div class="card1-2-2"><el-tag effect="dark">August 11, 2022</el-tag></div>
         </el-col>
       </el-row>
       <!--2-->
       <el-row class="card2">
         <el-col :span="24">
-          <span>在11个月零22天内达到任期 </span><br>
+          <span>Reaches term in 11 months </span><br>
           <el-progress :percentage="7" :format="format"></el-progress>
         </el-col>
       </el-row>
@@ -23,7 +23,7 @@
       <el-row class="card3">
         <el-col :span="24">
           <el-tag type="info" class="card3-tag">
-            总余额<br/>
+            Total balance<br/>
             <span style="font-weight: bolder">10.000000 eY:eyUSDC:10</span>
           </el-tag>
         </el-col>
@@ -32,9 +32,9 @@
       <el-row class="card4">
         <el-col :span="24">
           <el-tag type="info" class="card4-tag">
-            当前值<br/>
+            Current value<br/>
             <span style="font-weight: bolder">0.781000 USDC</span><br/>
-            0.78美元
+            $0.78
           </el-tag>
         </el-col>
       </el-row>
@@ -42,16 +42,16 @@
       <el-row class="card5">
         <el-col :span="24">
           <el-row :gutter="20" class="card5-text">
-            <el-col :span="8">赎回</el-col>
-            <el-col :span="8">增加流动性</el-col>
-            <el-col :span="8">卖</el-col>
+            <el-col :span="8">Redeem</el-col>
+            <el-col :span="8">Add Liquidity</el-col>
+            <el-col :span="8">Sell</el-col>
           </el-row>
         </el-col>
       </el-row>
       <!--      6-->
       <el-row class="card6">
         <el-col :span="24">
-          存放在<span>向往USDC 0.3.0中的</span>USDC的应计收益率
+          Yield accrued on USDC deposited in<span> yvUSDC 0.2.2</span>
         </el-col>
       </el-row>
 
@@ -79,8 +79,9 @@
   .box-card {
     width: 500px;
     height: 570px;
-    background-color: var(--purple-card-save);
+    background: linear-gradient(to bottom right, #7a3e99, #361d7a);
     border-radius: 15px;
+    border: none;
   }
   .card1 {
     /*background-color: #7f8d9b;*/
@@ -133,7 +134,7 @@
   .card1-2-1 {
     height: 60px;
     display: flex;
-    justify-content: right;
+    justify-content: center;
     align-items: center;
     font-size: 20px;
     color: var(--color-text);
@@ -142,7 +143,7 @@
   .card1-2-2 {
     height: 60px;
     display: flex;
-    justify-content: right;
+    justify-content: center;
     align-items: first;
     /*width: 100px;*/
   }

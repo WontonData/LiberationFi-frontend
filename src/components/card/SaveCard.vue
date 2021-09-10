@@ -104,11 +104,11 @@
     width: 310px;
     /*margin: 10px;*/
     padding: 20px;
-    background-color: var(--purple-card) !important;
+    background-color: rgb(81, 50, 142) !important;
     border-color: rgba(167, 182, 194, 0) !important;
     color: var(--color-text) !important;
     font-size: 16px;
-    border-radius: 8px;
+    border-radius: 20px;
   }
 
   .more-button {
