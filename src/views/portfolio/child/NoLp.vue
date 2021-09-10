@@ -9,7 +9,7 @@
 
     <el-row>
       <el-col :span="24" class="col">
-        <span>该钱包不含任何LP token</span>
+        <span>This wallet does not contain any LP positions.</span>
       </el-col>
     </el-row>
   </div>

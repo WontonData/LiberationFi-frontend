@@ -28,7 +28,7 @@
   .save-button {
     height: 65px;
     /*background-color: #8fb8d1;*/
-    padding-left: 575px;
+    padding-left: 545px;
   }
   .save-card {
     height: 535px;
@@ -50,17 +50,17 @@
     margin: 0;
     -webkit-transition: .1s;
     transition: .1s;
-    font-weight: 500;
+    font-weight: 600;
     padding: 12px 20px;
     font-size: 14px;
-    border-radius: 4px;
+    border-radius: 10px;
   }
   .el-button:hover {
-    background-color: var(--purple-background);
-    color: var(--color-text);
+    background-color: #6fedcf;
+    color: rgb(81, 50, 142);
   }
   .el-button:focus {
-    background-color: var(--purple-background);
-    color: var(--color-text);
+    background-color: #6fedcf;
+    color: rgb(81, 50, 142);
   }
 </style>

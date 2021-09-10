@@ -158,6 +158,7 @@ export default {
       })
       return sign
     },
+
     async genSignature_calldata() {
       let signs = []
 
@@ -173,6 +174,7 @@ export default {
       console.log('signs')
 
       let nonces = parseInt(res.toJSON())
+
       await this.genSignature(this.underlyingTokenAddr, this.userProxyAddr, ERC20PermitAbi, underlyingToken, nonces).then((res) => {
         signs.push(res)
       })
@@ -190,6 +192,7 @@ export default {
         abi: TrancheAbi,
         address: TrancheAddr
       });
+
       this.genSignature(TrancheAddr, this.wrappedPositionAddr, TrancheAbi, Tranche).then((res) => {
         signs.push(res)
       })
@@ -208,6 +211,7 @@ export default {
       // this.textarea = JSON.stringify(signs,undefined, 2)
       return signs
     },
+
     wait(time) {
       return new Promise(resolve => {
         setTimeout(() => {

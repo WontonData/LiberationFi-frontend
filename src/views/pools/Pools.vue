@@ -1,6 +1,20 @@
 <template>
   <div>
     <el-row>
+      <el-col :span="4" :offset="8">
+        <div @click="changeTab('P')" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>Principal Pools</h2>
+        </div>
+      </el-col>
+      <el-col :span="4">
+        <div @click="changeTab('T')" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>Yield Pools</h2>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row style="margin-top: 35px;">
+      <el-col>Buy and sell principal tokens or provide liquidity in principal pools.</el-col>
+    </el-row>
+
+    <el-row style="margin-top: 35px">
       <el-col :span="6" :offset="9">
         <img alt="美元" class="left" :src="'img/token/' + token.icon + '.svg'" height="45" width="45">
         <div>
@@ -70,7 +84,8 @@ export default {
       tokenNumber: 0,
       YPNumber: 0,
       transactionType: '',
-      limit: 0
+      limit: 0,
+      selectPools: true,
     }
   },
   methods: {
@@ -114,7 +129,7 @@ export default {
       this.transactionType = type
       this.tokenNumber = tokenNumber * 1
       this.YPNumber = YPNumber * 1
-      this.limit = limit*1
+      this.limit = limit * 1
 
       this.dialogShow = true
     },
@@ -224,7 +239,18 @@ export default {
         }).catch(error => {
           reject(error)
         })
+      })
+    },
 
+
+    changeTab(type) {
+      this.selectPools = type === "P";
+      // this.$router.push('/pools');
+      this.$router.push({
+        name: 'trade',
+        params: {
+          selectPools: this.selectPools
+        }
       })
     }
   }
@@ -251,20 +277,36 @@ span {
   /*color: var(te);*/
   /*font-size: 16px;*/
 }
+
+.el-button--warning.is-plain {
+  background-color: var(--purple) !important;
+  border-color: var(--purple-dark-shade) !important;
+  color: white !important;
+}
+
+.el-button--warning.is-plain:hover {
+  background-color: var(--purple-dark) !important;
+  border-color: var(--purple-dark-shade) !important;
+  color: white !important;
+}
 </style>
 <style>
 .el-button--warning {
   background-color: var(--purple-dark) !important;
   border-color: var(--purple-dark-shade) !important;
+  font-weight: bold !important;
 }
 
 .el-button--warning:hover {
   background-color: var(--purple) !important;
   border-color: var(--purple-dark-shade) !important;
+  font-weight: bold !important;
 }
 
 .msg-dialog .el-dialog {
   width: 30% !important;
   border-radius: 7px;
+  background: linear-gradient(30deg, rgb(201, 183, 225), #ffffff);
+  /*background-color: white;*/
 }
 </style>

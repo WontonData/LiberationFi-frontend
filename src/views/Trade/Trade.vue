@@ -17,6 +17,8 @@
 
     <y-trade-table v-else class="trade-table" :token-list="tokenList" />
 
+
+
   </div>
 </template>
 
@@ -32,6 +34,9 @@ export default {
 
     }
   },
+  mounted() {
+    this.getData()
+  },
   props: {
     tokenList: {
       type: Array
@@ -40,6 +45,9 @@ export default {
   methods: {
     changeTab(type) {
       this.selectPools = type === "P";
+    },
+    getData() {
+      this.selectPools = this.$route.params.selectPools
     }
   }
 }

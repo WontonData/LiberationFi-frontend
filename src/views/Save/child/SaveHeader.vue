@@ -76,8 +76,8 @@
     left: 0;
     padding: 10px 0;
     margin: 5px 0;
-    background-color: var(--purple-background);
-    border: 1px solid var(--purple-card);
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #2c3e50;
     border-radius: 4px;
     box-shadow: #a7b6c2;
   }

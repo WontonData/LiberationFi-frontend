@@ -80,10 +80,13 @@ export default {
 }
 
 .el-card {
-  background-color: var(--purple-card-background);
-  color: var(--color-text);
+  background-color: rgb(81, 50, 142);
+  color: #ffffff;
   padding: 10px;
   margin: 10px;
+  border-radius: 20px;
+  border: 0px;
+  box-shadow: #1c1c1c 3px 3px;
 }
 
 .title {
@@ -94,7 +97,7 @@ export default {
 
 .front {
   font-weight: 550;
-  color: var(--purple-dark-shade);
+  color: #cef9f7;
 }
 .mint {
   width: 100%;

@@ -54,6 +54,9 @@ export default {
           name: "Portfolio", routerPath: "/portfolio"
         },
         {
+          name: "Sign", routerPath: "/sign"
+        },
+        {
           name: "Tools", routerPath: "/tools"
         },
       ],

@@ -2,7 +2,7 @@
   <el-row>
     <el-rol :span="24">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-        <el-tab-pane label="主要代币" name="principal" class="tab">
+        <el-tab-pane label="Principal Tokens" name="principal" class="tab">
           <el-row>
             <el-col :span="24">
               <Principal></Principal>
@@ -11,7 +11,7 @@
           </el-row>
         </el-tab-pane>
 
-        <el-tab-pane label="收益代币" name="yield" class="tab">
+        <el-tab-pane label="Yield Tokens" name="yield" class="tab">
           <el-row>
             <el-col :span="24">
               <Yield></Yield>
@@ -20,7 +20,7 @@
           </el-row>
         </el-tab-pane>
 
-        <el-tab-pane label="LP职位" name="lp" class="tab">
+        <el-tab-pane label="LP Positions" name="lp" class="tab">
           <el-row>
             <el-col :span="24">
 <!--              <Lp></Lp>-->

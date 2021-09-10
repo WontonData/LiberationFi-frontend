@@ -6,7 +6,7 @@
         <!--已连接钱包-->
         <el-col v-if="account" :span="24">
           <el-row>
-            <el-col :span="24" class="port-text">投资组合({{accountCut}})</el-col>
+            <el-col :span="24" class="port-text">Portfolio({{accountCut}})</el-col>
           </el-row>
           <port-card></port-card>
         </el-col>
