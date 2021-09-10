@@ -106,6 +106,7 @@ export default {
             this.token.yReserves
         ) / 1000000000000000000 * 0.95
       }
+      console.log(this.token)
       this.$emit("calculate", this.number, this.sellNumber, this.limit)
 
     },

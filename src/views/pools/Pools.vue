@@ -92,6 +92,7 @@ export default {
     getRouterData() {
       this.token = this.$route.params.token
       this.type = this.$route.params.type
+      console.log(this.type)
       if (this.type === "Y") {
         this.tokenName = this.token.token3
         this.tokenAddress = this.token.interestToken
@@ -184,8 +185,6 @@ export default {
               console.log(res)
             })
           })
-
-
           break;
         case "sell":
           //授权

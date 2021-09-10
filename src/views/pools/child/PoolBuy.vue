@@ -106,12 +106,12 @@ export default {
             false
         ) / 1000000000000000000 - 0.1
         this.limit = calcSwapOutGivenInWeightedPoolUnsafe(
-            this.sellNumber * 1000000000000000000,
+            this.buyNumber * 1000000000000000000,
             this.token.xReserves,
             this.token.yReserves
         ) / 1000000000000000000 * 0.95
       }
-      // console.log(this.number)
+      console.log(this.token)
       this.$emit("calculate", this.number, this.buyNumber, this.limit)
 
     },
