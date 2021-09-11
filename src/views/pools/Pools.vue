@@ -26,7 +26,11 @@
 
     <el-row>
       <el-col :span="10" :offset="7">
-        <trade-card class="card" @mint="mint" :token="token" :tokenName="tokenName"/>
+        <trade-card class="card"
+                    @mint="mint"
+                    :type="type"
+                    :token="token"
+                    :tokenName="tokenName"/>
       </el-col>
     </el-row>
 
@@ -113,6 +117,7 @@ export default {
         console.log(res)
         this.token.xReserves = res[1][0].toString()
         this.token.yReserves = res[1][1].toString()
+        console.log(this.token.xReserves, this.token.yReserves)
       })
       this.poolContract.totalSupply().then(res => {
         console.log(res)
@@ -207,7 +212,7 @@ export default {
                   false,
                   this.account,
                   false,],
-                this.limit * 1000000000000000000,
+                this.tokenNumber * 1000000000000000000,
                 '1733023038'
             )
             console.log(balancerCalled)

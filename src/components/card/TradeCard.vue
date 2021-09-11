@@ -11,6 +11,7 @@
                 :token-name="tokenName"
                 :YPBalance="YPBalance"
                 :tokenBalance="tokenBalance"
+                :type="type"
                 @calculate="calculate"
             />
           </el-tab-pane>
@@ -22,6 +23,7 @@
                 :token-name="tokenName"
                 :YPBalance="YPBalance"
                 :tokenBalance="tokenBalance"
+                :type="type"
                 @calculate="calculate"
             />
           </el-tab-pane>
@@ -33,6 +35,7 @@
                 :token-name="tokenName"
                 :YPBalance="YPBalance"
                 :tokenBalance="tokenBalance"
+                :type="type"
                 @calculate="calculate"
             />
           </el-tab-pane>
@@ -43,6 +46,7 @@
                 :token="token"
                 :token-name="tokenName"
                 :LPBalance="LPBalance"
+                :type="type"
                 @calculate="calculate"
             />
           </el-tab-pane>
@@ -93,6 +97,9 @@ export default {
       type: Object
     },
     tokenName: {
+      type: String
+    },
+    type: {
       type: String
     }
   },
