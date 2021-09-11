@@ -128,11 +128,28 @@ i {
   margin: 10px;
 }
 .item-data {
-  color: var(--purple-dark-shade);
-  font-weight: 550;
+  color: #5e5476;
   text-align: right;
+  font-weight: bolder;
 }
-
+.item-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #3a4750;
+}
+>>> .dialog-input .el-input__inner {
+  background-color: var(--purple-card) !important;
+  color: var(--color-text) !important;
+  border-radius: 5px;
+}
+>>> .dialog-input .el-input-group__prepend {
+  /*background-color: #46307b !important;*/
+  background-color: var(--purple) !important;
+  color: var(--color-text) !important;
+  border: none;
+  box-shadow:  2px 2px #1c1c1c;
+  border-radius: 5px;
+}
 </style>
 <style>
 .dialog-input .el-input__inner {
