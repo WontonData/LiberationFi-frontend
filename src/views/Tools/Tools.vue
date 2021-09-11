@@ -38,8 +38,8 @@
           </el-input>
           <el-button type="warning" plain @click="userDataA">userdata</el-button>
           <el-button type="warning" plain @click="userDataB">initUserData</el-button>
-          <el-button type="warning" plain @click="userDataC">amountA</el-button>
-          <el-button type="warning" plain @click="userDataD">amountB</el-button>
+<!--          <el-button type="warning" plain @click="userDataC">amountA</el-button>-->
+<!--          <el-button type="warning" plain @click="userDataD">amountB</el-button>-->
           <div>
             <el-input
                 style="margin-top:20px"
@@ -138,19 +138,19 @@ export default {
       const initUserData =
           ethers.utils.defaultAbiCoder.encode(['uint256', 'uint256[]'],
               [this.join, initialBalances]);
-      this.textarea2 = initUserData;
-      // this.textarea2 = "initUserData:" + initUserData;
+
+      this.textarea2 = "initUserData:\n\"" + initUserData + "\"\n\n"
+      + "amountA:\"" + initialBalances[0].toString() + "\"\n"
+      + "amountB:\"" + initialBalances[1].toString() + "\"";
     },
     // userDataC amountA
     userDataC() {
       const initialBalances = [ethers.BigNumber.from("10").pow(18).mul(this.amountA), ethers.BigNumber.from("10").pow(18).mul(this.amountB)];
-      this.textarea2 = initialBalances[0].toString()
-      // this.textarea2 = "amountA:" + initialBalances[0].toString()
+      this.textarea2 = "amountA:" + initialBalances[0].toString()
     },
     // userDataD amountB
     userDataD() {
       const initialBalances = [ethers.BigNumber.from("10").pow(18).mul(this.amountA), ethers.BigNumber.from("10").pow(18).mul(this.amountB)];
-      this.textarea2 = initialBalances[1].toString()
       this.textarea2 = "amountB:" + initialBalances[1].toString()
     },
   }
