@@ -208,7 +208,7 @@ export default {
                   false,
                   this.account,
                   false,],
-                this.tokenNumber * 1000000000000000000 * 0.95,
+                this.tokenNumber * 1000000000000000000 * 0.9,
                 '1733023038'
             )
             console.log(balancerCalled)

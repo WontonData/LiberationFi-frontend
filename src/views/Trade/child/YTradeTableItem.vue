@@ -23,7 +23,7 @@
         <item-text :data="token.price2" :title=token.token1 />
       </div>
       <div style="width: 25%">
-        <item-time :time="token.term" day="88 Day" :percentage="token.proportion"/>
+        <item-time :time="token.term" :day="token.restDate + ' Day'" :percentage="token.proportion"/>
       </div>
       <div style="width: 11%">
         <el-button type="warning" class="show" plain @click="toPool">Trade</el-button>

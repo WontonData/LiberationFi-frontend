@@ -8,7 +8,7 @@
         <div v-if="account">
           <span class="address">{{accountCut}}</span>
         </div>
-        <el-button v-else class="wallet" type="warning" plain @click="conn">连接钱包</el-button>
+        <el-button v-else class="wallet" type="warning" plain @click="conn">Connect wallet</el-button>
 <!--        <el-button type="warning" plain @click="test">test</el-button>-->
       </template>
       <template #more>
@@ -22,10 +22,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-import init from "../network/init";
-// import test from "../network/test";
 import {mapActions, mapState} from "vuex";
 
 import Nav from "../components/nav/Nav";
@@ -115,6 +111,7 @@ export default {
       this.tokenList[0].unlockTimestamp = unlockTimestamp[0]
       this.tokenList[0].term = this.formatDate(unlockTimestamp)
       this.tokenList[0].proportion = this.proportionDate(unlockTimestamp)
+      this.tokenList[0].restDate = this.restDate(unlockTimestamp)
 
       // let valueSupplied = await this.Tranche.valueSupplied()
       // let totalSupply1 = await this.Tranche.totalSupply()
@@ -141,14 +138,16 @@ export default {
     proportionDate(timestamp) {
       const now = new Date().getTime();
       const start = new Date('2021-8-1').getTime()
-      // const end =Date.parse(timestamp);
-      console.log(now, start, timestamp)
       return (now-start)/(timestamp*1000-start)*100
+    },
+
+    restDate(timestamp) {
+      const now = new Date().getTime();
+      return Math.floor((timestamp*1000 - now)/(1000*60*60*24))
     },
 
     splitName(name) {
       const arr = name.split(" ")
-      // console.log(arr)
       return arr[arr.length-1];
     }
   }

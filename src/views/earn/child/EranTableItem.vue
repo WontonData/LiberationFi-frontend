@@ -31,7 +31,7 @@
             <item-text :data="token.fixedAPR + '%'"/>
           </div>
           <div style="width: 18%">
-            <item-time :time="token.term" day="88天" :percentage="token.proportion"/>
+            <item-time :time="token.term" :day="token.restDate + ' Day'" :percentage="token.proportion"/>
           </div>
           <div style="width: 7%">
             <el-button type="warning" class="show" plain @click="showCard">Mint</el-button>

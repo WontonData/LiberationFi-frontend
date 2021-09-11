@@ -11,10 +11,10 @@
         <template slot="prepend">{{ tokenName }}</template>
       </el-input>
 
-      <div class="box">
-        <div class="item-title left">Market rate</div>
-        <div class="item-data right">{{ '1 Principal Token ≈ 0.993 ' + token.token1 }}</div>
-      </div>
+<!--      <div class="box">-->
+<!--        <div class="item-title left">Market rate</div>-->
+<!--        <div class="item-data right">{{ '1 Principal Token ≈ 0.993 ' + token.token1 }}</div>-->
+<!--      </div>-->
       <div class="box">
         <div class="item-title left">Trade fee</div>
         <div class="item-data right">0.31%</div>
@@ -34,10 +34,10 @@
         <template slot="prepend">{{ token.token1 }}</template>
       </el-input>
 
-      <div class="box">
-        <div class="item-title left">Market rate</div>
-        <div class="item-data right">{{ '1 Principal Token ≈ 0.993 ' + token.token1 }}</div>
-      </div>
+<!--      <div class="box">-->
+<!--        <div class="item-title left">Market rate</div>-->
+<!--        <div class="item-data right">{{ '1 Principal Token ≈ 0.993 ' + token.token1 }}</div>-->
+<!--      </div>-->
       <div class="box">
         <div class="item-title left">Trade fee</div>
         <div class="item-data right">0.31%</div>

@@ -56,8 +56,11 @@
 
     <el-row>
       <el-col :span="22" :offset="1" >
-        <el-button v-if="account" @click="mint" class="mint" type="warning" plain>Mint</el-button>
-        <el-button v-else disabled class="mint" type="warning" plain>请先连接钱包</el-button>
+        <el-button v-if="account && activeName==='buy'" @click="mint" class="mint" type="warning" plain>Buy</el-button>
+        <el-button v-else-if="account && activeName==='sell'" @click="mint" class="mint" type="warning" plain>Sell</el-button>
+        <el-button v-else-if="account && activeName==='add'" @click="mint" class="mint" type="warning" plain>Add liquidity</el-button>
+        <el-button v-else-if="account && activeName==='remove'" @click="mint" class="mint" type="warning" plain>Remove liquidity</el-button>
+        <el-button v-else disabled class="mint" type="warning" plain>Connect wallet</el-button>
       </el-col>
     </el-row>
   </el-card>
@@ -84,9 +87,9 @@ export default {
       tokenNumber: 0.00,
       YPNumber: 0.00,
 
-      YPBalance: 4.670,
-      tokenBalance: 3.095,
-      LPBalance: 6.334,
+      YPBalance: 0.00,
+      tokenBalance: 0.00,
+      LPBalance: 0.00,
 
       activeName: 'buy',
       limit: 0.00

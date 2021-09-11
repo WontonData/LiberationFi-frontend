@@ -8,7 +8,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">Balance： {{YPBalance + ' ' + tokenName }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{ YPBalance + ' ' + tokenName }}</span></el-col>
       <el-col :span="11">
         <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
@@ -26,9 +26,15 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="11" :offset="1"><span class="left">Balance： {{tokenBalance + ' ' + token.token1 }}</span></el-col>
+      <el-col :span="11" :offset="1"><span class="left">Balance： {{ tokenBalance + ' ' + token.token1 }}</span></el-col>
       <el-col :span="11">
         <el-button @click="toMax('token')" class="right" type="warning" plain size="mini">Max</el-button>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="11" :offset="1"><span class="left b">Market rate：</span></el-col>
+      <el-col :span="11">
+        <span class="right"> {{ rate + ' ' + tokenName + ' / ' + token.token1 }} </span>
       </el-col>
     </el-row>
   </div>
@@ -41,7 +47,13 @@ export default {
     return {
       number: null,
       addNumber: null,
+      rate: null,
     }
+  },
+  created() {
+    setTimeout(() => {
+      this.rate = (this.token.yReserves / this.token.xReserves).toFixed(2)
+    }, 3000)
   },
   props: {
     token: {
@@ -55,6 +67,9 @@ export default {
     },
     YPBalance: {
       type: Number
+    },
+    type: {
+      type: String
     }
   },
   methods: {
@@ -69,9 +84,9 @@ export default {
     calculate(direction) {
       if (direction === "token") {
 
-        this.addNumber = this.number*this.token.yReserves/this.token.xReserves
+        this.addNumber = this.number * this.token.yReserves / this.token.xReserves
       } else {
-        this.number = this.addNumber*this.token.xReserves/this.token.yReserves
+        this.number = this.addNumber * this.token.xReserves / this.token.yReserves
       }
       this.$emit("calculate", this.number, this.addNumber)
 
@@ -84,9 +99,11 @@ export default {
 .el-row {
   padding-top: 14px;
 }
+
 span {
   font-size: 14px;
 }
+
 i {
   font-size: 20px;
   font-weight: 600;

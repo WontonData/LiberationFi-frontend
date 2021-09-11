@@ -35,6 +35,12 @@
         <el-button @click="toMax('e')" class="right" type="warning" plain size="mini">Max</el-button>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="11" :offset="1"><span class="left b">Market rate：</span></el-col>
+      <el-col :span="11">
+        <span class="right"> {{ rate + ' ' + token.token1 + ' / ' + tokenName }} </span>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -52,7 +58,34 @@ export default {
     return {
       number: null,
       buyNumber: null,
+      rate: null,
     }
+  },
+  created() {
+    setTimeout(() => {
+      let rate;
+      console.log(this.type)
+      if (this.type === 'Y')
+        rate = calcSwapOutGivenInWeightedPoolUnsafe(
+            1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves,
+        ) / 1000000000000000000
+      // return  ().toFixed(2)
+      else
+        rate = calcSwapInGivenOutCCPoolUnsafe(
+            1000000000000000000,
+            this.token.xReserves,
+            this.token.yReserves,
+            this.token.totalSupply,
+            this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
+            this.token.unitSeconds,
+            false
+        ) / 1000000000000000000
+      this.rate = rate.toFixed(2)
+    }, 3000)
+
+
   },
   props: {
     token: {
@@ -138,5 +171,10 @@ span {
 i {
   font-size: 20px;
   font-weight: 600;
+}
+
+.b {
+  font-weight: 600;
+  font-size: 15px;
 }
 </style>
