@@ -90,7 +90,7 @@ export default {
               this.number * 1000000000000000000,
               this.token.yReserves,
               this.token.xReserves,
-          ) / 1000000000000000000 * 0.965
+          ) / 1000000000000000000
         else
           this.buyNumber = calcSwapOutGivenInCCPoolUnsafe(
               this.number * 1000000000000000000,
@@ -100,14 +100,14 @@ export default {
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,
               true
-          ) / 1000000000000000000 - 0.1
+          ) / 1000000000000000000
       } else {
         if (this.type === 'Y')
           this.number = calcSwapOutGivenInWeightedPoolUnsafe(
               this.buyNumber * 1000000000000000000,
               this.token.xReserves,
               this.token.yReserves
-          ) / 1000000000000000000 * 0.95
+          ) / 1000000000000000000
         else
           this.number = calcSwapInGivenOutCCPoolUnsafe(
               this.buyNumber * 1000000000000000000,
@@ -117,7 +117,7 @@ export default {
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,
               false
-          ) / 1000000000000000000 - 0.1
+          ) / 1000000000000000000
       }
       this.$emit("calculate", this.number, this.buyNumber, this.limit)
 

@@ -85,7 +85,7 @@ export default {
               this.number * 1000000000000000000,
               this.token.yReserves,
               this.token.xReserves,
-          ) / 1000000000000000000 * 0.95
+          ) / 1000000000000000000
         else
           this.sellNumber = calcSwapOutGivenInCCPoolUnsafe(
               this.number * 1000000000000000000,
@@ -95,7 +95,7 @@ export default {
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,
               true
-          ) / 1000000000000000000 - 0.1
+          ) / 1000000000000000000
       } else {
         console.log(this.sellNumber)
         if (this.type === 'Y')
@@ -103,7 +103,7 @@ export default {
               this.sellNumber * 1000000000000000000,
               this.token.xReserves,
               this.token.yReserves
-          ) / 1000000000000000000 * 0.95
+          ) / 1000000000000000000
         else
           this.number = calcSwapInGivenOutCCPoolUnsafe(
               this.sellNumber * 1000000000000000000,
@@ -113,7 +113,7 @@ export default {
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,
               false
-          ) / 1000000000000000000 - 0.1
+          ) / 1000000000000000000
 
       }
       console.log(this.token)

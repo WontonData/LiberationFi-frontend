@@ -61,17 +61,17 @@ export default {
     toMax(direction) {
       if (direction === "token") {
         this.number = this.tokenBalance
-        this.addNumber = this.tokenBalance + 1
       } else {
         this.addNumber = this.YPBalance
-        this.number = this.YPBalance - 1
       }
+      this.calculate(direction)
     },
     calculate(direction) {
       if (direction === "token") {
-        this.addNumber = this.number
+
+        this.addNumber = this.number*this.token.yReserves/this.token.xReserves
       } else {
-        this.number = this.addNumber
+        this.number = this.addNumber*this.token.xReserves/this.token.yReserves
       }
       this.$emit("calculate", this.number, this.addNumber)
 

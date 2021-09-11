@@ -140,26 +140,22 @@ export default {
       this.dialogShow = true
     },
     getUserData() {
-      const initialBalances = [ethers.BigNumber.from(this.tokenNumber).pow(18).mul(100),
-        ethers.BigNumber.from(this.YPNumber).pow(18).mul(100)];
-      const JOIN_KIND_INIT = 0;
-      const initUserData =
-          ethers.utils.defaultAbiCoder.encode(['uint256', 'uint256[]'],
-              [JOIN_KIND_INIT, initialBalances]);
-      const userdata = ethers.utils.defaultAbiCoder.encode(["uint256[]"], [initialBalances]);
-      console.log("userdata:" + userdata);
-      console.log("initUserData:" + initUserData);
-      console.log("amountA:" + initialBalances[0].toString());
-      console.log("amountB:" + initialBalances[1].toString());
-      return [userdata, initUserData]
+      // const amountIn = [ethers.BigNumber.from('10').pow(18).mul(this.tokenNumber) + '',
+      //   ethers.BigNumber.from('10').pow(18).mul(this.YPNumber) + ''];
+
+      const amountIn = [this.tokenNumber * 1000000000000000000 + '', this.YPNumber * 1000000000000000000 + ''];
+      const JOIN_KIND_INIT = 1;
+      const yUserData = ethers.utils.defaultAbiCoder.encode(['uint256', 'uint256[]'],
+          [JOIN_KIND_INIT, amountIn]);
+      const pUserdata = ethers.utils.defaultAbiCoder.encode(["uint256[]"], [amountIn]);
+      console.log("pUserdata:" + pUserdata);
+      console.log("yUserData:" + yUserData);
+      console.log("amountA:" + amountIn[0].toString());
+      console.log("amountB:" + amountIn[1].toString());
+      return [pUserdata, yUserData]
 
     },
     tradeSure() {
-      // if (this.type === "Y") {
-      //   this.userdata = this.getUserData()[1]
-      // } else {
-      //   this.userdata = this.getUserData()[0]
-      // }
 
       switch (this.transactionType) {
         case "buy":
@@ -182,7 +178,7 @@ export default {
                   false,
                   this.account,
                   false,],
-                this.YPNumber * 1000000000000000000,
+                this.YPNumber * 1000000000000000000 * 0.9,
                 '9700327120539288000'
             )
             console.log(balancerCalled)
@@ -212,7 +208,7 @@ export default {
                   false,
                   this.account,
                   false,],
-                this.tokenNumber * 1000000000000000000,
+                this.tokenNumber * 1000000000000000000 * 0.95,
                 '1733023038'
             )
             console.log(balancerCalled)
@@ -222,7 +218,49 @@ export default {
           })
           break;
         case "add":
+          if (this.type === "Y") {
+            this.userdata = this.getUserData()[1]
+          } else {
+            this.userdata = this.getUserData()[0]
+          }
+          //授权
+          let addCalled = this.tokenContract["approve"].call(
+              this.BalancerVault.address,
+              this.YPNumber * 1000000000000000000,
+          )
+          console.log(addCalled)
+          this.transaction(addCalled).then(res => {
+            console.log(res)
 
+            //USDA授权
+            let addCalled = this.USDA["approve"].call(
+                this.BalancerVault.address,
+                this.tokenNumber * 1000000000000000000,
+            )
+            console.log(addCalled)
+            this.transaction(addCalled).then(res => {
+              console.log(res)
+
+              //发起交易
+              const balancerCalled = this.BalancerVault["joinPool"].call(
+                  this.poolId,
+                  this.account,
+                  this.account,
+                  [
+                    [this.USDA.address, this.tokenAddress],
+                    [this.tokenNumber * 1000000000000000000, this.YPNumber * 1000000000000000000],
+                    this.userdata,
+                    false
+                  ]
+              )
+              console.log(balancerCalled)
+              this.transaction(balancerCalled).then(res => {
+                console.log(res)
+              })
+
+            })
+
+          })
           break;
         case "remove":
 
