@@ -98,13 +98,13 @@ export default {
       console.log(this.type)
       if (this.type === "Y") {
         this.tokenName = this.token.token3
-        this.tokenAddress = this.token.yToken
+        this.tokenAddress = this.token.yToken.address
         this.poolId = this.token.poolId2
         this.poolContract = this.token.WeightPool
         this.tokenContract = this.token.yToken
       } else {
         this.tokenName = this.token.token2
-        this.tokenAddress = this.token.pToken
+        this.tokenAddress = this.token.pToken.address
         this.poolId = this.token.poolId1
         this.poolContract = this.token.CCPool
         this.tokenContract = this.token.pToken
@@ -137,11 +137,17 @@ export default {
 
       this.dialogShow = true
     },
-    getUserData() {
+    getUserData(amountIn) {
       // const amountIn = [ethers.BigNumber.from('10').pow(18).mul(this.tokenNumber) + '',
       //   ethers.BigNumber.from('10').pow(18).mul(this.YPNumber) + ''];
-
-      const amountIn = [this.tokenNumber * 1000000000000000000 + '', this.YPNumber * 1000000000000000000 + ''];
+      // let amountIn;
+      // //比较pyToken和uToken大小
+      // if (this.token.uToken.address < this.tokenAddress) {
+      //   amountIn = [this.tokenNumber * 1000000000000000000 + '', this.YPNumber * 1000000000000000000 + ''];
+      // } else {
+      //   amountIn = [this.YPNumber * 1000000000000000000 + '', this.tokenNumber * 1000000000000000000 + ''];
+      // }
+      // // const amountIn = [this.tokenNumber * 1000000000000000000 + '', this.YPNumber * 1000000000000000000 + ''];
       const JOIN_KIND_INIT = 1;
       const yUserData = ethers.utils.defaultAbiCoder.encode(['uint256', 'uint256[]'],
           [JOIN_KIND_INIT, amountIn]);
@@ -216,10 +222,20 @@ export default {
           })
           break;
         case "add":
-          if (this.type === "Y") {
-            this.userdata = this.getUserData()[1]
+          let address, amountIn;
+          //比较pyToken和uToken大小
+          if (this.token.uToken.address < this.tokenAddress) {
+            address = [this.token.uToken.address, this.tokenAddress];
+            amountIn = [this.tokenNumber * 1000000000000000000 + '', this.YPNumber * 1000000000000000000 + ''];
           } else {
-            this.userdata = this.getUserData()[0]
+            address = [this.tokenAddress, this.token.uToken.address];
+            amountIn = [this.YPNumber * 1000000000000000000 + '', this.tokenNumber * 1000000000000000000 + ''];
+          }
+          console.log(address)
+          if (this.type === "Y") {
+            this.userdata = this.getUserData(amountIn)[1]
+          } else {
+            this.userdata = this.getUserData(amountIn)[0]
           }
           //授权
           let addCalled = this.tokenContract["approve"].call(
@@ -245,8 +261,8 @@ export default {
                   this.account,
                   this.account,
                   [
-                    [this.token.uToken.address, this.tokenAddress],
-                    [this.tokenNumber * 1000000000000000000, this.YPNumber * 1000000000000000000],
+                    address,
+                    amountIn,
                     this.userdata,
                     false
                   ]

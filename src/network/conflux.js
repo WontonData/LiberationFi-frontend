@@ -8,12 +8,12 @@ export const conflux = new Conflux({
 
 export const UserProxy = conflux.Contract({
   abi: require("./abi/UserProxy.json"),
-  address: 'cfxtest:acc8k6yz4s9fxu85j397b1k1je1jzferxpgr65ngzx'
+  address: 'CFXTEST:TYPE.CONTRACT:ACH1FEKHSD4DTK50D3Y3346PRM0PH7WW8AAT4GZNEV'
 });
 
 export const BalancerVault = conflux.Contract({
   abi: require("./abi/BalancerVault.json"),
-  address: 'cfxtest:acfgzsywmpxbb7tkf4j8jvuejc3ffhuvjycga9rjhy'
+  address: 'cfxtest:acazsk01urtgfmvjzw2y5yj3fu91cr89dj4ecmyp9f'
 });
 
 export const USDA = conflux.Contract({

@@ -110,7 +110,7 @@ export default {
     if (this.type === 'Y') {
       this.YPContract = this.token.yToken
     } else {
-      this.YPContract = this.token.uToken
+      this.YPContract = this.token.pToken
     }
     //LP Token
     this.YPContract.balanceOf(this.account).then(res => {
