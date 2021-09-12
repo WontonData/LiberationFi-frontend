@@ -23,8 +23,8 @@
         <el-tab-pane label="LP Positions" name="lp" class="tab">
           <el-row>
             <el-col :span="24">
-<!--              <Lp></Lp>-->
-              <NoLp></NoLp>
+              <Lp></Lp>
+<!--              <NoLp></NoLp>-->
             </el-col>
           </el-row>
         </el-tab-pane>

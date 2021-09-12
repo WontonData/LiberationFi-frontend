@@ -109,10 +109,11 @@ export default {
   created() {
     const type = this.tokenName.split(':')[0]
     if (type === 'eY') {
-      this.YPContract = this.InterestToken
+      this.YPContract = this.InterestToken//Y Token
     } else {
-      this.YPContract = this.Tranche
+      this.YPContract = this.Tranche//P Token
     }
+    //LP Token
     this.YPContract.balanceOf(this.account).then(res => {
       this.YPBalance = res.toString()/1000000000000000000
     })
