@@ -16,28 +16,28 @@
       <el-row class="card2">
         <el-col :span="24">
           <span>Reaches term in {{restDate}} days</span><br>
-          <el-progress :percentage="7" :format="format"></el-progress>
+          <el-progress :percentage="2" :format="format"></el-progress>
         </el-col>
       </el-row>
       <!--      3-->
       <el-row class="card3">
         <el-col :span="24">
           <el-tag type="info" class="card3-tag">
-            Total balance<br/>
-            <span style="font-weight: bolder">10.000000 eY:eyUSDC:10</span>
+            Total balance  LP-pcDAI-11SEP22<br/>
+            <span style="font-weight: bolder">{{lpBalance}}</span>
           </el-tag>
         </el-col>
       </el-row>
       <!--      4-->
-      <el-row class="card4">
-        <el-col :span="24">
-          <el-tag type="info" class="card4-tag">
-            Current value<br/>
-            <span style="font-weight: bolder">0.781000 USDC</span><br/>
-            $0.78
-          </el-tag>
-        </el-col>
-      </el-row>
+<!--      <el-row class="card4">-->
+<!--        <el-col :span="24">-->
+<!--          <el-tag type="info" class="card4-tag">-->
+<!--            Current value<br/>-->
+<!--            <span style="font-weight: bolder"></span><br/>-->
+<!--            $0.78-->
+<!--          </el-tag>-->
+<!--        </el-col>-->
+<!--      </el-row>-->
       <!--      5-->
       <el-row class="card5">
         <el-col :span="24">
@@ -51,7 +51,7 @@
       <!--      6-->
       <el-row class="card6">
         <el-col :span="24">
-          Yield accrued on USDC deposited in<span> yvUSDC 0.2.2</span>
+          Yield accrued on cDAI deposited in<span> Flux cDAI</span>
         </el-col>
       </el-row>
 
@@ -67,21 +67,29 @@
       return {
         unlockTimestamp: '',
         formatDate: '',
-        restDate: ''
+        restDate: '',
+        lpBalance: 0.00,
+      }
+    },
+    props: {
+      tokenList: {
+        type: Array
       }
     },
     computed: {
-      ...mapState(["Tranche"]),
+      ...mapState(["account","Tranche"]),
     },
     mounted: function () {
+      this.tokenList[0].CCPool.balanceOf(this.account).then(res => {
+        this.lpBalance = (res / 1000000000000000000).toFixed(3)
+      })
       this.getData();
     },
     methods: {
-      async getData() {
-        const unlockTimestamp = await this.Tranche.unlockTimestamp()
-        this.formatDate = this.formatDatee(unlockTimestamp)
-        this.restDate = this.restDatee(unlockTimestamp)
-        // console.log(this.formatDate + ":" + this.restDate)
+      async getData(){
+        const unlockTimestamp = await this.tokenList[0].pToken.unlockTimestamp();
+        this.restDate = this.restDatee(unlockTimestamp);
+        this.formatDate = this.formatDatee(unlockTimestamp);
       },
 
       // eslint-disable-next-line vue/no-dupe-keys

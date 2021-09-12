@@ -5,7 +5,7 @@
         <el-tab-pane label="Principal Tokens" name="principal" class="tab">
           <el-row>
             <el-col :span="24">
-              <Principal></Principal>
+              <Principal :token-list="tokenList"></Principal>
 <!--              <NoPrincipal></NoPrincipal>-->
             </el-col>
           </el-row>
@@ -14,7 +14,7 @@
         <el-tab-pane label="Yield Tokens" name="yield" class="tab">
           <el-row>
             <el-col :span="24">
-              <Yield></Yield>
+              <Yield :token-list="tokenList"></Yield>
 <!--              <NoYield></NoYield>-->
             </el-col>
           </el-row>
@@ -23,7 +23,7 @@
         <el-tab-pane label="LP Positions" name="lp" class="tab">
           <el-row>
             <el-col :span="24">
-              <Lp></Lp>
+              <Lp :token-list="tokenList"></Lp>
 <!--              <NoLp></NoLp>-->
             </el-col>
           </el-row>
@@ -47,6 +47,11 @@
       return {
         activeName: 'principal'
       };
+    },
+    props: {
+      tokenList: {
+        type: Array
+      }
     },
     methods: {
       handleClick(tab, event) {

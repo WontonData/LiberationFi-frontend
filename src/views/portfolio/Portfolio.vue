@@ -8,7 +8,7 @@
           <el-row>
             <el-col :span="24" class="port-text">Portfolio({{accountCut}})</el-col>
           </el-row>
-          <port-card></port-card>
+          <port-card :token-list="tokenList"></port-card>
         </el-col>
 
         <!--未连接钱包-->
@@ -25,6 +25,11 @@
   export default {
   name: "Portfolio",
   components: {PortCard},
+  props: {
+    tokenList: {
+      type: Array
+    }
+  },
   computed: {
     ...mapState(["account", "ConvergentPoolFactory", "TrancheFactory"]),
     accountCut(){

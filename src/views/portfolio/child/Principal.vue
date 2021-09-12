@@ -5,10 +5,10 @@
 <!--      1-->
       <el-row class="card1">
         <el-col :span="6" class="card1-1">
-          <img src="img/token/USDC.svg" alt="" height="75" width="75">
+          <img src="img/token/cDAI.svg" alt="" height="75" width="75">
         </el-col>
         <el-col :span="18" class="card1-2">
-          <div class="card1-2-1">USDC Principal Token</div>
+          <div class="card1-2-1">cDAI Principal Token</div>
           <div class="card1-2-2"><el-tag effect="dark">{{formatDate}}</el-tag></div>
         </el-col>
       </el-row>
@@ -16,15 +16,15 @@
       <el-row class="card2">
         <el-col :span="24">
           <span>Reaches term in {{restDate}} days</span><br>
-          <el-progress :percentage="7" :format="format"></el-progress>
+          <el-progress :percentage="2" :format="format"></el-progress>
         </el-col>
       </el-row>
 <!--      3-->
       <el-row class="card3">
         <el-col :span="24">
           <el-tag type="info" class="card3-tag">
-            Total balance<br/>
-            <span style="font-weight: bolder">{{ptBalance}} {{ptSymbol}}</span>
+            Total balance  {{ptSymbol}}<br/>
+            <span style="font-weight: bolder">{{ptBalance}}</span>
           </el-tag>
         </el-col>
       </el-row>
@@ -33,8 +33,7 @@
         <el-col :span="24">
           <el-tag type="info" class="card4-tag">
             Current value<br/>
-            <span style="font-weight: bolder">9.640000 USDC</span><br/>
-            $9.64
+            <span style="font-weight: bolder">$ {{ptBalance * 0.98}}</span><br/>
           </el-tag>
         </el-col>
       </el-row>
@@ -51,7 +50,7 @@
 <!--      6-->
       <el-row class="card6">
         <el-col :span="24">
-          Fixed yield is backed by USDC deposited in<span>Yearn USDC</span>
+          Fixed yield is backed by cDAI deposited in<span> Flux cDAI</span>
         </el-col>
       </el-row>
 
@@ -62,7 +61,7 @@
 
 <script>
   import {mapState} from "vuex";
-  import About from "../../About";
+  // import About from "../../About";
 
   export default {
     name: "Principal",
@@ -72,31 +71,36 @@
         formatDate: '',
         restDate: '',
         ptBalance: 0.00,
-        ptContract: null,
         ptSymbol: '',
       }
     },
-    components: {About},
+    // components: {About},
     computed: {
-      ...mapState(["account","Tranche"]),
+      ...mapState(["account"]),
     },
+    props: {
+      tokenList: {
+        type: Array
+      }
+    },
+    // create() {
+    //
+    // },
     mounted: function () {
       this.getData();
-      this.ptContract = this.Tranche;
-      this.ptContract.balanceOf(this.account).then(res => {
+      this.tokenList[0].pToken.balanceOf(this.account).then(res => {
         this.ptBalance = (res / 1000000000000000000).toFixed(3)
       })
     },
     methods: {
       async getData() {
-        const unlockTimestamp = await this.Tranche.unlockTimestamp()
-        this.formatDate = this.formatDatee(unlockTimestamp)
-        this.restDate = this.restDatee(unlockTimestamp)
-        // console.log(this.formatDate + ":" + this.restDate)
-        this.ptSymbol = await this.Tranche.symbol();
+        this.ptSymbol = await this.tokenList[0].pToken.symbol();
+        const unlockTimestamp = await this.tokenList[0].pToken.unlockTimestamp();
+        this.restDate = this.restDatee(unlockTimestamp);
+        this.formatDate = this.formatDatee(unlockTimestamp);
       },
-
-      // eslint-disable-next-line vue/no-dupe-keys
+      //
+      // // eslint-disable-next-line vue/no-dupe-keys
       formatDatee(timestamp) {
         const date = new Date(timestamp * 1000);
         const year = date.getFullYear();

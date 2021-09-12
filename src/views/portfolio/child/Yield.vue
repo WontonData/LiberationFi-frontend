@@ -5,10 +5,10 @@
       <!--      1-->
       <el-row class="card1">
         <el-col :span="6" class="card1-1">
-          <img src="img/token/USDC.svg" alt="" height="75" width="75">
+          <img src="img/token/cDAI.svg" alt="" height="75" width="75">
         </el-col>
         <el-col :span="18" class="card1-2">
-          <div class="card1-2-1">USDC Yield Token</div>
+          <div class="card1-2-1">cDAI Yield Token</div>
           <div class="card1-2-2"><el-tag effect="dark">{{formatDate}}</el-tag></div>
         </el-col>
       </el-row>
@@ -16,15 +16,15 @@
       <el-row class="card2">
         <el-col :span="24">
           <span>Reaches term in {{restDate}} days</span><br>
-          <el-progress :percentage="7" :format="format"></el-progress>
+          <el-progress :percentage="2" :format="format"></el-progress>
         </el-col>
       </el-row>
       <!--      3-->
       <el-row class="card3">
         <el-col :span="24">
           <el-tag type="info" class="card3-tag">
-            Total balance<br/>
-            <span style="font-weight: bolder">{{ ytBalance }} eY:eyUSDC:10</span>
+            Total balance  {{ytSymbol}}<br/>
+            <span style="font-weight: bolder">{{ ytBalance }}</span>
           </el-tag>
         </el-col>
       </el-row>
@@ -33,8 +33,7 @@
         <el-col :span="24">
           <el-tag type="info" class="card4-tag">
             Current value<br/>
-            <span style="font-weight: bolder">0.781000 USDC</span><br/>
-            $0.78
+            <span style="font-weight: bolder">$ {{ytBalance * 0.98}}</span><br/>
           </el-tag>
         </el-col>
       </el-row>
@@ -51,7 +50,7 @@
       <!--      6-->
       <el-row class="card6">
         <el-col :span="24">
-          Yield accrued on USDC deposited in<span> yvUSDC 0.2.2</span>
+          Yield accrued on cDAI deposited in<span> Flux cDAI</span>
         </el-col>
       </el-row>
 
@@ -69,7 +68,14 @@
         formatDate: '',
         restDate: '',
         ytContract: null,
-        ytBalance: 0.00
+        ytBalance: 0.00,
+        ytSymbol: '',
+        // usd: 0.00
+      }
+    },
+    props: {
+      tokenList: {
+        type: Array
       }
     },
     computed: {
@@ -77,20 +83,18 @@
     },
     mounted: function () {
       this.getData();
-      this.ytContract = this.InterestToken;
-      this.ytContract.balanceOf(this.account).then(res => {
+      this.tokenList[0].yToken.balanceOf(this.account).then(res => {
         this.ytBalance = (res / 1000000000000000000).toFixed(3)
       })
+      // this.usd = (this.ytBalance * 0.98).toFixed(3)
     },
     methods: {
-      async getData() {
-        const unlockTimestamp = await this.Tranche.unlockTimestamp()
-        this.formatDate = this.formatDatee(unlockTimestamp)
-        this.restDate = this.restDatee(unlockTimestamp)
-        // console.log(this.formatDate + ":" + this.restDate)
+      async getData(){
+        this.ytSymbol = await this.tokenList[0].yToken.symbol();
+        const unlockTimestamp = await this.tokenList[0].pToken.unlockTimestamp();
+        this.restDate = this.restDatee(unlockTimestamp);
+        this.formatDate = this.formatDatee(unlockTimestamp);
       },
-
-      // eslint-disable-next-line vue/no-dupe-keys
       formatDatee(timestamp) {
         const date = new Date(timestamp * 1000);
         const year = date.getFullYear();
@@ -100,8 +104,6 @@
         return year + ' 年 ' + (String(month).length > 1 ? month : '0' + month) + ' 月 ' +
             (String(day).length > 1 ? day : '0' + day) + ' 日 '
       },
-
-      // eslint-disable-next-line vue/no-dupe-keys
       restDatee(timestamp) {
         const now = new Date().getTime();
         return Math.floor((timestamp*1000 - now)/(1000*60*60*24))

@@ -20,7 +20,7 @@
         <item-text :data="token.vaultAPY + '%'" />
       </div>
       <div style="width: 11%">
-        <item-text :data="token.price2" :title=token.token1 />
+        <item-text :data="token.price1" :title=token.token1 />
       </div>
       <div style="width: 25%">
         <item-time :time="token.term" :day="token.restDate + ' Day'" :percentage="token.proportion"/>

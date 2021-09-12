@@ -20,8 +20,8 @@
             <item-text :data="token.lpAPY2 + '%'" title="Yield"/>
           </div>
           <div f-w="2">
-            <item-text :data="token.totalSupply1 + ' 美元'" title="Principal Pool"/>
-            <item-text :data="token.totalSupply2 + ' 美元'" title="Yield Pool"/>
+            <item-text :data="token.liquidity1 + ' 美元'" title="Principal Pool"/>
+            <item-text :data="token.liquidity2 + ' 美元'" title="Yield Pool"/>
           </div>
           <div f-w="2">
             <item-text :data="token.price1" title="Ptoken"/>
