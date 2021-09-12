@@ -14,7 +14,7 @@
     </el-row>
 
     <el-row>
-      <el-col :span="18"><span class="left">Available balance：{{ max }} {{ token.token1 }}</span></el-col>
+      <el-col :span="18"><span class="left">Available balance：{{ maxFixed }} {{ token.token1 }}</span></el-col>
       <el-col :span="6">
         <el-button @click="toMax" class="right" type="warning" plain size="mini">MAX</el-button>
       </el-col>
@@ -55,7 +55,7 @@ export default {
   watch: {
     account() {
       this.token.contract.uToken.balanceOf(this.account).then(res => {
-        this.max = res.toString() / 1000000000000000000
+        this.max = nBig2Small(res.toString(),18)
       })
     }
   },
@@ -65,6 +65,7 @@ export default {
       number: null,
       Ynumber: 0.00,
       Pnumber: 0.00,
+      maxFixed: 0.00,
       max: 0.000,
       numberEth: ""
     }
@@ -80,7 +81,8 @@ export default {
   mounted() {
     console.log(this.token.contract)
     this.token.contract.uToken.balanceOf(this.account).then(res => {
-      this.max = res.toString() / 1000000000000000000
+      this.max = nBig2Small(res.toString(),18)
+      this.maxFixed = nBig2Small(res.toString(),3,true,true)
     })
   },
   methods: {
