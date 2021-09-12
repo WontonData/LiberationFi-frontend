@@ -24,7 +24,7 @@
         <el-col :span="24">
           <el-tag type="info" class="card3-tag">
             Total balance<br/>
-            <span style="font-weight: bolder">10.000000 eP:eyUSDC:10</span>
+            <span style="font-weight: bolder">{{ptBalance}} {{ptSymbol}}</span>
           </el-tag>
         </el-col>
       </el-row>
@@ -70,15 +70,22 @@
       return {
         unlockTimestamp: '',
         formatDate: '',
-        restDate: ''
+        restDate: '',
+        ptBalance: 0.00,
+        ptContract: null,
+        ptSymbol: '',
       }
     },
     components: {About},
     computed: {
-      ...mapState(["Tranche"]),
+      ...mapState(["account","Tranche"]),
     },
     mounted: function () {
       this.getData();
+      this.ptContract = this.Tranche;
+      this.ptContract.balanceOf(this.account).then(res => {
+        this.ptBalance = (res / 1000000000000000000).toFixed(3)
+      })
     },
     methods: {
       async getData() {
@@ -86,6 +93,7 @@
         this.formatDate = this.formatDatee(unlockTimestamp)
         this.restDate = this.restDatee(unlockTimestamp)
         // console.log(this.formatDate + ":" + this.restDate)
+        this.ptSymbol = await this.Tranche.symbol();
       },
 
       // eslint-disable-next-line vue/no-dupe-keys

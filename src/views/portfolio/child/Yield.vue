@@ -24,7 +24,7 @@
         <el-col :span="24">
           <el-tag type="info" class="card3-tag">
             Total balance<br/>
-            <span style="font-weight: bolder">10.000000 eY:eyUSDC:10</span>
+            <span style="font-weight: bolder">{{ ytBalance }} eY:eyUSDC:10</span>
           </el-tag>
         </el-col>
       </el-row>
@@ -67,14 +67,20 @@
       return {
         unlockTimestamp: '',
         formatDate: '',
-        restDate: ''
+        restDate: '',
+        ytContract: null,
+        ytBalance: 0.00
       }
     },
     computed: {
-      ...mapState(["Tranche"]),
+      ...mapState(["account","Tranche","InterestToken"]),
     },
     mounted: function () {
       this.getData();
+      this.ytContract = this.InterestToken;
+      this.ytContract.balanceOf(this.account).then(res => {
+        this.ytBalance = (res / 1000000000000000000).toFixed(3)
+      })
     },
     methods: {
       async getData() {
