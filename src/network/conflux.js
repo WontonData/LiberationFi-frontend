@@ -101,7 +101,22 @@ export let EarnTokenList = {
         yToken: newContract("InterestToken",conAddr["cDAI"].token[0].yToken)
       }
     ]
-  }
+  },
+  cUSDC: {
+    name: "cUSDC",
+    info: conAddr["cUSDC"],
+    uToken: newContract("cDAI-uToken",conAddr["cDAI"].uToken),
+    Vault: newContract("FVault",conAddr["cDAI"].Vault),
+    FVaultAssetProxy: newContract("FVaultAssetProxy",conAddr["cDAI"].FVaultAssetProxy),
+    token: [
+      {
+        start: 1631376000,
+        expiration: 1631635200,
+        pToken: newContract("Tranche",conAddr["cDAI"].token[0].pToken),
+        yToken: newContract("InterestToken",conAddr["cDAI"].token[0].yToken)
+      }
+    ]
+  },
 }
 
 
