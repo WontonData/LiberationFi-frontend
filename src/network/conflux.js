@@ -114,6 +114,7 @@ export let EarnTokenList = {
         expiration: 1662987039,
         pToken: newContract("Tranche",conAddr["cUSDC"].token[0].pToken),
         yToken: newContract("InterestToken",conAddr["cUSDC"].token[0].yToken)
+
       }
     ]
   },
