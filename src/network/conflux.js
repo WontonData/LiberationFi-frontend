@@ -6,6 +6,14 @@ export const conflux = new Conflux({
   logger: console, // for debug
 });
 
+export let conAddr = require('./deploy/deploy.json')
+let newContract = function(abiName,address){
+  return conflux.Contract({
+    abi: require("./abi/"+abiName+".json"),
+    address: address
+  })
+}
+
 export const InterestTokenFactory = conflux.Contract({
   abi: require("./abi/InterestTokenFactory.json"),
   address: 'cfxtest:accf9dtkkvgh33be9jspt95kvdn2r80veuazn6k0uy'
@@ -29,7 +37,7 @@ export const WCFX = conflux.Contract({
 
 export const UserProxy = conflux.Contract({
   abi: require("./abi/UserProxy.json"),
-  address: 'cfxtest:acc8k6yz4s9fxu85j397b1k1je1jzferxpgr65ngzx'
+  address: conAddr.UserProxy
 });
 
 export const ConvergentCurvePool = conflux.Contract({
@@ -78,6 +86,24 @@ export const WeightPool = conflux.Contract({
 });
 
 
+export let EarnTokenList = {
+  cDAI: {
+    name: "cDAI",
+    info: conAddr["cDAI"],
+    uToken: newContract("cDAI-uToken",conAddr["cDAI"].uToken),
+    Vault: newContract("FVault",conAddr["cDAI"].Vault),
+    FVaultAssetProxy: newContract("FVaultAssetProxy",conAddr["cDAI"].FVaultAssetProxy),
+    token: [
+      {
+        start: 1631376000,
+        expiration: 1631635200,
+        pToken: newContract("Tranche",conAddr["cDAI"].token[0].pToken),
+        yToken: newContract("InterestToken",conAddr["cDAI"].token[0].yToken)
+      }
+    ]
+  }
+}
+
 
 export default {
   conflux,
@@ -92,5 +118,7 @@ export default {
   YVaultAssetProxy,
   BalancerVault,
   CCPool,
-  WeightPool
+  WeightPool,
+  conAddr,
+  EarnTokenList
 }

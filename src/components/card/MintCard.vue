@@ -7,25 +7,25 @@
       <el-col :span="24">
         <el-input @input="calculate" type="number" class="number-input" placeholder="0.00" v-model="number">
           <template slot="prepend">
-            <img alt="美元" :src="'img/token/' + token.icon + '.svg'" height="22" width="22">
+            <img alt="tokenIcon" :src="'img/token/' + token.icon + '.svg'" height="22" width="22">
           </template>
         </el-input>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="12"><span class="left">Available balance：{{ max }} {{ token.token1 }}</span></el-col>
-      <el-col :span="12">
+      <el-col :span="18"><span class="left">Available balance：{{ max }} {{ token.token1 }}</span></el-col>
+      <el-col :span="6">
         <el-button @click="toMax" class="right" type="warning" plain size="mini">MAX</el-button>
       </el-col>
     </el-row>
 
     <el-row>
       <el-col :span="12">
-        <item-text :data="Pnumber + ' ' + token.token2" title="Principal Tokens you receive"/>
+        <item-text :data="Pnumber" :suffix="token.token2" title="Principal Tokens you receive"/>
       </el-col>
       <el-col :span="12">
-        <item-text :data="Ynumber + ' ' + token.token3" title="Yield Tokens you receive"/>
+        <item-text :data="Ynumber" :suffix="token.token3" title="Yield Tokens you receive"/>
       </el-col>
     </el-row>
 
@@ -44,6 +44,7 @@
 <script>
 import {mapState} from "vuex";
 import ItemText from "../txt/ItemText";
+import {  nBig2Small,nSmall2Big }  from"../../network/tool"
 
 export default {
   name: "MintCard",
@@ -53,7 +54,7 @@ export default {
   },
   watch: {
     account() {
-      this.USDA.balanceOf(this.account).then(res => {
+      this.token.contract.uToken.balanceOf(this.account).then(res => {
         this.max = res.toString() / 1000000000000000000
       })
     }
@@ -64,7 +65,8 @@ export default {
       number: null,
       Ynumber: 0.00,
       Pnumber: 0.00,
-      max: 0.000
+      max: 0.000,
+      numberEth: ""
     }
   },
   props: {
@@ -75,8 +77,11 @@ export default {
       type: Boolean
     }
   },
-  created() {
-
+  mounted() {
+    // console.log(this.token)
+    this.token.contract.uToken.balanceOf(this.account).then(res => {
+      this.max = res.toString() / 1000000000000000000
+    })
   },
   methods: {
     toMax() {
@@ -85,11 +90,12 @@ export default {
 
     },
     calculate() {
-      console.log(this.number)
       this.Ynumber = this.Pnumber = this.number
     },
     mint() {
-      this.$emit("mint", this.number)
+      // console.log(this.number)
+      // console.log(nSmall2Big(this.number))
+      this.$emit("mint", nSmall2Big(this.number))
     }
   }
 }

@@ -1,16 +1,16 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="20" :offset="2">
-          <div style="width: 17%">Vault</div>
-          <div style="width: 12%" >TVL</div>
-          <div style="width: 10%" >Vault APY</div>
-          <div style="width: 7%" >LP APY</div>
-          <div style="width: 12%" >Liquidity</div>
-          <div style="width: 9%" >Price</div>
-          <div style="width: 8%" >Fixed APR</div>
-          <div style="width: 18%" >Term</div>
-          <div style="width: 7%"></div>
+      <el-col :span="20" :offset="2" class="center_flex_container">
+          <div f-w="3">Vault</div>
+          <div f-w="2">TVL</div>
+          <div f-w="2">Vault APY</div>
+          <div f-w="2">LP APY</div>
+          <div f-w="2">Liquidity</div>
+          <div f-w="2">Price</div>
+          <div f-w="2">Fixed APR</div>
+          <div f-w="2">Term</div>
+          <div f-w="2"></div>
       </el-col>
     </el-row>
     <eran-table-item v-for="(item, index) in tokenList" :key="index" :token="item" />

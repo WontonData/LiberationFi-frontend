@@ -58,7 +58,7 @@ class ConfluxPortal {
         param.name,
         1,
         param.nonces);
-    // console.log(JSON.stringify(JSON.parse(msgParams),undefined, 2))
+    console.log(JSON.stringify(JSON.parse(msgParams),undefined, 2))
     const acc = this.getAccount()
     let params = [acc, msgParams]
 
@@ -77,7 +77,7 @@ class ConfluxPortal {
         }
 
         res.sig = sign.result;
-        // console.log('signature', sig);
+        console.log('signature', sign);
         res.r = '0x' + res.sig.substring(2).substring(0, 64);
         res.s = '0x' + res.sig.substring(2).substring(64, 128);
         res.v = '0x' + res.sig.substring(2).substring(128, 130);
