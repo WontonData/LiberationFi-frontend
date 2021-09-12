@@ -18,6 +18,7 @@ jobs:
       run: |
         npm install
         npm run build
+        cp 
      
     # react项目的FOLDER为build， vue项目改为dist   
     - name: Deploy
