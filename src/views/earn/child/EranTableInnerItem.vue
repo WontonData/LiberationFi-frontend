@@ -305,6 +305,8 @@ export default {
     //确认mint
     confirm() {
 
+      this.activities[1].type = 'success';
+      this.activities[1].icon = 'el-icon-check';
         const mintParams = {
           _amount: (this.number ),
           _userProxy: this.conAddr.UserProxy,
