@@ -9,13 +9,13 @@
         </el-col>
         <el-col :span="18" class="card1-2">
           <div class="card1-2-1">USDC Yield Token</div>
-          <div class="card1-2-2"><el-tag effect="dark">August 11, 2022</el-tag></div>
+          <div class="card1-2-2"><el-tag effect="dark">{{formatDate}}</el-tag></div>
         </el-col>
       </el-row>
       <!--2-->
       <el-row class="card2">
         <el-col :span="24">
-          <span>Reaches term in 11 months </span><br>
+          <span>Reaches term in {{restDate}} days</span><br>
           <el-progress :percentage="7" :format="format"></el-progress>
         </el-col>
       </el-row>
@@ -60,12 +60,47 @@
 </template>
 
 <script>
+  import {mapState} from "vuex";
   export default {
     name: "Yield",
-    methods: {
-      format() {
-        return ''
+    data() {
+      return {
+        unlockTimestamp: '',
+        formatDate: '',
+        restDate: ''
       }
+    },
+    computed: {
+      ...mapState(["Tranche"]),
+    },
+    mounted: function () {
+      this.getData();
+    },
+    methods: {
+      async getData() {
+        const unlockTimestamp = await this.Tranche.unlockTimestamp()
+        this.formatDate = this.formatDatee(unlockTimestamp)
+        this.restDate = this.restDatee(unlockTimestamp)
+        // console.log(this.formatDate + ":" + this.restDate)
+      },
+
+      // eslint-disable-next-line vue/no-dupe-keys
+      formatDatee(timestamp) {
+        const date = new Date(timestamp * 1000);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+
+        return year + ' 年 ' + (String(month).length > 1 ? month : '0' + month) + ' 月 ' +
+            (String(day).length > 1 ? day : '0' + day) + ' 日 '
+      },
+
+      // eslint-disable-next-line vue/no-dupe-keys
+      restDatee(timestamp) {
+        const now = new Date().getTime();
+        return Math.floor((timestamp*1000 - now)/(1000*60*60*24))
+      },
+
     }
   }
 </script>
@@ -152,12 +187,6 @@
     border-color: var(--purple-light);
     color: var(--color-text);
   }
-  >>> .el-progress-bar__inner {
-    background-color: var(--purple-dark-shade) !important;
-  }
-  >>> .el-progress-bar__outer {
-    background-color: var(--purple-card) !important;
-  }
   .card3-tag {
     height: 80px;
     width: 420px;
@@ -196,5 +225,14 @@
     border-radius: 7px;
     border: none!important;
     background-color: rgba(255, 255, 255, 0) !important;
+  }
+  >>> .el-progress-bar__inner {
+    background-color: #3e414d !important;
+  }
+  >>> .el-progress-bar__outer {
+    background-color: var(--purple-card) !important;
+  }
+  >>> .el-progress__text {
+    color: #ffffff!important;
   }
 </style>

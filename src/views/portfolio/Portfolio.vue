@@ -12,7 +12,7 @@
         </el-col>
 
         <!--未连接钱包-->
-        <el-col v-else disabled :span="24">连接您的钱包以查看您的投资组合</el-col>
+        <el-col v-else disabled :span="24">Connect your wallet to view your portfolio</el-col>
       </el-row>
     </el-col>
   </el-row>

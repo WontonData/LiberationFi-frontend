@@ -137,6 +137,9 @@ i {
   font-weight: bold;
   color: #3a4750;
 }
+>>> .el-input.is-disabled .el-input__inner {
+  color: #303133!important;
+}
 >>> .dialog-input .el-input__inner {
   background-color: var(--purple-card) !important;
   color: var(--color-text) !important;

@@ -107,12 +107,12 @@ export default {
     }
   },
   created() {
-    // const type = this.tokenName.split(':')[0]
     if (this.type === 'Y') {
       this.YPContract = this.token.yToken
     } else {
       this.YPContract = this.token.uToken
     }
+    //LP Token
     this.YPContract.balanceOf(this.account).then(res => {
       this.YPBalance = res.toString()/1000000000000000000
     })
