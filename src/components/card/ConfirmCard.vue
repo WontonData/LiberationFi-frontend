@@ -5,36 +5,36 @@
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">amount：</span></el-col>
-      <el-col :span="19">
+      <el-col :span="8"><span class="left front">amount：</span></el-col>
+      <el-col :span="16">
         <span class="left">{{ accountCut }}</span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">deposit：</span></el-col>
-      <el-col :span="19">
-        <span class="left">{{ number + ' ' + token.token1}} </span>
+      <el-col :span="8"><span class="left front">deposit：</span></el-col>
+      <el-col :span="16">
+        <span class="left"><span class="textOverflow1">{{numberB}}</span> {{ token.token1}} </span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">Principal：</span></el-col>
-      <el-col :span="19">
-        <span class="left">{{ number }} {{ token.token2 }}</span>
+      <el-col :span="8"><span class="left front">Principal：</span></el-col>
+      <el-col :span="16">
+        <span class="left">{{ numberB }} {{ token.token2 }}</span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">Yield：</span></el-col>
-      <el-col :span="19">
-        <span class="left">{{ number }} {{ token.token3 }}</span>
+      <el-col :span="8"><span class="left front">Yield：</span></el-col>
+      <el-col :span="16">
+        <span class="left">{{ numberB }} {{ token.token3 }}</span>
       </el-col>
     </el-row>
 
     <el-row>
-      <el-col :span="5"><span class="left front">Term date：</span></el-col>
-      <el-col :span="19">
+      <el-col :span="8"><span class="left front">Term date：</span></el-col>
+      <el-col :span="16">
         <span class="left">{{ token.term }}</span>
       </el-col>
     </el-row>
@@ -48,6 +48,7 @@
 
 <script>
 import {mapState} from "vuex";
+import {  nBig2Small,nSmall2Big }  from"../../network/tool"
 
 export default {
   name: "ConfirmCard",
@@ -56,6 +57,10 @@ export default {
     accountCut(){
       return this.account.substring(0,15) + "...." + this.account.substring(30,42)
     },
+    numberB(){
+      console.log(this.number,nBig2Small(this.number)) 
+      return nBig2Small(this.number)
+    }
   },
   props: {
     number: {

@@ -1,6 +1,12 @@
+<!--
+ * @Author: OOO--li--OOO
+ * @Date: 2021-09-11 22:35:46
+ * @LastEditTime: 2021-09-12 19:47:55
+-->
 <template>
   <div>
-    <div class="item-data">{{ data }}</div>
+    <div class="item-data textOverflow1">{{ data }}</div>
+    <div class="item-suffix textOverflow1">{{ suffix }}</div>
     <div class="item-title">{{ title }}</div>
   </div>
 </template>
@@ -10,6 +16,9 @@ export default {
   name: "ItemText",
   props: {
     data: {
+      type: String,
+    },
+    suffix: {
       type: String,
     },
     title: {

@@ -15,7 +15,8 @@ import Tools from "./views/Tools/Tools";
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  // base: '/dist',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
