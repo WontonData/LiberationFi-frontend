@@ -6,9 +6,29 @@ export const conflux = new Conflux({
   logger: console, // for debug
 });
 
+export let conAddr = require('./deploy/deploy.json')
+let newContract = function(abiName,address){
+  return conflux.Contract({
+    abi: require("./abi/"+abiName+".json"),
+    address: address
+  })
+}
+
+export const InterestTokenFactory = conflux.Contract({
+  abi: require("./abi/InterestTokenFactory.json"),
+  address: 'cfxtest:accf9dtkkvgh33be9jspt95kvdn2r80veuazn6k0uy'
+});
+
+export const TrancheFactory = conflux.Contract({
+  abi: require("./abi/TrancheFactory.json"),
+  address: 'cfxtest:acgk31mt25khe2mhc6ak60c1u0c49wa5xjjnrrddbv'
+  //ByteCode:7a4b34572d88f842f2ddfa78630d39b85cdfb0b711176aa599bf3192b8bd5395
+});
+
+
 export const UserProxy = conflux.Contract({
   abi: require("./abi/UserProxy.json"),
-  address: 'CFXTEST:TYPE.CONTRACT:ACH1FEKHSD4DTK50D3Y3346PRM0PH7WW8AAT4GZNEV'
+  address: conAddr.UserProxy
 });
 
 export const BalancerVault = conflux.Contract({
@@ -18,12 +38,12 @@ export const BalancerVault = conflux.Contract({
 
 export const USDA = conflux.Contract({
   abi: require("./abi/USDA.json"),
-  address: 'cfxtest:acgfgvhxwfeduu07a6pf6u538aj7at2veasb6fxhu0'
+  address: 'cfxtest:acceyh5y7xjz0fyke7g2e2c3vzz1m2k4nj0m9zwvcv'
 });
 
 export const USDAeP = conflux.Contract({
   abi: require("./abi/Tranche.json"),
-  address: 'cfxtest:achy04gdsz9b3w6uv8yg65w3rhf3x9m6325115x9zt'
+  address: 'cfxtest:acb1cjg4c3kef68vh6m8umdpw4j5g1tj4yhmat9wua'
 });
 
 export const USDAeY = conflux.Contract({
@@ -65,6 +85,39 @@ export const cDAIWeightPool = conflux.Contract({
   abi: require("./abi/WeightPool.json"),
   address: 'cfxtest:aceaaef25r0c0r4srvssj78kasut5mzkb6bu9p777s'
 });
+
+export let EarnTokenList = {
+  cDAI: {
+    name: "cDAI",
+    info: conAddr["cDAI"],
+    uToken: newContract("cDAI-uToken",conAddr["cDAI"].uToken),
+    Vault: newContract("FVault",conAddr["cDAI"].Vault),
+    FVaultAssetProxy: newContract("FVaultAssetProxy",conAddr["cDAI"].FVaultAssetProxy),
+    token: [
+      {
+        start: 1631376000,
+        expiration: 1631635200,
+        pToken: newContract("Tranche",conAddr["cDAI"].token[0].pToken),
+        yToken: newContract("InterestToken",conAddr["cDAI"].token[0].yToken)
+      }
+    ]
+  },
+  cUSDC: {
+    name: "cUSDC",
+    info: conAddr["cUSDC"],
+    uToken: newContract("cDAI-uToken",conAddr["cUSDC"].uToken),
+    Vault: newContract("FVault",conAddr["cUSDC"].Vault),
+    FVaultAssetProxy: newContract("FVaultAssetProxy",conAddr["cUSDC"].FVaultAssetProxy),
+    token: [
+      {
+        start: 1631376000,
+        expiration: 1662987039,
+        pToken: newContract("Tranche",conAddr["cUSDC"].token[0].pToken),
+        yToken: newContract("InterestToken",conAddr["cUSDC"].token[0].yToken)
+      }
+    ]
+  },
+}
 
 export default {
   conflux,

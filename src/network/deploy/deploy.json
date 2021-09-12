@@ -1,0 +1,52 @@
+{
+	"TrancheFactory": "CFXTEST:TYPE.CONTRACT:ACDEHB0AH7E40YR2NF7PA9FRV2KGA9MEGYEGVCPTA4",
+	"UserProxy": "CFXTEST:TYPE.CONTRACT:ACH1FEKHSD4DTK50D3Y3346PRM0PH7WW8AAT4GZNEV",
+	"InterestTokenFactory": "CFXTEST:TYPE.CONTRACT:ACCX35JAADYV8XE6EPE1DCRZWCEZFS2U4A99DF51TB",
+	"DateString": "cfxtest:aceexxjxcrf9m4fgfpk5rrr23nv2mr5pky72jxzsga",
+	"WCFX": "cfxtest:acbbuu2y4k736279c40cabjfwcdfp4y4x66eep7ee1",
+
+	"BalancerVault": "cfxtest:acazsk01urtgfmvjzw2y5yj3fu91cr89dj4ecmyp9f",
+	"CCPoolFactory": "cfxtest:acdu6cuwpjgdc70n4jb8da8sb83ek7x7fe838c0haj",
+	"WeightPoolFactory": "cfxtest:accc1ehe7su3b3g7zd5f0kfn1fvzwekxcu7ghexrpc",
+
+	"cDAI": {
+		"Vault": "cfxtest:ach5gp8eh92p7ve86m8whd3awxt2sc6jy2vene3d88",
+		"uToken": "cfxtest:achnwtecdj2fxkndf0rz142fuc8am9uf2udvbb5yff",
+		"FVaultAssetProxy": "CFXTEST:TYPE.CONTRACT:ACHK35ZG4ATMBA1PP8T4W7W4C2JM71G77PEBCMSZ13",
+		"token": [
+			{
+				"expiration": 1662911862,
+				"pToken": "cfxtest:acfr694hjnnf1d9g8pujdpfx2m8v2gd1t606v1up9d",
+				"yToken": "cfxtest:acbykf45uwa96f9g6xdmhh7jyt806entae2f7c9heh"
+			}
+		],
+		"pool": [
+			{
+				"ptPool": "cfxtest:acfvwuhctkw3zbu41z5w5dnc86cm9s9rpe7s23sxnn",
+				"ptId": "0x8b1940e27a659a861abd772d8d62f704afbbed61000200000000000000000000",
+				"ytPool": "cfxtest:aceaaef25r0c0r4srvssj78kasut5mzkb6bu9p777s",
+				"ytId": "0x880010b8db6c2b374e6c5ce477c903a0fdaaa90f000200000000000000000001"
+			}
+		]
+	},
+	"cUSDC": {
+		"Vault": "cfxtest:acc4zaxv141tzbfr2um3a9mxj224azubt64v7p6ezk",
+		"uToken": "cfxtest:acceyh5y7xjz0fyke7g2e2c3vzz1m2k4nj0m9zwvcv",
+		"FVaultAssetProxy": "cfxtest:acb0zwg0gthjzdjtveenbht3wz0bkt8v2jn9tx3jnv",
+		"token": [
+			{
+				"expiration": 1662987039,
+				"pToken": "cfxtest:acb1cjg4c3kef68vh6m8umdpw4j5g1tj4yhmat9wua",
+				"yToken": "cfxtest:acc7sk21kuf4y22x48f6f3gpx8wuec2ymp2cw5vau7"
+			}
+		],
+		"pool": [
+			{
+				"ptPool": "cfxtest:acgzk2uj5kvrbg8t600bgnyeema7zm9tvevbtnmbux",
+				"ptId": "0x8d54e208da62d09bcfe5ac132e842281daabef89000200000000000000000002",
+				"ytPool": "cfxtest:aca4g27nks6tcvm9gv1udfjyjt99hye2rufw2dv7n0",
+				"ytId": "0x81a363ab4bb8f1455f346f01951443fff3d0986c000200000000000000000003"
+			}
+		]
+	}
+}

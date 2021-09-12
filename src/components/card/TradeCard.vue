@@ -114,10 +114,10 @@ export default {
     }
     //LP Token
     this.YPContract.balanceOf(this.account).then(res => {
-      this.YPBalance = res.toString()/1000000000000000000
+      this.YPBalance = (res.toString()/1000000000000000000).toFixed(2)
     })
     this.token.uToken.balanceOf(this.account).then(res => {
-      this.tokenBalance = res.toString()/1000000000000000000
+      this.tokenBalance = (res.toString()/1000000000000000000).toFixed(2)
     })
   },
   methods: {

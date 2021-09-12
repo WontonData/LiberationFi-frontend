@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <Nav :menuData=menuData>
+    <Nav :menuData="menuData">
       <template #logo>
         <span class="logo">WontonData</span>
       </template>
@@ -15,28 +15,24 @@
         <i class="icon el-icon-more"></i>
       </template>
     </Nav>
-    <!--    <button @click="tra">转账</button>-->
-    <router-view :tokenList="tokenList"/>
+    <router-view :tokenList="tokenList" :xbbTokenList="xbbTokenList" />
   </div>
-
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 
 import Nav from "../components/nav/Nav";
 import * as contract from "../network/conflux";
 import {USDACCPool, USDAeP, USDAWeightPool} from "../network/conflux";
-// import {USDA} from "../network/conflux";
-
 
 export default {
-  name: 'about',
+  name: "about",
   components: {
     Nav
   },
   computed: {
-    ...mapState(["account",]),
+    ...mapState(["account", "EarnTokenList"]),
     accountCut() {
       return this.account.substring(0, 13) + "..." + this.account.substring(32, 42)
     },
@@ -45,24 +41,52 @@ export default {
     return {
       menuData: [
         {
-          name: "Earn", routerPath: "/earn"
+          name: "Earn",
+          routerPath: "/earn",
         },
         {
-          name: "Trade", routerPath: "/pools"
+          name: "Trade",
+          routerPath: "/pools",
         },
         {
-          name: "Portfolio", routerPath: "/portfolio"
+          name: "Portfolio",
+          routerPath: "/portfolio",
         },
         {
-          name: "Sign", routerPath: "/sign"
+          name: "Sign",
+          routerPath: "/sign",
         },
         {
-          name: "Tools", routerPath: "/tools"
+          name: "Tools",
+          routerPath: "/tools",
         },
       ],
-      tokenList: [
+      earnTokenList: [],
+      xbbTokenList: [
         {
-          name: 'USDC',
+          name: 'cDAI',
+          icon: 'cDAI',
+          token1: 'cDAI',
+          token2: 'ePyvcDAI',
+          token3: 'eYyvcDAI',
+          elementTVL: '5,759,150',
+          vaultAPY: '6.41',
+          lpAPY1: '0.81',
+          lpAPY2: '0.24',
+          liquidity1: '5,378,950',
+          liquidity2: '17,028',
+          price1: '0.9851',
+          price2: '0.0151',
+          fixedAPR: '6.64',
+          term: '2021 年 10 月 30 日',
+          unlockTimestamp: '',
+          interestToken: '',
+          tranche: '',
+          info: null,
+        },
+
+        {
+          name: 'cUSDC',
           icon: 'USDC',
           token1: 'USDC',
           token2: 'ePyvUSDC',
@@ -80,14 +104,10 @@ export default {
           unlockTimestamp: '',
           interestToken: '',
           tranche: '',
-          uToken: contract.USDA,
-          pToken: contract.USDAeP,
-          yToken: contract.USDAeY,
-          CCPool: contract.USDACCPool,
-          WeightPool: contract.USDAWeightPool,
-          poolId1: '0x86ae2e0b6a0e68bd4108e271da10d7f4741fe04300020000000000000000000a',
-          poolId2: '0x8dd0223177b135f650bd4828da0f46f0e99f4bc700020000000000000000000b'
+          info: null,
         },
+      ],
+      tokenList: [
         {
           name: 'cDAI',
           icon: 'cDAI',
@@ -115,20 +135,54 @@ export default {
           poolId1: '0x8b1940e27a659a861abd772d8d62f704afbbed61000200000000000000000000',
           poolId2: '0x880010b8db6c2b374e6c5ce477c903a0fdaaa90f000200000000000000000001'
         },
+
+        {
+          name: 'cUSDC',
+          icon: 'USDC',
+          token1: 'USDC',
+          token2: 'ePyvUSDC',
+          token3: 'eYyvUSDC',
+          elementTVL: '5,759,150',
+          vaultAPY: '6.41',
+          lpAPY1: '0.81',
+          lpAPY2: '0.24',
+          liquidity1: '5,378,950',
+          liquidity2: '17,028',
+          price1: '0.9851',
+          price2: '0.0151',
+          fixedAPR: '6.64',
+          term: '2021 年 10 月 30 日',
+          unlockTimestamp: '',
+          interestToken: '',
+          tranche: '',
+          uToken: contract.USDA,
+          pToken: contract.USDAeP,
+          yToken: contract.USDAeY,
+          CCPool: contract.USDACCPool,
+          WeightPool: contract.USDAWeightPool,
+          poolId1: '0x8d54e208da62d09bcfe5ac132e842281daabef89000200000000000000000002',
+          poolId2: '0x81a363ab4bb8f1455f346f01951443fff3d0986c000200000000000000000003'
+        },
       ],
     }
   },
   mounted() {
     setTimeout(() => {
+      this.earnTokenList = [
+        this.EarnTokenList['cDAI'],
+        this.EarnTokenList['cUSDC'],
+      ]
+      console.log(this.EarnTokenList)
       this.init();
-    }, 100)
+    }, 100);
   },
   methods: {
     ...mapActions(["getAccount"]),
     conn() {
-      this.getAccount()
+      this.getAccount();
     },
     async init() {
+// <<<<<<< HEAD
       for (let i = 0; i < 2; i++) {
 
         this.tokenList[i].icon = await this.tokenList[i].uToken.symbol()
@@ -145,11 +199,12 @@ export default {
         const unlockTimestamp = await this.tokenList[i].pToken.unlockTimestamp()
         this.tokenList[i].unlockTimestamp = unlockTimestamp[0]
         this.tokenList[i].term = this.formatDate(unlockTimestamp)
-        this.tokenList[i].proportion = this.proportionDate(unlockTimestamp)
+        this.tokenList[i].proportion = this.proportionDate(unlockTimestamp,1631376000*1000);
         this.tokenList[i].restDate = this.restDate(unlockTimestamp)
 
         // let valueSupplied = await this.Tranche.valueSupplied()
-        // let totalSupply1 = await this.Tranche.totalSupply()
+        let totalSupply1 = await this.Tranche.totalSupply()
+
         // let hitSpeedbump = await this.Tranche.hitSpeedbump()
 
         const token3 = await this.tokenList[i].yToken.name()
@@ -160,6 +215,59 @@ export default {
 
       }
 
+// =======
+      let tNum = 0
+      for (let i = 0; i < this.earnTokenList.length; i++) {
+        let EarnToken = this.earnTokenList[i]
+        for (let j=0;j<EarnToken.token.length; j++,tNum++){
+          let token = EarnToken.token[j]
+          console.log(this.xbbTokenList[tNum])
+          console.log(tNum)
+          // this.tokenList[tNum] = {}
+          this.xbbTokenList[tNum].info = {
+            ...EarnToken.info,
+            token: EarnToken.info.token[j]
+          }
+          this.xbbTokenList[tNum].contract = {
+            ...EarnToken,
+            token: EarnToken.token[j]
+          }
+          // let token1 = await EarnToken.uToken.name();
+          // this.xbbTokenList[tNum].token1 = token1;
+          // this.xbbTokenList[tNum].name = token1;
+          // this.xbbTokenList[tNum].icon = await EarnToken.uToken.symbol();
+
+          // let res = await token.pToken.interestSupply();
+          // console.log("token2",res)
+          this.xbbTokenList[tNum].interestToken = await token.pToken.interestToken();
+
+          const token2 = await token.pToken.symbol();
+          this.xbbTokenList[tNum].token2 = token2;
+          this.xbbTokenList[tNum].position = await token.pToken.position();
+          // let speedbump = await this.Tranche.speedbump()
+          // let symbol1 = await this.Tranche.symbol()
+          this.xbbTokenList[tNum].underlying = await token.pToken.underlying();
+          const unlockTimestamp = await token.pToken.unlockTimestamp();
+          console.log("unlockTimestamp",unlockTimestamp)
+          this.xbbTokenList[tNum].unlockTimestamp = unlockTimestamp[0];
+          this.xbbTokenList[tNum].term = this.formatDate(unlockTimestamp);
+          this.xbbTokenList[tNum].proportion = this.proportionDate(unlockTimestamp,token.start*1000);
+          this.xbbTokenList[tNum].restDate = this.restDate(unlockTimestamp);
+
+          // let valueSupplied = await this.Tranche.valueSupplied()
+          // let totalSupply1 = await token.pToken.totalSupply()
+          // this.xbbTokenList[tNum].totalSupply1 = totalSupply1
+          // let hitSpeedbump = await this.Tranche.hitSpeedbump()
+
+          const token3 = await token.yToken.symbol();
+          this.xbbTokenList[tNum].token3 = this.splitName(token3);
+          // let symbol2 = await token.yToken.symbol();
+          this.xbbTokenList[tNum].tranche = await token.yToken.tranche();
+          // let totalSupply2 = await token.yToken.totalSupply();
+          // this.xbbTokenList[tNum].totalSupply2 = totalSupply2
+        }
+
+      }
     },
 
     formatDate(timestamp) {
@@ -168,31 +276,40 @@ export default {
       const month = date.getMonth() + 1;
       const day = date.getDate();
 
-      return year + ' 年 ' + (String(month).length > 1 ? month : '0' + month) + ' 月 ' +
-          (String(day).length > 1 ? day : '0' + day) + ' 日 '
+      return (
+        year +
+        " 年 " +
+        (String(month).length > 1 ? month : "0" + month) +
+        " 月 " +
+        (String(day).length > 1 ? day : "0" + day) +
+        " 日 "
+      );
     },
 
-    proportionDate(timestamp) {
+    proportionDate(timestamp,start) {
       const now = new Date().getTime();
-      const start = new Date('2021-8-1').getTime()
-      return (now - start) / (timestamp * 1000 - start) * 100
+      // const start = new Date("2021-8-1").getTime();
+      return ((now - start) / (timestamp * 1000 - start)) * 100;
     },
 
     restDate(timestamp) {
       const now = new Date().getTime();
-      return Math.floor((timestamp * 1000 - now) / (1000 * 60 * 60 * 24))
+
+      return Math.floor((timestamp * 1000 - now) / (1000 * 60 * 60 * 24));
     },
 
     splitName(name) {
-      const arr = name.split(" ")
+      const arr = name.split(" ");
       return arr[arr.length - 1];
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
-.logo, .address, .icon {
+.logo,
+.address,
+.icon {
   font-size: 24px;
   display: flex;
   height: 60px;
@@ -204,7 +321,6 @@ export default {
 
 .address {
   font-size: 17px;
-
 }
 
 .icon {
@@ -222,9 +338,9 @@ export default {
 }
 
 .el-button--warning.is-plain {
-  color: #6fedcf !important;
-  background-color: rgba(134, 175, 209, 0.09) !important;
-  border-color: #6fedcf !important;
+  color: #6fedcf;
+  background-color: rgba(134, 175, 209, 0.09);
+  border-color: #6fedcf;
   font-weight: 600;
 }
 

@@ -1,40 +1,40 @@
 <template>
   <el-row>
-    <el-col class="card-col" :span="20" :offset="2">
-      <div>
-        <div style="width: 100%">
-          <div style="width: 17%">
+    <el-col class="card-col center_flex_container" :span="20" :offset="2">
+      <div f-w="1">
+        <div style="width: 100%"  class="center_flex_container">
+          <div f-w="3">
             <div class="left">
               <img alt="美元" :src="'img/token/' + token.icon + '.svg'" height="38" width="38">
             </div>
-            <item-text class="left" :data=token.name title="Asset"/>
+            <item-text class="left" :data=token.name title="Flux"/>
           </div>
-          <div style="width: 12%">
+          <div f-w="2">
             <item-text :data="token.elementTVL + ' 美元'"/>
           </div>
-          <div style="width: 10%">
+          <div f-w="2">
             <item-text :data="token.vaultAPY + '%'"/>
           </div>
-          <div style="width: 7%">
+          <div f-w="2">
             <item-text :data="token.lpAPY1 + '%'" title="Principal"/>
             <item-text :data="token.lpAPY2 + '%'" title="Yield"/>
           </div>
-          <div style="width: 12%">
-            <item-text :data="token.liquidity1 + ' 美元'" title="Principal Pool"/>
-            <item-text :data="token.liquidity2 + ' 美元'" title="Yield Pool"/>
+          <div f-w="2">
+            <item-text :data="token.totalSupply1 + ' 美元'" title="Principal Pool"/>
+            <item-text :data="token.totalSupply2 + ' 美元'" title="Yield Pool"/>
           </div>
-          <div style="width: 9%">
+          <div f-w="2">
             <item-text :data="token.price1" title="Ptoken"/>
             <item-text :data="token.price2" title="Ytoken"/>
           </div>
-          <div style="width: 8%">
+          <div f-w="2">
             <item-text :data="token.fixedAPR + '%'"/>
           </div>
-          <div style="width: 18%">
-            <item-time :time="token.term" :day="token.restDate + ' Day'" :percentage="token.proportion"/>
+          <div f-w="2">
+            <item-time :time="token.term" :day="token.restDate + ' Day left'" :percentage="token.proportion"/>
           </div>
-          <div style="width: 7%">
-            <el-button type="warning" class="show" plain @click="showCard">Mint</el-button>
+          <div f-w="2">
+            <el-button type="warning" class="show fButton" plain @click="showCard" v-text="mintText">Show</el-button>
             <!--        <button @click="showCard" class="show" type="button">显示</button>-->
           </div>
         </div>
@@ -58,7 +58,8 @@ export default {
   components: {EranTableInnerItem, ItemTime, ItemText},
   data() {
     return {
-      show: false
+      show: false,
+
     }
   },
   props: {
@@ -69,6 +70,12 @@ export default {
   methods: {
     showCard() {
       this.show = !this.show
+    }
+  },
+  computed: {
+    mintText: function() {
+      if(this.show) return "Hide "
+      else return "Show"
     }
   }
 }

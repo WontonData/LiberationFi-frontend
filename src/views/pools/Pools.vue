@@ -138,16 +138,6 @@ export default {
       this.dialogShow = true
     },
     getUserData(amountIn) {
-      // const amountIn = [ethers.BigNumber.from('10').pow(18).mul(this.tokenNumber) + '',
-      //   ethers.BigNumber.from('10').pow(18).mul(this.YPNumber) + ''];
-      // let amountIn;
-      // //比较pyToken和uToken大小
-      // if (this.token.uToken.address < this.tokenAddress) {
-      //   amountIn = [this.tokenNumber * 1000000000000000000 + '', this.YPNumber * 1000000000000000000 + ''];
-      // } else {
-      //   amountIn = [this.YPNumber * 1000000000000000000 + '', this.tokenNumber * 1000000000000000000 + ''];
-      // }
-      // // const amountIn = [this.tokenNumber * 1000000000000000000 + '', this.YPNumber * 1000000000000000000 + ''];
       const JOIN_KIND_INIT = 1;
       const yUserData = ethers.utils.defaultAbiCoder.encode(['uint256', 'uint256[]'],
           [JOIN_KIND_INIT, amountIn]);
@@ -182,7 +172,7 @@ export default {
                   false,
                   this.account,
                   false,],
-                this.YPNumber * 1000000000000000000 * 0.9,
+                this.YPNumber * 1000000000000000000 * 0.8,
                 '9700327120539288000'
             )
             console.log(balancerCalled)
@@ -212,7 +202,7 @@ export default {
                   false,
                   this.account,
                   false,],
-                this.tokenNumber * 1000000000000000000 * 0.9,
+                this.tokenNumber * 1000000000000000000 * 0.7,
                 '1733023038'
             )
             console.log(balancerCalled)

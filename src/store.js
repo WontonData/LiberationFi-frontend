@@ -1,3 +1,8 @@
+/*
+ * @Author: OOO--li--OOO
+ * @Date: 2021-09-11 22:35:52
+ * @LastEditTime: 2021-09-12 17:24:57
+ */
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import init from "./network/init";
@@ -12,13 +17,13 @@ export default new Vuex.Store({
   state: {
     account: null,
     conflux: null,
-    // Tranche: null,
-    // InterestToken: null,
     UserProxy: null,
     BalancerVault: null,
-    // CCPool: null,
-    // WeightPool: null,
-    // USDA: null
+    CCPool: null,
+    WeightPool: null,
+    USDA: null,
+    conAddr:null,
+    EarnTokenList: null
   },
   mutations: {
     initAccount(state) {
@@ -27,13 +32,10 @@ export default new Vuex.Store({
     },
     initContract(state) {
       state.conflux = contract.conflux;
-      // state.Tranche = contract.eP;
-      // state.InterestToken = contract.eY;
       state.UserProxy = contract.UserProxy;
       state.BalancerVault = contract.BalancerVault;
-      // state.CCPool = contract.CCPool;
-      // state.WeightPool = contract.WeightPool;
-      // state.USDA = contract.USDA;
+      state.conAddr = contract.conAddr;
+      state.EarnTokenList = contract.EarnTokenList;
     },
   },
   actions: {
@@ -53,6 +55,30 @@ export default new Vuex.Store({
           data._position,
           data._permitCallData
       )
+      // console.log("called",called)
+      console.log("account",state.account)
+
+      return new Promise((resolve, reject) => {
+        portal.sendTransaction({
+          from: state.account,
+          to: called.to,
+          data: called.data,
+        }).then(res => {
+          console.log(res)
+          resolve(res)
+        }).catch(error => {
+          reject(error)
+        })
+
+      })
+
+    },
+    ContractInteract({state},data) {
+
+      console.log(data)
+      const called = data.contract[data.method].call(
+          ...data.data
+      )
       console.log(called)
 
       return new Promise((resolve, reject) => {
@@ -70,6 +96,5 @@ export default new Vuex.Store({
       })
 
     },
-
   }
 })

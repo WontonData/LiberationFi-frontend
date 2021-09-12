@@ -3,7 +3,7 @@
     <h1>Capital efficiency for your yield positions.</h1>
     <p class="introduce">Mint Principal and Yield Tokens from your base asset, boost your APY by providing liquidity and
       view current APYs across all available terms.</p>
-    <earn-table class="earn-table" :token-list="tokenList"/>
+    <earn-table class="earn-table" :token-list="xbbTokenList"/>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     }
   },
   props: {
-    tokenList: {
+    xbbTokenList: {
       type: Array
     }
   },

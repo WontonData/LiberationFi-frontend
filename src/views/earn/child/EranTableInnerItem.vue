@@ -21,15 +21,21 @@
       </div>
       <div style="width: 40%">
         <div v-if="isConfirm" class="skeleton">
-          <el-skeleton :rows="6"/>
+          <el-skeleton :rows="7"/>
           <el-skeleton-item variant="button" style="width: 100%; margin-top: 25px"/>
         </div>
+        <div v-else-if="isAllApprovedEnough">
+            <confirm-card class="confirm"
+              :number="number"
+              :token="token"
+              :show="show"
+              @confirm="confirm"/>
+        </div>
         <div v-else>
-          <confirm-card class="confirm"
-                        :number="number"
-                        :token="token"
-                        :show="show"
-                        @confirm="confirm"/>
+          <approve-card class="confirm" 
+            :toApprove=toApprove
+            @approve=approveAndSign
+            />
         </div>
 
       </div>
@@ -40,7 +46,10 @@
 <script>
 import MintCard from "../../../components/card/MintCard";
 import ConfirmCard from "../../../components/card/ConfirmCard";
+import ApproveCard from "../../../components/card/ApproveCard.vue";
 
+import JSBI from 'jsbi';
+import * as ethers from "ethers";
 import {mapState, mapActions} from "vuex";
 import confluxPortal from '@/network/conflux-portal'
 import ERC20PermitAbi from "@/network/abi/ERC20Permit.json"
@@ -50,13 +59,14 @@ import {keccakFromHexString} from "ethereumjs-util";
 
 export default {
   name: "EranTableInnerItem",
-  components: {ConfirmCard, MintCard},
+  components: {ConfirmCard, MintCard, ApproveCard},
   computed: {
-    ...mapState(["account", "conflux", "UserProxy"]),
+    ...mapState(["account", "USDA", "conflux","conAddr"]),
   },
   data() {
     return {
-      activities: [{
+      activities: [
+          {
         content: 'Enter the coinage amount',
         type: '',
         icon: ''
@@ -70,16 +80,16 @@ export default {
         icon: ''
       }],
       isConfirm: true,
+      isAllApprovedEnough: false,
       number: 0,
-
-      address: '',
-      spender: '',
-      userProxyAddr: 'cfxtest:acc8k6yz4s9fxu85j397b1k1je1jzferxpgr65ngzx',
-      underlyingTokenAddr: 'cfxtest:acgfgvhxwfeduu07a6pf6u538aj7at2veasb6fxhu0',
-      wrappedPositionAddr: 'cfxtest:acfkmkfse864y16cn9261y5j2785d75rmeed68hskd',
-      trancheFactoryAddr: 'cfxtest:acgk31mt25khe2mhc6ak60c1u0c49wa5xjjnrrddbv',
-      trancheBytecodeHash: '33353283da9febabe800962de594ae7c9f274743d76e7af5f88afe3e6ea5a94a',
-      expiration: '1633023038',
+      genSign:[],
+      toApprove:{
+        amount:0,
+        approve:[
+        ],
+        sign:[
+        ]
+      }
     };
   },
   props: {
@@ -91,7 +101,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["UserProxy_mint",]),
+    ...mapActions(["UserProxy_mint","ContractInteract"]),
     deriveTranche(_position, _expiration) {
       let _expirationHex = parseInt(_expiration).toString(16);
       while (_expirationHex.length < 64) {
@@ -106,14 +116,14 @@ export default {
       this.textarea = "0x8" + address.substring(24).substring(1)
       return "0x8" + address.substring(24).substring(1)
     },
-    async genSignature(address, spender, abi = ERC20PermitAbi, contract = undefined, nonces = undefined, name = undefined) {
+    async genSignature(params) {
       let sign = ""
-      let params = {
-        address: "",
-        spender: "",
-        name: "",
-        nonces: 0
-      }
+      let address = params.contractAddr
+      let spender = params.spender
+      let contract = params.contract
+      let abi = params.abi
+      let nonces = params.nonces
+      let name = params.name
 
       // uToekn-userProxy
       let res
@@ -142,14 +152,14 @@ export default {
       }
       params.address = address
       params.spender = spender
-      params.value = (this.number * 1000000000000000000) + ''
+      params.value = params.amount + ''
       console.log(params)
       await confluxPortal._sign(params).then((res) => {
         // console.log('signature', res);
         sign = {
           tokenContract: params.address,
           who: params.spender,
-          amount: (this.number * 1000000000000000000) + '',
+          amount: params.value,
           expiration: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
           v: res.v,
           r: res.r,
@@ -159,59 +169,6 @@ export default {
       return sign
     },
 
-    async genSignature_calldata() {
-      let signs = []
-
-      //判断allowance USDA
-
-      // uToekn-userProxy
-      let underlyingToken = this.conflux.Contract({
-        abi: ERC20PermitAbi,
-        address: this.underlyingTokenAddr
-      });
-
-      let res = await underlyingToken.nonces(this.account)
-      console.log('signs')
-
-      let nonces = parseInt(res.toJSON())
-
-      await this.genSignature(this.underlyingTokenAddr, this.userProxyAddr, ERC20PermitAbi, underlyingToken, nonces).then((res) => {
-        signs.push(res)
-      })
-
-      // uToekn-YVaultAssetProxy
-      nonces++
-      this.genSignature(this.underlyingTokenAddr, this.wrappedPositionAddr, ERC20PermitAbi, underlyingToken, nonces).then((res) => {
-        signs.push(res)
-      })
-
-      //判断allowance Tranche
-      // pToekn-userProxy
-      let TrancheAddr = this.deriveTranche(this.wrappedPositionAddr, this.expiration)
-      let Tranche = this.conflux.Contract({
-        abi: TrancheAbi,
-        address: TrancheAddr
-      });
-
-      this.genSignature(TrancheAddr, this.wrappedPositionAddr, TrancheAbi, Tranche).then((res) => {
-        signs.push(res)
-      })
-
-      //判断allowance interestToken
-      // yToekn-userProxy
-      let yTokenAddr = await Tranche.interestToken()
-      this.genSignature(yTokenAddr, this.wrappedPositionAddr, ERC20PermitAbi).then((res) => {
-        signs.push(res)
-      })
-
-      while (signs.length < 4) {
-        await this.wait(50)
-      }
-      console.log(signs)
-      // this.textarea = JSON.stringify(signs,undefined, 2)
-      return signs
-    },
-
     wait(time) {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -219,31 +176,144 @@ export default {
         }, time)
       })
     },
+    async getAllowance(contract,who,spender) {
+      let res = await contract.allowance(who,spender)
+      return res.toJSON()
+    },
+    addToApprove(contract,who,spender,amount) {
+      // console.log(amount)
+      this.toApprove.approve.push({
+        contract: contract,
+        who: who,
+        spender: spender,
+      })
+      if(amount){
+        this.toApprove.amount = amount
+      }
+    },
+    addToSign(contract,contractAddr,who,spender,amount) {
+      this.toApprove.sign.push({
+        contract: contract,
+        contractAddr: contractAddr,
+        who: who,
+        spender: spender,
+      })
+      if(amount){
+        this.toApprove.amount = amount
+      }
+    },
+    async isAllApproved(amount="0") {
+      // console.log(this.token.info,this.token.contract)
+      let a = true
+      let i=0
+      let conAddr = this.conAddr
+      let info = this.token.info
+      let contracts = this.token.contract
+      let uToken = contracts.uToken
+      let pToken = contracts.token.pToken
+      let yToken = contracts.token.yToken
 
-    mint(number) {
-      this.number = number * 1
+      let amountB = ethers.BigNumber.from(amount)
+      console.log(amountB)
+      this.getAllowance(uToken,this.account,conAddr.UserProxy).then((res) => {
+        i++
+        if(ethers.BigNumber.from(res).lt(amountB)) {
+          this.addToApprove(uToken,this.account,conAddr.UserProxy,amountB.add(1).toString())
+          a = false
+        }
+      })
+      
+      this.getAllowance(uToken,this.account,info.FVaultAssetProxy).then((res) => {
+        i++
+        if(ethers.BigNumber.from(res).lt(amountB)){ 
+          this.addToApprove(uToken,this.account,info.FVaultAssetProxy,amountB.add(1).toString())
+          a = false
+        }
+      })
+      
+      this.getAllowance(pToken,this.account,info.FVaultAssetProxy).then((res) => {
+        i++
+        if(ethers.BigNumber.from(res).lt(amountB)){
+          this.addToSign(pToken,info.token.pToken,this.account,info.FVaultAssetProxy,amountB.add(1).toString())
+          a = false
+        }
+      })
+      
+      this.getAllowance(yToken,this.account,info.FVaultAssetProxy).then((res) => {
+        i++
+        if(ethers.BigNumber.from(res).lt(amountB)){
+          this.addToSign(yToken,info.token.yToken,this.account,info.FVaultAssetProxy,amountB.add(1).toString())
+          a = false
+        }
+      })
+      
+      while (i < 4) {
+        await this.wait(100)
+      }
+      console.log(a)
+      return a
+      // console.log(this.account,info.FVaultAssetProxy)
+      // let res = await uToken.allowance(this.account,info.FVaultAssetProxy)
+      // console.log(a1,a2,a3,a4)
+    },
+    async mint(number) {
+      this.number = number
+      this.isAllApprovedEnough = await this.isAllApproved(number)
       this.$emit("mint", number)
       this.activities[0].type = 'success';
       this.activities[0].icon = 'el-icon-check';
       this.isConfirm = false
     },
+    async approveAndSign(toApprove=this.toApprove) {
 
+      console.log(toApprove)
+      console.log(this.toApprove)
+      let amount = toApprove.amount * 1
+      
+      for(let i=0;i<toApprove.approve.length;i++) {
+        let c = toApprove.approve[i]
+        let data = {
+          contract: c.contract,
+          method: "approve",
+          data: [c.spender,amount]
+        }
+        try{
+          await this.ContractInteract(data)
+        }catch(e) {
+          console.error("canceled!")
+        }
+      }
+      for(let i=0;i<toApprove.sign.length; i++) {
+        let c = toApprove.sign[i]
+        let data = {
+          contractAddr: c.contractAddr,
+          spender: c.spender,
+          abi: ERC20PermitAbi,
+          contract: c.contract,
+          amount: amount
+        }
+        await this.genSignature(data).then((res) => {
+          this.genSign.push(res)
+        })
+      }
+      console.log("---genSign--",this.genSign)
+      this.isAllApprovedEnough = true
+    },
+    approveForMint(){
+      console.log(this.token.info)
+    },
     //确认mint
     confirm() {
 
-      this.genSignature_calldata().then(res => {
-        console.log(res)
-        this.activities[1].type = 'success';
-        this.activities[1].icon = 'el-icon-check';
-
         const mintParams = {
-          _amount: (this.number * 1000000000000000000) + '',
+          _amount: (this.number ),
+          _userProxy: this.conAddr.UserProxy,
           _underlying: this.token.underlying,
           _expiration: this.token.unlockTimestamp,
           _position: this.token.position,
-          _permitCallData: res
+          _permitCallData: this.genSign
         }
-        console.log(mintParams)
+        console.log("mintParams",mintParams)
 
         this.UserProxy_mint(mintParams).then(res => {
 
@@ -258,21 +328,8 @@ export default {
               dangerouslyUseHTMLString: true,
               message: msg
             });
-
           }
-
         });
-      })
-
-      //签名
-
-
-      // store.dispatch("mint", {number: 123, type: 'mint'}).then(res => {
-      //   console.log(res)
-      //   this.activities[2].type = 'success';
-      //   this.activities[2].icon = 'el-icon-check';
-      // });
-
     }
   }
 }
