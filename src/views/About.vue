@@ -2,7 +2,7 @@
   <div class="about">
     <Nav :menuData="menuData">
       <template #logo>
-        <span class="logo">WontonData</span>
+        <span class="logo"><a href="https://wontondata.github.io/LiberationFi-frontend/">WontonData</a></span>
       </template>
       <template #account>
         <div v-if="account">
@@ -52,14 +52,14 @@ export default {
           name: "Portfolio",
           routerPath: "/portfolio",
         },
-        {
-          name: "Sign",
-          routerPath: "/sign",
-        },
-        {
-          name: "Tools",
-          routerPath: "/tools",
-        },
+        // {
+        //   name: "Sign",
+        //   routerPath: "/sign",
+        // },
+        // {
+        //   name: "Tools",
+        //   routerPath: "/tools",
+        // },
       ],
       earnTokenList: [],
       xbbTokenList: [
@@ -105,7 +105,7 @@ export default {
           liquidity2: '987,042',
           price1: '0.9851',
           price2: '0.0151',
-          fixedAPR: '6.64',
+          fixedAPR: '4.72',
           term: '2021 年 10 月 30 日',
           unlockTimestamp: '',
           interestToken: '',
@@ -145,7 +145,7 @@ export default {
         {
           name: 'cUSDC',
           icon: 'USDC',
-          token1: 'USDC',
+          token1: 'cUSDC',
           token2: 'ePyvUSDC',
           token3: 'eYyvUSDC',
           elementTVL: '2046.489',
@@ -156,7 +156,7 @@ export default {
           liquidity2: '993.043',
           price1: '0.9851',
           price2: '0.0151',
-          fixedAPR: '6.64',
+          fixedAPR: '4.72',
           term: '2021 年 10 月 30 日',
           unlockTimestamp: '',
           interestToken: '',
