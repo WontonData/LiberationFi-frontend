@@ -52,7 +52,7 @@ export default {
   name: "EranTableInnerItem",
   components: {ConfirmCard, MintCard},
   computed: {
-    ...mapState(["account", "USDA", "conflux"]),
+    ...mapState(["account", "conflux", "UserProxy"]),
   },
   data() {
     return {
@@ -163,7 +163,6 @@ export default {
       let signs = []
 
       //判断allowance USDA
-
 
       // uToekn-userProxy
       let underlyingToken = this.conflux.Contract({

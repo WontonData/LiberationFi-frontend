@@ -10,19 +10,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    web3: null,
     account: null,
     conflux: null,
-    ConvergentPoolFactory: null,
-    ConvergentCurvePool: null,
-    TrancheFactory: null,
-    Tranche: null,
-    InterestToken: null,
+    // Tranche: null,
+    // InterestToken: null,
     UserProxy: null,
     BalancerVault: null,
-    CCPool: null,
-    WeightPool: null,
-    USDA: null
+    // CCPool: null,
+    // WeightPool: null,
+    // USDA: null
   },
   mutations: {
     initAccount(state) {
@@ -31,15 +27,13 @@ export default new Vuex.Store({
     },
     initContract(state) {
       state.conflux = contract.conflux;
-      state.ConvergentCurvePool = contract.ConvergentCurvePool;
-      state.TrancheFactory = contract.TrancheFactory;
-      state.Tranche = contract.eP;
-      state.InterestToken = contract.eY;
+      // state.Tranche = contract.eP;
+      // state.InterestToken = contract.eY;
       state.UserProxy = contract.UserProxy;
       state.BalancerVault = contract.BalancerVault;
-      state.CCPool = contract.CCPool;
-      state.WeightPool = contract.WeightPool;
-      state.USDA = contract.USDA;
+      // state.CCPool = contract.CCPool;
+      // state.WeightPool = contract.WeightPool;
+      // state.USDA = contract.USDA;
     },
   },
   actions: {

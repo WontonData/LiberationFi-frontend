@@ -14,9 +14,6 @@ import {mapActions, mapState} from "vuex";
 export default {
   name: "Earn",
   components: {EarnTable},
-  computed: {
-    ...mapState(["conflux", ]),
-  },
   data() {
     return {
 
@@ -27,11 +24,6 @@ export default {
       type: Array
     }
   },
-
-  methods: {
-
-
-  }
 }
 </script>
 

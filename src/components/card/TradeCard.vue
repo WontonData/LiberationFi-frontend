@@ -107,31 +107,30 @@ export default {
     }
   },
   created() {
-    const type = this.tokenName.split(':')[0]
-    if (type === 'eY') {
-      this.YPContract = this.InterestToken
+    // const type = this.tokenName.split(':')[0]
+    if (this.type === 'Y') {
+      this.YPContract = this.token.yToken
     } else {
-      this.YPContract = this.Tranche
+      this.YPContract = this.token.uToken
     }
     this.YPContract.balanceOf(this.account).then(res => {
       this.YPBalance = res.toString()/1000000000000000000
     })
-    this.USDA.balanceOf(this.account).then(res => {
+    this.token.uToken.balanceOf(this.account).then(res => {
       this.tokenBalance = res.toString()/1000000000000000000
     })
   },
   methods: {
 
-    calculate(tokenNumber, YPNumber, limit) {
-      console.log(tokenNumber, YPNumber, limit)
+    calculate(tokenNumber, YPNumber) {
+      console.log(tokenNumber, YPNumber)
       this.tokenNumber = tokenNumber*1
       this.YPNumber = YPNumber*1
-      this.limit = limit*1
     },
     //类型 主币数量 收益币数量
     mint() {
       console.log(this.activeName)
-      this.$emit("mint", this.activeName, this.tokenNumber, this.YPNumber, this.limit)
+      this.$emit("mint", this.activeName, this.tokenNumber, this.YPNumber)
     },
     handleClick(tab, event) {
       this.YPNumber = 0;

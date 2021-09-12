@@ -72,7 +72,7 @@ export default {
 
   },
   computed: {
-    ...mapState(["account", "USDA", "InterestToken", "Tranche", "CCPool", "WeightPool", "BalancerVault"]),
+    ...mapState(["account", "BalancerVault"]),
   },
   data() {
     return {
@@ -88,7 +88,6 @@ export default {
       tokenNumber: 0,
       YPNumber: 0,
       transactionType: '',
-      limit: 0,
       selectPools: true,
     }
   },
@@ -99,16 +98,16 @@ export default {
       console.log(this.type)
       if (this.type === "Y") {
         this.tokenName = this.token.token3
-        this.tokenAddress = this.token.interestToken
+        this.tokenAddress = this.token.yToken
         this.poolId = this.token.poolId2
-        this.poolContract = this.WeightPool
-        this.tokenContract = this.InterestToken
+        this.poolContract = this.token.WeightPool
+        this.tokenContract = this.token.yToken
       } else {
         this.tokenName = this.token.token2
-        this.tokenAddress = this.token.tranche
+        this.tokenAddress = this.token.pToken
         this.poolId = this.token.poolId1
-        this.poolContract = this.CCPool
-        this.tokenContract = this.Tranche
+        this.poolContract = this.token.CCPool
+        this.tokenContract = this.token.pToken
       }
       console.log(this.$route.params)
       console.log(this.token)
@@ -124,18 +123,17 @@ export default {
         this.token.totalSupply = res.toString()
         console.log(this.token.totalSupply)
       })
-      this.CCPool.unitSeconds().then(res => {
+      this.token.CCPool.unitSeconds().then(res => {
         console.log(res)
         this.token.unitSeconds = res.toString()
         console.log(this.token.unitSeconds)
       })
     },
     //类型 主币数量 收益币数量
-    mint(type, tokenNumber, YPNumber, limit) {
+    mint(type, tokenNumber, YPNumber) {
       this.transactionType = type
       this.tokenNumber = tokenNumber * 1
       this.YPNumber = YPNumber * 1
-      this.limit = limit * 1
 
       this.dialogShow = true
     },
@@ -160,7 +158,7 @@ export default {
       switch (this.transactionType) {
         case "buy":
           //授权
-          let buyCalled = this.USDA["approve"].call(
+          let buyCalled = this.token.uToken["approve"].call(
               this.BalancerVault.address,
               this.tokenNumber * 1000000000000000000,
           )
@@ -170,7 +168,7 @@ export default {
             const balancerCalled = this.BalancerVault["swap"].call(
                 [this.poolId,
                   0,
-                  this.USDA.address,
+                  this.token.uToken.address,
                   this.tokenAddress,
                   this.tokenNumber * 1000000000000000000,
                   '0x00'],
@@ -201,7 +199,7 @@ export default {
                 [this.poolId,
                   0,
                   this.tokenAddress,
-                  this.USDA.address,
+                  this.token.uToken.address,
                   this.YPNumber * 1000000000000000000,
                   '0x00'],
                 [this.account,
@@ -232,8 +230,8 @@ export default {
           this.transaction(addCalled).then(res => {
             console.log(res)
 
-            //USDA授权
-            let addCalled = this.USDA["approve"].call(
+            //token.uToken授权
+            let addCalled = this.token.uToken["approve"].call(
                 this.BalancerVault.address,
                 this.tokenNumber * 1000000000000000000,
             )
@@ -247,7 +245,7 @@ export default {
                   this.account,
                   this.account,
                   [
-                    [this.USDA.address, this.tokenAddress],
+                    [this.token.uToken.address, this.tokenAddress],
                     [this.tokenNumber * 1000000000000000000, this.YPNumber * 1000000000000000000],
                     this.userdata,
                     false

@@ -64,7 +64,6 @@ export default {
   created() {
     setTimeout(() => {
       let rate;
-      console.log(this.type)
       if (this.type === 'Y')
         rate = calcSwapOutGivenInWeightedPoolUnsafe(
             1000000000000000000,
@@ -84,7 +83,6 @@ export default {
         ) / 1000000000000000000
       this.rate = rate.toFixed(2)
     }, 3000)
-
 
   },
   props: {

@@ -1,4 +1,4 @@
-const {Conflux, sign} = require('js-conflux-sdk');
+const {Conflux} = require('js-conflux-sdk');
 
 export const conflux = new Conflux({
   url: 'http://test.confluxrpc.org/v2',
@@ -6,60 +6,9 @@ export const conflux = new Conflux({
   logger: console, // for debug
 });
 
-export const InterestTokenFactory = conflux.Contract({
-  abi: require("./abi/InterestTokenFactory.json"),
-  address: 'cfxtest:accf9dtkkvgh33be9jspt95kvdn2r80veuazn6k0uy'
-});
-
-export const DateString = conflux.Contract({
-  abi: require("./abi/DateString.json"),
-  address: 'cfxtest:aceexxjxcrf9m4fgfpk5rrr23nv2mr5pky72jxzsga'
-});
-
-export const TrancheFactory = conflux.Contract({
-  abi: require("./abi/TrancheFactory.json"),
-  address: 'cfxtest:acgk31mt25khe2mhc6ak60c1u0c49wa5xjjnrrddbv'
-  //ByteCode:7a4b34572d88f842f2ddfa78630d39b85cdfb0b711176aa599bf3192b8bd5395
-});
-
-export const WCFX = conflux.Contract({
-  abi: require("./abi/WCFX.json"),
-  address: 'cfxtest:acbbuu2y4k736279c40cabjfwcdfp4y4x66eep7ee1'
-});
-
 export const UserProxy = conflux.Contract({
   abi: require("./abi/UserProxy.json"),
   address: 'cfxtest:acc8k6yz4s9fxu85j397b1k1je1jzferxpgr65ngzx'
-});
-
-export const ConvergentCurvePool = conflux.Contract({
-  abi: require("./abi/ConvergentCurvePool.json"),
-  address: 'cfxtest:acd65b7yyuaxbng4949ty41sadxakcc48eszd1hr3r'
-});
-
-export const USDA = conflux.Contract({
-  abi: require("./abi/USDA.json"),
-  address: 'cfxtest:acgfgvhxwfeduu07a6pf6u538aj7at2veasb6fxhu0'
-});
-
-export const Yault_xUSDA = conflux.Contract({
-  abi: require("./abi/Yault_xUSDA.json"),
-  address: 'cfxtest:acfj6eu4w68d0732kn77afa9agrj9uzpmpeyvsue5g'
-});
-
-export const YVaultAssetProxy = conflux.Contract({
-  abi: require("./abi/YVaultAssetProxy.json"),
-  address: 'cfxtest:acfkmkfse864y16cn9261y5j2785d75rmeed68hskd'
-});
-
-export const eP = conflux.Contract({
-  abi: require("./abi/Tranche.json"),
-  address: 'cfxtest:achy04gdsz9b3w6uv8yg65w3rhf3x9m6325115x9zt'
-});
-
-export const eY = conflux.Contract({
-  abi: require("./abi/InterestToken.json"),
-  address: 'cfxtest:acg2689cr42ejgu9wpbk30du2rf944cp06jx8ew6zy'
 });
 
 export const BalancerVault = conflux.Contract({
@@ -67,30 +16,68 @@ export const BalancerVault = conflux.Contract({
   address: 'cfxtest:acfgzsywmpxbb7tkf4j8jvuejc3ffhuvjycga9rjhy'
 });
 
-export const CCPool = conflux.Contract({
+export const USDA = conflux.Contract({
+  abi: require("./abi/USDA.json"),
+  address: 'cfxtest:acgfgvhxwfeduu07a6pf6u538aj7at2veasb6fxhu0'
+});
+
+export const USDAeP = conflux.Contract({
+  abi: require("./abi/Tranche.json"),
+  address: 'cfxtest:achy04gdsz9b3w6uv8yg65w3rhf3x9m6325115x9zt'
+});
+
+export const USDAeY = conflux.Contract({
+  abi: require("./abi/InterestToken.json"),
+  address: 'cfxtest:acg2689cr42ejgu9wpbk30du2rf944cp06jx8ew6zy'
+});
+
+export const USDACCPool = conflux.Contract({
   abi: require("./abi/ConvergentCurvePool.json"),
   address: 'cfxtest:acdm6nunrjhgvtmbbdvhd0uu494hjh9ajpaa64cbr8'
 });
 
-export const WeightPool = conflux.Contract({
+export const USDAWeightPool = conflux.Contract({
   abi: require("./abi/WeightPool.json"),
   address: 'cfxtest:acg7ajvvs82xn7wu1zecv0utj52sxh4n26cmmp0pmf'
 });
 
+export const cDAI = conflux.Contract({
+  abi: require("./abi/USDA.json"),
+  address: 'cfxtest:achnwtecdj2fxkndf0rz142fuc8am9uf2udvbb5yff'
+});
 
+export const cDAIeP = conflux.Contract({
+  abi: require("./abi/Tranche.json"),
+  address: 'cfxtest:acfr694hjnnf1d9g8pujdpfx2m8v2gd1t606v1up9d'
+});
+
+export const cDAIeY = conflux.Contract({
+  abi: require("./abi/InterestToken.json"),
+  address: 'cfxtest:acbykf45uwa96f9g6xdmhh7jyt806entae2f7c9heh'
+});
+
+export const cDAICCPool = conflux.Contract({
+  abi: require("./abi/ConvergentCurvePool.json"),
+  address: 'cfxtest:acfvwuhctkw3zbu41z5w5dnc86cm9s9rpe7s23sxnn'
+});
+
+export const cDAIWeightPool = conflux.Contract({
+  abi: require("./abi/WeightPool.json"),
+  address: 'cfxtest:aceaaef25r0c0r4srvssj78kasut5mzkb6bu9p777s'
+});
 
 export default {
   conflux,
-  InterestTokenFactory,
-  DateString,
-  TrancheFactory,
-  WCFX,
   UserProxy,
-  ConvergentCurvePool,
-  USDA,
-  Yault_xUSDA,
-  YVaultAssetProxy,
   BalancerVault,
-  CCPool,
-  WeightPool
+  USDA,
+  USDAeP,
+  USDAeY,
+  USDACCPool,
+  USDAWeightPool,
+  cDAI,
+  cDAIeP,
+  cDAIeY,
+  cDAICCPool,
+  cDAIWeightPool
 }
