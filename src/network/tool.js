@@ -1,3 +1,10 @@
+/*
+ * @Author: OOO--li--OOO
+ * @Date: 2021-09-12 21:37:22
+ * @LastEditTime: 2021-09-13 20:51:57
+ */
+import * as ethers from "ethers";
+
 export const changeStr = function(str,index,changeStr){
   return str.substring(0, index) + changeStr+ str.substring(index + changeStr.length);
 }
@@ -9,7 +16,7 @@ export let nBig2Small = function(big,fixed=18,cut=true,suffix=false){
   let head = "000000000000000000"
   let out = head + big + "0"
   let l = out.length
-  out = out.substring(0,l-18)+"."+out.substring(l-18,l-18+fixed+1)
+  out = out.substring(0,l-19)+"."+out.substring(l-19,l-19+fixed+1)
   while(out.substring(0,1)=="0" && out.substring(1,2)!="."){
     out = out.substring(1)
   }
@@ -57,8 +64,19 @@ export let nSmall2Big = function(smallStr){
     return out
   }
 }
+export let nBiggerThen = function(a,b) {
+  if(a.indexOf(".")>=0 || b.indexOf(".")>=0){
+    a = nSmall2Big(a)
+    b = nSmall2Big(b)
+  }
+  let A = ethers.BigNumber.from(a)
+  let B = ethers.BigNumber.from(b)
+
+  return A.gt(B)
+}
 
 export default {
   nBig2Small,
-  nSmall2Big
+  nSmall2Big,
+  nBiggerThen
 }

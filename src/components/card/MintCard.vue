@@ -1,3 +1,6 @@
+<script>
+
+</script>
 <template>
   <el-card shadow="hover">
     <el-row style="padding-top: 0">
@@ -33,7 +36,7 @@
       <el-col :span="24">
         <el-button v-if="account"
                    @click="mint"
-                   :disabled="number == null || number === '' || number >= max"
+                   :disabled="number == null || number === '' || BiggerThen(number,max)"
                    class="mint" type="warning" plain>Mint</el-button>
         <el-button v-else @click="mint" disabled class="mint" type="warning" plain>Enter an amount</el-button>
       </el-col>
@@ -44,7 +47,7 @@
 <script>
 import {mapState} from "vuex";
 import ItemText from "../txt/ItemText";
-import {  nBig2Small,nSmall2Big }  from"../../network/tool"
+import {  nBig2Small,nSmall2Big,nBiggerThen}  from"../../network/tool"
 
 export default {
   name: "MintCard",
@@ -53,10 +56,15 @@ export default {
     ...mapState(["conflux", "account", "USDA"]),
   },
   watch: {
-    account() {
-      this.token.contract.uToken.balanceOf(this.account).then(res => {
-        this.max = nBig2Small(res.toString(),18)
-      })
+    account: {
+      handler(val, oldVal){
+        this.token.contract.uToken.balanceOf(this.account).then(res => {
+          this.max = nBig2Small(res.toString(),18)
+          this.maxFixed = nBig2Small(res.toString(),3,true,true)
+        })
+      },
+      deep:true //true 深度监听
+      
     }
   },
   data() {
@@ -67,7 +75,8 @@ export default {
       Pnumber: 0.00,
       maxFixed: 0.00,
       max: 0.000,
-      numberEth: ""
+      numberEth: "",
+      BiggerThen: nBiggerThen
     }
   },
   props: {
@@ -79,7 +88,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.token.contract)
+    // console.log(this.token.contract)
     this.token.contract.uToken.balanceOf(this.account).then(res => {
       this.max = nBig2Small(res.toString(),18)
       this.maxFixed = nBig2Small(res.toString(),3,true,true)

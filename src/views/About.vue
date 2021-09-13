@@ -67,8 +67,8 @@ export default {
           name: 'cDAI',
           icon: 'cDAI',
           token1: 'cDAI',
-          token2: 'ePyvcDAI',
-          token3: 'eYyvcDAI',
+          token2: 'loadding..',
+          token3: 'loadding..',
           elementTVL: '208.489',
           vaultAPY: '16.99',
           lpAPY1: '0.81',
@@ -78,7 +78,7 @@ export default {
           price1: '0.9892',
           price2: '0.0143',
           fixedAPR: '6.64',
-          term: '2021 年 10 月 30 日',
+          term: 'loadding..',
           unlockTimestamp: '',
           interestToken: '',
           tranche: '',
@@ -95,8 +95,8 @@ export default {
           name: 'cUSDC',
           icon: 'USDC',
           token1: 'USDC',
-          token2: 'ePyvUSDC',
-          token3: 'eYyvUSDC',
+          token2: 'loadding..',
+          token3: 'loadding..',
           elementTVL: '2046.489',
           vaultAPY: '11.7',
           lpAPY1: '0.81',
@@ -106,7 +106,7 @@ export default {
           price1: '0.9851',
           price2: '0.0151',
           fixedAPR: '4.72',
-          term: '2021 年 10 月 30 日',
+          term: 'loadding..',
           unlockTimestamp: '',
           interestToken: '',
           tranche: '',
@@ -180,6 +180,7 @@ export default {
       ]
       console.log(this.EarnTokenList)
       this.init();
+      this.init2();
     }, 100);
   },
   methods: {
@@ -222,6 +223,9 @@ export default {
       }
 
 // =======
+      
+    },
+    async init2() {
       let tNum = 0
       for (let i = 0; i < this.earnTokenList.length; i++) {
         let EarnToken = this.earnTokenList[i]
@@ -258,6 +262,8 @@ export default {
           this.xbbTokenList[tNum].unlockTimestamp = unlockTimestamp[0];
           this.xbbTokenList[tNum].term = this.formatDate(unlockTimestamp);
           this.xbbTokenList[tNum].proportion = this.proportionDate(unlockTimestamp,token.start*1000);
+          
+          console.log("proportion-------------------proportion",unlockTimestamp,token.start*1000,this.proportionDate(unlockTimestamp,token.start*1000))
           this.xbbTokenList[tNum].restDate = this.restDate(unlockTimestamp);
 
           // let valueSupplied = await this.Tranche.valueSupplied()
@@ -275,7 +281,6 @@ export default {
 
       }
     },
-
     formatDate(timestamp) {
       const date = new Date(timestamp * 1000);
       const year = date.getFullYear();
@@ -294,6 +299,7 @@ export default {
 
     proportionDate(timestamp,start) {
       const now = new Date().getTime();
+      console.log(now, start)
       // const start = new Date("2021-8-1").getTime();
       return ((now - start) / (timestamp * 1000 - start)) * 100;
     },

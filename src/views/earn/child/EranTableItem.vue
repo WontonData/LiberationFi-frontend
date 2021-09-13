@@ -31,7 +31,8 @@
             <item-text :data="token.fixedAPR + '%'"/>
           </div>
           <div f-w="2">
-            <item-time :time="token.term" :day="token.restDate + ' Day left'" :percentage="token.proportion"/>
+            <item-time v-if="token.restDate" :time="token.term" :day="token.restDate + ' Day left'" :percentage="token.proportion"/>
+            <item-time v-else :time="token.term" :day="'loadding'" :percentage="token.proportion"/>
           </div>
           <div f-w="2">
             <el-button type="warning" class="show fButton" plain @click="showCard" v-text="mintText">Show</el-button>

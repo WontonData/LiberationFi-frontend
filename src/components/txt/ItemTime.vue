@@ -1,7 +1,7 @@
 <!--
  * @Author: OOO--li--OOO
  * @Date: 2021-09-11 22:35:46
- * @LastEditTime: 2021-09-12 02:46:59
+ * @LastEditTime: 2021-09-13 21:36:04
 -->
 <template>
   <div>
@@ -38,12 +38,12 @@ export default {
     },
     percentage: {
       type: Number,
-      default: 56
+      default: 0
     }
   },
   methods: {
     format() {
-      return parseInt(this.percentage)+"%"
+      return Number(this.percentage).toFixed(1)+"%"
     }
   }
 }

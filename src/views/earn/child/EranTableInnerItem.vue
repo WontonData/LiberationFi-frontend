@@ -165,8 +165,11 @@ export default {
           r: res.r,
           s: res.s
         }
+      }).catch((e) => {
+        throw new Error("sign error!");
       })
-      return sign
+      
+      return res
     },
 
     wait(time) {
@@ -202,6 +205,10 @@ export default {
         this.toApprove.amount = amount
       }
     },
+    cleanApproveAndSign(){
+      this.toApprove.approve = []
+      this.toApprove.sign = []
+    },
     async isAllApproved(amount="0") {
       // console.log(this.token.info,this.token.contract)
       let a = true
@@ -215,6 +222,8 @@ export default {
 
       let amountB = ethers.BigNumber.from(amount)
       console.log(amountB)
+      this.cleanApproveAndSign()
+      console.log(this.toApprove)
       this.getAllowance(uToken,this.account,conAddr.UserProxy).then((res) => {
         i++
         if(ethers.BigNumber.from(res).lt(amountB)) {
@@ -269,6 +278,9 @@ export default {
       console.log(toApprove)
       console.log(this.toApprove)
       let amount = toApprove.amount * 1
+      let a1 = 0
+      let a2 = 0
+      let success = true
       
       for(let i=0;i<toApprove.approve.length;i++) {
         let c = toApprove.approve[i]
@@ -277,11 +289,17 @@ export default {
           method: "approve",
           data: [c.spender,amount]
         }
-        try{
-          await this.ContractInteract(data)
-        }catch(e) {
-          console.error("canceled!")
+        while(a1<i){
+          await this.wait(100)
+          if(!success) break
         }
+        if(!success) break
+        this.ContractInteract(data).then(() => {
+          a1++
+        }).catch((e) => {
+          console.log("canceled!",a1,success)
+          success = false
+        })
       }
       for(let i=0;i<toApprove.sign.length; i++) {
         let c = toApprove.sign[i]
@@ -292,12 +310,28 @@ export default {
           contract: c.contract,
           amount: amount
         }
-        await this.genSignature(data).then((res) => {
+        
+        while(a2<i){
+          await this.wait(100)
+          if(!success) break
+        }
+        if(!success) break
+        this.genSignature(data).then((res) => {
           this.genSign.push(res)
+          a2++
+        }).catch((e) => {
+          console.log("canceled!")
+          success = false
         })
       }
       console.log("---genSign--",this.genSign)
-      this.isAllApprovedEnough = true
+
+      while(a1<toApprove.approve.length || a2<toApprove.sign.length){
+        await this.wait(100)
+        if(!success) break
+      }
+      if(!success) this.$message.error('Approve or sign error!');
+      this.isAllApprovedEnough = success
     },
     approveForMint(){
       console.log(this.token.info)
