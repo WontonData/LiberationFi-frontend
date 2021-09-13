@@ -5,10 +5,10 @@
       <!--      1-->
       <el-row class="card1">
         <el-col :span="6" class="card1-1">
-          <img src="img/token/USDC.svg" alt="" height="75" width="75">
+          <img src="img/token/cDAI.svg" alt="" height="75" width="75">
         </el-col>
         <el-col :span="18" class="card1-2">
-          <div class="card1-2-1">PT:USDC LP Positions</div>
+          <div class="card1-2-1">PT:cDAI LP Positions</div>
           <div class="card1-2-2"><el-tag effect="dark">{{formatDate}}</el-tag></div>
         </el-col>
       </el-row>
