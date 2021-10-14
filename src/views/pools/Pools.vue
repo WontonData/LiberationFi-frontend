@@ -326,7 +326,12 @@ export default {
           data: called.data,
         }).then(async res => {
           console.log("res",res)
-          alert("please wait")
+          this.$message({
+            duration: 4500,
+            type: 'success',
+            dangerouslyUseHTMLString: true,
+            message: "Please wait patiently for the Approve to execute"
+          });
           let t = await this.confluxJs.getTransactionReceipt(res.result)
           // console.log("t",t )
           let i=0
