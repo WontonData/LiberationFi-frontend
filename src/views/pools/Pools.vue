@@ -142,8 +142,8 @@ export default {
       const yUserData = ethers.utils.defaultAbiCoder.encode(['uint256', 'uint256[]'],
           [JOIN_KIND_INIT, amountIn]);
       const pUserdata = ethers.utils.defaultAbiCoder.encode(["uint256[]"], [amountIn]);
-      console.log("pUserdata:" + pUserdata);
-      console.log("yUserData:" + yUserData);
+      console.log("pUserdata: ",pUserdata);
+      console.log("yUserData: ",yUserData);
       console.log("amountA:" + amountIn[0].toString());
       console.log("amountB:" + amountIn[1].toString());
       return [pUserdata, yUserData]
@@ -222,6 +222,7 @@ export default {
             amountIn = [this.YPNumber * 1000000000000000000 + '', this.tokenNumber * 1000000000000000000 + ''];
           }
           console.log(address)
+          console.log("this.type",this.type,this.type === "Y")
           if (this.type === "Y") {
             this.userdata = this.getUserData(amountIn)[1]
           } else {

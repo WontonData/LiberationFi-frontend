@@ -1,24 +1,24 @@
 <!--
  * @Author: OOO--li--OOO
  * @Date: 2021-09-13 00:57:58
- * @LastEditTime: 2021-10-14 14:20:16
+ * @LastEditTime: 2021-10-14 14:39:38
 -->
 <template>
   <div>
     <el-row>
       <el-col :span="4" :offset="8">
-        <div @click="changeTab('P')" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>Principal Pools</h2>
+        <div @click="changeTab('P')" :class="!selectPools? 'trade-title select' : 'trade-title'"><h2>Principal Pools</h2>
         </div>
       </el-col>
       <el-col :span="4">
-        <div @click="changeTab('T')" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>Yield Pools</h2></div>
+        <div @click="changeTab('Y')" :class="!selectPools? 'trade-title' : 'trade-title select'"><h2>Yield Pools</h2></div>
       </el-col>
     </el-row>
     <el-row style="margin-top: 35px;">
       <el-col>Buy and sell principal tokens or provide liquidity in principal pools.</el-col>
     </el-row>
 
-    <p-trade-table v-if="selectPools" class="trade-table" :token-list="tokenList" />
+    <p-trade-table v-if="!selectPools" class="trade-table" :token-list="tokenList" />
 
     <y-trade-table v-else class="trade-table" :token-list="tokenList" />
 
@@ -50,10 +50,9 @@ export default {
   methods: {
     changeTab(type) {
       console.log("type",type)
-      this.selectPools = type === "P";
+      this.selectPools = type === "Y";
     },
     getData() {
-      
       console.log("selectPools",this.selectPools,this.$route.params.selectPools)
       this.selectPools = this.$route.params.selectPools
     }
