@@ -1,3 +1,8 @@
+<!--
+ * @Author: OOO--li--OOO
+ * @Date: 2021-09-13 00:57:58
+ * @LastEditTime: 2021-10-14 14:20:16
+-->
 <template>
   <div>
     <el-row>
@@ -30,7 +35,7 @@ export default {
   components: {YTradeTable, PTradeTable},
   data() {
     return {
-      selectPools: false,
+      selectPools: true,
 
     }
   },
@@ -44,9 +49,12 @@ export default {
   },
   methods: {
     changeTab(type) {
+      console.log("type",type)
       this.selectPools = type === "P";
     },
     getData() {
+      
+      console.log("selectPools",this.selectPools,this.$route.params.selectPools)
       this.selectPools = this.$route.params.selectPools
     }
   }

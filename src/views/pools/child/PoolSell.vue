@@ -65,8 +65,8 @@ export default {
       if (this.type === 'Y')
         rate = calcSwapOutGivenInWeightedPoolUnsafe(
             1000000000000000000,
-            this.token.yReserves,
             this.token.xReserves,
+            this.token.yReserves,
         ) / 1000000000000000000
       else
         rate = calcSwapOutGivenInCCPoolUnsafe(
@@ -112,14 +112,14 @@ export default {
         if (this.type === 'Y')
           this.sellNumber = calcSwapOutGivenInWeightedPoolUnsafe(
               this.number * 1000000000000000000,
-              this.token.yReserves,
               this.token.xReserves,
+              this.token.yReserves,
           ) / 1000000000000000000
         else
           this.sellNumber = calcSwapOutGivenInCCPoolUnsafe(
               this.number * 1000000000000000000,
-              this.token.xReserves,
               this.token.yReserves,
+              this.token.xReserves,
               this.token.totalSupply,
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,
@@ -130,14 +130,14 @@ export default {
         if (this.type === 'Y')
           this.number = calcSwapOutGivenInWeightedPoolUnsafe(
               this.sellNumber * 1000000000000000000,
-              this.token.xReserves,
-              this.token.yReserves
+              this.token.yReserves,
+              this.token.xReserves
           ) / 1000000000000000000
         else
           this.number = calcSwapInGivenOutCCPoolUnsafe(
               this.sellNumber * 1000000000000000000,
-              this.token.xReserves,
               this.token.yReserves,
+              this.token.xReserves,
               this.token.totalSupply,
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,

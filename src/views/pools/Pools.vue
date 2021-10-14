@@ -2,12 +2,12 @@
   <div>
     <el-row>
       <el-col :span="4" :offset="8">
-        <div @click="changeTab('P')" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>Principal Pools</h2>
-        </div>
+        <!-- <div @click="changeTab('P')" :class="selectPools? 'trade-title select' : 'trade-title'"><h2>Principal Pools</h2>
+        </div> -->
       </el-col>
       <el-col :span="4">
-        <div @click="changeTab('T')" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>Yield Pools</h2>
-        </div>
+        <!-- <div @click="changeTab('T')" :class="selectPools? 'trade-title' : 'trade-title select'"><h2>Yield Pools</h2>
+        </div> -->
       </el-col>
     </el-row>
     <el-row style="margin-top: 35px;">
@@ -306,6 +306,7 @@ export default {
     },
 
     changeTab(type) {
+      console.log("type",type)
       this.selectPools = type === "P";
       // this.$router.push('/pools');
       this.$router.push({

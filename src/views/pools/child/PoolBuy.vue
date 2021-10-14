@@ -67,15 +67,15 @@ export default {
       if (this.type === 'Y')
         rate = calcSwapOutGivenInWeightedPoolUnsafe(
             1000000000000000000,
-            this.token.xReserves,
             this.token.yReserves,
+            this.token.xReserves,
         ) / 1000000000000000000
       // return  ().toFixed(2)
       else
         rate = calcSwapInGivenOutCCPoolUnsafe(
             1000000000000000000,
-            this.token.xReserves,
             this.token.yReserves,
+            this.token.xReserves,
             this.token.totalSupply,
             this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
             this.token.unitSeconds,
@@ -119,14 +119,14 @@ export default {
         if (this.type === 'Y')
           this.buyNumber = calcSwapOutGivenInWeightedPoolUnsafe(
               this.number * 1000000000000000000,
-              this.token.yReserves,
               this.token.xReserves,
+              this.token.yReserves,
           ) / 1000000000000000000
         else
           this.buyNumber = calcSwapOutGivenInCCPoolUnsafe(
               this.number * 1000000000000000000,
-              this.token.xReserves,
               this.token.yReserves,
+              this.token.xReserves,
               this.token.totalSupply,
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,
@@ -136,14 +136,14 @@ export default {
         if (this.type === 'Y')
           this.number = calcSwapOutGivenInWeightedPoolUnsafe(
               this.buyNumber * 1000000000000000000,
+              this.token.yReserves,
               this.token.xReserves,
-              this.token.yReserves
           ) / 1000000000000000000
         else
           this.number = calcSwapInGivenOutCCPoolUnsafe(
               this.buyNumber * 1000000000000000000,
-              this.token.xReserves,
               this.token.yReserves,
+              this.token.xReserves,
               this.token.totalSupply,
               this.token.unlockTimestamp - Date.parse(new Date()) / 1000,
               this.token.unitSeconds,
