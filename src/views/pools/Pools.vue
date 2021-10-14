@@ -273,7 +273,13 @@ export default {
 
       this.dialogShow = false
     },
-    transaction(called) {
+    async transaction(called) {
+
+      // return await portal.sendTransaction({
+      //     from: this.account,
+      //     to: called.to,
+      //     data: called.data,
+      //   }).excuted()
       return new Promise((resolve, reject) => {
         portal.sendTransaction({
           from: this.account,
@@ -281,13 +287,23 @@ export default {
           data: called.data,
         }).then(res => {
           console.log(res)
-          resolve(res)
+          setTimeout(() => {
+            resolve(res)
+          }, 8000)
+          // await this.wait(3000)
+          
         }).catch(error => {
           reject(error)
         })
       })
     },
-
+    wait(time) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, time)
+      })
+    },
 
     changeTab(type) {
       this.selectPools = type === "P";

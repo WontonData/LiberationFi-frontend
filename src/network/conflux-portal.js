@@ -12,6 +12,7 @@ class ConfluxPortal {
         console.debug("Unknown Conflux.");
       }
       this.conflux = conflux;
+      window._conflux = conflux
     }catch(e){
         console.error(e)
     }
@@ -52,6 +53,18 @@ class ConfluxPortal {
         }
       })
     })
+  }
+
+  async _sendTransaction(params) {
+    console.log(params)
+    return this.conflux.sendTransaction({
+        method: 'cfx_sendTransaction',
+        params: [params],
+        from: params.from,
+        gasPrice: '0x09184e72a000', // customizable by user during ConfluxPortal confirmation.
+        gas: '0x2710',  // customizable by user during ConfluxPortal confirmation.
+        value: '0x00',
+      }).executed()
   }
 
   async _sign(param) {
