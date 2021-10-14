@@ -1,7 +1,7 @@
 /*
  * @Author: OOO--li--OOO
  * @Date: 2021-09-11 22:35:52
- * @LastEditTime: 2021-09-12 17:24:57
+ * @LastEditTime: 2021-10-14 17:32:33
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -17,6 +17,7 @@ export default new Vuex.Store({
   state: {
     account: null,
     conflux: null,
+    confluxJs: null,
     UserProxy: null,
     BalancerVault: null,
     CCPool: null,
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     },
     initContract(state) {
       state.conflux = contract.conflux;
+      state.confluxJs = contract.confluxJs;
       state.UserProxy = contract.UserProxy;
       state.BalancerVault = contract.BalancerVault;
       state.conAddr = contract.conAddr;

@@ -1,10 +1,20 @@
 const {Conflux} = require('js-conflux-sdk');
 
+
+
 export const conflux = new Conflux({
   url: 'http://test.confluxrpc.org/v2',
   networkId: 1,
   logger: console, // for debug
 });
+
+// 不输出log的conflux
+export const confluxJs = new Conflux({
+  url: 'http://test.confluxrpc.org/v2',
+  networkId: 1,
+});
+// console.log("conflux",window.conflux )
+// export const conflux = window.conflux
 
 export let conAddr = require('./deploy/deploy.json')
 let newContract = function(abiName,address){
@@ -122,6 +132,7 @@ export let EarnTokenList = {
 
 export default {
   conflux,
+  confluxJs,
   UserProxy,
   BalancerVault,
   USDA,

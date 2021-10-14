@@ -55,6 +55,7 @@
 </template>
 
 <script>
+const {Conflux} = require('js-conflux-sdk');
 import ItemText from "../../components/txt/ItemText";
 import TradeCard from "../../components/card/TradeCard";
 import MsgDialog from "./child/MsgDialog";
@@ -64,6 +65,8 @@ import {mapState} from "vuex";
 import {ethers} from 'ethers';
 import portal from "../../network/conflux-portal";
 
+import {  nBig2Small,nSmall2Big }  from"../../network/tool"
+
 export default {
   name: "Pools",
   components: {MsgDialog, TradeCard, ItemText},
@@ -72,7 +75,7 @@ export default {
 
   },
   computed: {
-    ...mapState(["account", "BalancerVault"]),
+    ...mapState(["account", "BalancerVault","confluxJs"]),
   },
   data() {
     return {
@@ -149,18 +152,43 @@ export default {
       return [pUserdata, yUserData]
 
     },
-    tradeSure() {
+    async tradeSure() {
 
       switch (this.transactionType) {
         case "buy":
+
+          // portal.enable()
+          // const _conflux = portal.geConflux()
+          // const conflux = new Conflux(_conflux);
+
+          // console.log("this.token", this.token,portal.geConflux())
+          // console.log("conflux", conflux)
+          // const c = conflux.Contract({
+          //   abi: require("../../network/abi/cDAI-uToken.json"),
+          //   address: this.token.uToken.address
+          // })
+
+
+          // c.approve(this.BalancerVault.address,this.tokenNumber * 1000000000000000000).sendTransaction({ from: portal.getAccount() })   
+          // .executed();
+          // break;
+
+          let res = await this.token.uToken.allowance(this.account,this.BalancerVault.address)
+          console.log("allowance",nBig2Small(res.toJSON()))
+
+
           //授权
           let buyCalled = this.token.uToken["approve"].call(
               this.BalancerVault.address,
               this.tokenNumber * 1000000000000000000,
           )
           console.log(buyCalled)
-          this.transaction(buyCalled).then(res => {
+          this.transaction(buyCalled).then(async res => {
             console.log(res)
+            
+            let allowance = await this.token.uToken.allowance(this.account,this.BalancerVault.address)
+            console.log("allowance",nBig2Small(allowance.toJSON()))
+
             const balancerCalled = this.BalancerVault["swap"].call(
                 [this.poolId,
                   0,
@@ -283,23 +311,35 @@ export default {
 
       this.dialogShow = false
     },
+    // async testTransaction
     async transaction(called) {
-
-      // return await portal.sendTransaction({
+      
+      // return await portal._sendTransaction({
       //     from: this.account,
       //     to: called.to,
       //     data: called.data,
-      //   }).excuted()
+      //   })
       return new Promise((resolve, reject) => {
         portal.sendTransaction({
           from: this.account,
           to: called.to,
           data: called.data,
-        }).then(res => {
-          console.log(res)
-          setTimeout(() => {
+        }).then(async res => {
+          console.log("res",res)
+
+          let t = await this.confluxJs.getTransactionReceipt(res.result)
+          // console.log("t",t )
+          let i=0
+          while(t==null || t.blockHash==null){
+            i++
+            t = await this.confluxJs.getTransactionReceipt(res.result)
+            // console.log("t",t )
+          }
+          await new Promise(resolve => setTimeout(resolve, 500));
+
+          // setTimeout(() => {
             resolve(res)
-          }, 8000)
+          // }, 8000)
           // await this.wait(3000)
           
         }).catch(error => {

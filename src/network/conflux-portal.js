@@ -12,7 +12,7 @@ class ConfluxPortal {
         console.debug("Unknown Conflux.");
       }
       this.conflux = conflux;
-      window._conflux = conflux
+      // window._conflux = conflux
     }catch(e){
         console.error(e)
     }
@@ -32,6 +32,10 @@ class ConfluxPortal {
       throw new Error("Please enable Conflux Portal first");
     }
     return this.accounts[0];
+  }
+
+  geConflux() {
+    return this.conflux;
   }
 
   //发送交易
@@ -55,17 +59,20 @@ class ConfluxPortal {
     })
   }
 
-  async _sendTransaction(params) {
-    console.log(params)
-    return this.conflux.sendTransaction({
-        method: 'cfx_sendTransaction',
-        params: [params],
-        from: params.from,
-        gasPrice: '0x09184e72a000', // customizable by user during ConfluxPortal confirmation.
-        gas: '0x2710',  // customizable by user during ConfluxPortal confirmation.
-        value: '0x00',
-      }).executed()
-  }
+  // async _sendTransaction(params) {
+  //   console.log(params)
+  //   return new Promise((resolve, reject) => { this.conflux.send('cfx_sendTransaction',{
+  //       method: 'cfx_sendTransaction',
+  //       params: [params],
+  //       from: params.from,
+  //       gasPrice: '0x09184e72a000', // customizable by user during ConfluxPortal confirmation.
+  //       gas: '0x2710',  // customizable by user during ConfluxPortal confirmation.
+  //       value: '0x00',
+  //     }).on('confirmation',(confirmationNumber,receipt)=>{
+  //       resolve(receipt)
+  //     })
+  //   })
+  // }
 
   async _sign(param) {
 
