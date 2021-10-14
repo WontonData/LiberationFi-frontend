@@ -153,7 +153,7 @@ export default {
       params.address = address
       params.spender = spender
       params.value = params.amount + ''
-      console.log(params)
+      console.log("params",params)
       await confluxPortal._sign(params).then((res) => {
         // console.log('signature', res);
         sign = {
@@ -169,7 +169,7 @@ export default {
         throw new Error("sign error!");
       })
       
-      return res
+      return sign
     },
 
     wait(time) {
@@ -316,6 +316,8 @@ export default {
           if(!success) break
         }
         if(!success) break
+
+        console.log("data",data)
         this.genSignature(data).then((res) => {
           this.genSign.push(res)
           a2++

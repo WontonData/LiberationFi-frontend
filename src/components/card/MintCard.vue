@@ -8,7 +8,7 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-input @input="calculate" type="number" class="number-input" placeholder="0.00" v-model="number">
+        <el-input @input="calculate" type="text" class="number-input" placeholder="0.00" v-model="number">
           <template slot="prepend">
             <img alt="tokenIcon" :src="'img/token/' + token.icon + '.svg'" height="22" width="22">
           </template>
@@ -71,10 +71,10 @@ export default {
     return {
       IERC20: null,
       number: null,
-      Ynumber: 0.00,
-      Pnumber: 0.00,
-      maxFixed: 0.00,
-      max: 0.000,
+      Ynumber: "0.00",
+      Pnumber: "0.00",
+      maxFixed: "0.00",
+      max: "0.000",
       numberEth: "",
       BiggerThen: nBiggerThen
     }
@@ -88,7 +88,7 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.token.contract)
+    console.log(this.token,this.token.contract)
     this.token.contract.uToken.balanceOf(this.account).then(res => {
       this.max = nBig2Small(res.toString(),18)
       this.maxFixed = nBig2Small(res.toString(),3,true,true)

@@ -64,7 +64,7 @@ export default {
   },
   props: {
     number: {
-      type: Number
+      type: String
     },
     token: {
       type: Object

@@ -4,13 +4,19 @@ import {conflux} from "@/network/conflux";
 
 class ConfluxPortal {
   constructor(conflux) {
-    if (typeof conflux === "undefined") {
-      throw new Error("No Conflux detected");
+    try{
+      if (typeof conflux === "undefined") {
+        throw new Error("No Conflux detected");
+      }
+      if (!conflux.isConfluxPortal) {
+        console.debug("Unknown Conflux.");
+      }
+      this.conflux = conflux;
+    }catch(e){
+        console.error(e)
     }
-    if (!conflux.isConfluxPortal) {
-      console.debug("Unknown Conflux.");
-    }
-    this.conflux = conflux;
+    
+    
   }
 
   async enable() {
