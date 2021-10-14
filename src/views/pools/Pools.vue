@@ -262,7 +262,7 @@ export default {
               this.YPNumber * 2000000000000000000,    //approve容差
           )
           console.log(addCalled)
-          this.transaction(addCalled).then(res => {
+          this.easyTransaction(addCalled).then(res => {
             console.log(res)
 
             //token.uToken授权
@@ -296,7 +296,7 @@ export default {
                 ]
               }
               console.log('demo',demo)
-              this.transaction(balancerCalled).then(res => {
+              this.easyTransaction(balancerCalled).then(res => {
                 console.log(res)
               })
 
@@ -342,6 +342,21 @@ export default {
           // }, 8000)
           // await this.wait(3000)
           
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    // 不延迟
+    async easyTransaction(called) {
+      return new Promise((resolve, reject) => {
+        portal.sendTransaction({
+          from: this.account,
+          to: called.to,
+          data: called.data,
+        }).then(async res => {
+          console.log("res",res)
+          resolve(res)
         }).catch(error => {
           reject(error)
         })
