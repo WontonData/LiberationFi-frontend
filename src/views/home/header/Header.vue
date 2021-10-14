@@ -2,7 +2,7 @@
   <div class="header">
     <NavHome :menuData=menuData >
       <template #logo>
-        <span class="logo">WontonData</span>
+        <span class="logo"><a href="/">WontonData</a></span>
       </template>
       <template #more>
         <div class="dropdown">
@@ -13,7 +13,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item class="clearfix">Discord</el-dropdown-item>
               <el-dropdown-item class="clearfix">Twitter</el-dropdown-item>
-              <el-dropdown-item class="clearfix"><el-link href="https://github.com/WontonData/element-conflux" type="info" :underline="false">Github</el-link></el-dropdown-item>
+              <el-dropdown-item class="clearfix"><el-link href="https://github.com/WontonData/LiberationFi-frontend" type="info" :underline="false">Github</el-link></el-dropdown-item>
               <el-dropdown-item class="clearfix">Blog</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -34,9 +34,9 @@
     data() {
       return {
         menuData: [
-          {
-            name: "Save", routerPath: "/save"
-          },
+          // {
+          //   name: "Save", routerPath: "/save"
+          // },
           {
             name: "Earn", routerPath: "/earn"
           },
@@ -44,7 +44,7 @@
             name: "Trade", routerPath: "/pools"
           },
           {
-            name: "Build", routerPath: "/build"
+            name: "tools", routerPath: "/tools"
           },
         ]
       }
