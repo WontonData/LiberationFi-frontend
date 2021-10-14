@@ -326,7 +326,7 @@ export default {
           data: called.data,
         }).then(async res => {
           console.log("res",res)
-
+          alert("please wait")
           let t = await this.confluxJs.getTransactionReceipt(res.result)
           // console.log("t",t )
           let i=0
