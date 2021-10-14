@@ -231,7 +231,7 @@ export default {
           //授权
           let addCalled = this.tokenContract["approve"].call(
               this.BalancerVault.address,
-              this.YPNumber * 1000000000000000000,
+              this.YPNumber * 2000000000000000000,    //approve容差
           )
           console.log(addCalled)
           this.transaction(addCalled).then(res => {
@@ -240,7 +240,7 @@ export default {
             //token.uToken授权
             let addCalled = this.token.uToken["approve"].call(
                 this.BalancerVault.address,
-                this.tokenNumber * 1000000000000000000,
+                this.tokenNumber * 2000000000000000000, //approve容差
             )
             console.log(addCalled)
             this.transaction(addCalled).then(res => {
@@ -258,7 +258,16 @@ export default {
                     false
                   ]
               )
-              console.log(balancerCalled)
+              const demo = {
+                'pool_id': this.poolId,
+                'core': [
+                  address,
+                  amountIn,
+                  this.userdata,
+                  false
+                ]
+              }
+              console.log('demo',demo)
               this.transaction(balancerCalled).then(res => {
                 console.log(res)
               })
