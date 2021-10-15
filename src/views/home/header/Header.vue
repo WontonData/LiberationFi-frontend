@@ -2,7 +2,7 @@
   <div class="header">
     <NavHome :menuData=menuData >
       <template #logo>
-        <span class="logo"><a href="/">WontonData</a></span>
+        <span class="logo"><a href="https://wontondata.github.io/LiberationFi-frontend/">WontonData</a></span>
       </template>
       <template #more>
         <div class="dropdown">
