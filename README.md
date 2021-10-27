@@ -1,6 +1,6 @@
 ## Website
 
-### <https://www.liberation.fi/>
+### <https://www.liberation.fi>
 
 
 ## Project setup
