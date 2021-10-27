@@ -1,6 +1,6 @@
 ## Website
 
-### <https://wontondata.github.io/LiberationFi-frontend/>
+### <https://www.liberation.fi/>
 
 
 ## Project setup
