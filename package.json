@@ -2,7 +2,7 @@
   "name": "LiberationFi-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://wontondata.github.io/LiberationFi-frontend/",
+  "homepage": "https://www.liberation.fi/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
